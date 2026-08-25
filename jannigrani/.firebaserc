@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "janni-2299a"
-  }
+  },
+  "targets": {
+    "janni-2299a": {
+      "hosting": {
+        "jg-main": [
+          "jannig"
+        ],
+        "jg-2": [
+          "jannigapp"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
