@@ -20,7 +20,7 @@ const PillButton = ({ textKey, children, onClick, navigateTo, className = "" }) 
   return (
     <button
       onClick={handleClick}
-      className={`bg-citizenNavy text-white rounded-extreme-pill px-8 py-4 font-medium transition-all shadow-floating-card hover:opacity-90 ${className}`}
+      className={`bg-[#00A9F7] text-white rounded-extreme-pill px-8 py-4 font-medium transition-all shadow-floating-card hover:opacity-90 ${className}`}
     >
       {textKey ? t(textKey) : children}
     </button>

@@ -33,12 +33,12 @@ const translations = {
   bn: {
     dashboardTitle: 'আপনার কাজ',
     dashboardSubtitle: 'শহরের রিপোর্টের লাইভ ডেটা',
-    verificationProgress: 'যাচাইয়ের কাজ',
+    verificationProgress: 'যাচাইয়ের কাজ',
     totalReports: 'মোট',
-    submitted: 'জমা দেওয়া',
-    verified: 'সঠিক পাওয়া',
+    submitted: 'জমা দেওয়া',
+    verified: 'সঠিক পাওয়া',
     categoryBreakdown: 'সমস্যার ধরন',
-    pollution: 'ময়লা',
+    pollution: 'ময়লা',
     safety: 'বিপদ',
     civic: 'সরকারি সম্পত্তি'
   },
@@ -92,7 +92,7 @@ const translations = {
   },
   kn: {
     dashboardTitle: 'ನಿಮ್ಮ ಕೆಲಸ',
-    dashboardSubtitle: 'ನಗರದ ವರದಿಗಳ ನೇರ ಡೇಟಾ',
+    dashboardSubtitle: 'ನಗರದ ವರದಿಗಳ ನೇರ ಡೇಟಾ',
     verificationProgress: 'ಪರಿಶೀಲನೆ ಕೆಲಸ',
     totalReports: 'ಒಟ್ಟು',
     submitted: 'ನೀಡಲಾಗಿದೆ',
@@ -143,7 +143,7 @@ const translations = {
     dashboardSubtitle: 'চহৰৰ ৰিপৰ্টৰ লাইভ ডাটা',
     verificationProgress: 'পৰীক্ষাৰ কাম',
     totalReports: 'মুঠ',
-    submitted: 'জমা দিয়া হৈছে',
+    submitted: 'জমা দিয়া হৈছে',
     verified: 'সঁচা পোৱা গৈছে',
     categoryBreakdown: 'সমস্যাৰ প্ৰকাৰ',
     pollution: 'লেতেৰা',
@@ -165,7 +165,7 @@ const translations = {
 };
 
 const Dashboard = () => {
-  const { language } = useLanguage();
+  const { language } = useTranslation();
   const [stats, setStats] = useState({
     total: 0,
     verified: 0,
@@ -175,7 +175,6 @@ const Dashboard = () => {
   const t = (key) => translations[language]?.[key] || translations['en'][key] || key;
 
   useEffect(() => {
-    // Real-time listener fetching all reports to build live analytics
     const unsubscribe = onSnapshot(collection(db, 'reports'), (snapshot) => {
       let totalCount = 0;
       let verifiedCount = 0;
@@ -206,13 +205,11 @@ const Dashboard = () => {
     return () => unsubscribe();
   }, []);
 
-  // Circular Progress Math
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
   const verifiedPercentage = stats.total > 0 ? (stats.verified / stats.total) * 100 : 0;
   const strokeDashoffset = circumference - (verifiedPercentage / 100) * circumference;
 
-  // Bar Chart Math
   const maxCategoryValue = Math.max(stats.categories.pollution, stats.categories.safety, stats.categories.civic, 1);
 
   return (
@@ -228,7 +225,6 @@ const Dashboard = () => {
           </p>
         </div>
 
-        {/* Progress Ring Card */}
         <GlowingCard glowColor="blue">
           <div className="flex flex-col items-center justify-center p-4">
             <h3 className="text-lg font-bold text-citizenNavy mb-6">
@@ -236,7 +232,6 @@ const Dashboard = () => {
             </h3>
             
             <div className="relative flex items-center justify-center">
-              {/* Background Ring */}
               <svg className="w-40 h-40 transform -rotate-90">
                 <circle
                   cx="80"
@@ -246,7 +241,6 @@ const Dashboard = () => {
                   strokeWidth="12"
                   fill="transparent"
                 />
-                {/* Animated Foreground Ring */}
                 <motion.circle
                   cx="80"
                   cy="80"
@@ -285,7 +279,6 @@ const Dashboard = () => {
           </div>
         </GlowingCard>
 
-        {/* Bar Chart Card */}
         <GlowingCard glowColor="purple">
           <div className="p-4">
             <h3 className="text-lg font-bold text-citizenNavy mb-6 text-center">
@@ -294,7 +287,6 @@ const Dashboard = () => {
             
             <div className="flex items-end justify-around h-48 mt-4 border-b-2 border-gray-100 pb-2">
               
-              {/* Pollution Bar */}
               <div className="flex flex-col items-center w-1/4">
                 <span className="text-sm font-bold text-gray-600 mb-2">{stats.categories.pollution}</span>
                 <motion.div 
@@ -308,7 +300,6 @@ const Dashboard = () => {
                 </span>
               </div>
 
-              {/* Safety Bar */}
               <div className="flex flex-col items-center w-1/4">
                 <span className="text-sm font-bold text-gray-600 mb-2">{stats.categories.safety}</span>
                 <motion.div 
@@ -322,7 +313,6 @@ const Dashboard = () => {
                 </span>
               </div>
 
-              {/* Civic Bar */}
               <div className="flex flex-col items-center w-1/4">
                 <span className="text-sm font-bold text-gray-600 mb-2">{stats.categories.civic}</span>
                 <motion.div 

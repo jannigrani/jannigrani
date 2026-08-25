@@ -15,9 +15,37 @@ import Dashboard from './pages/Dashboard';
 // Import Navigation
 import FloatingBottomNav from './components/layout/FloatingBottomNav';
 
+const translations = {
+  en: { loading: 'Please wait...' },
+  hi: { loading: 'कृपया प्रतीक्षा करें...' },
+  bn: { loading: 'অনুগ্রহ করে অপেক্ষা করুন...' },
+  te: { loading: 'దయచేసి వేచి ఉండండి...' },
+  mr: { loading: 'कृपया प्रतीक्षा करा...' },
+  ta: { loading: 'காத்திருக்கவும்...' },
+  gu: { loading: 'કૃપા કરીને રાહ જુઓ...' },
+  kn: { loading: 'ದಯವಿಟ್ಟು ಕಾಯಿರಿ...' },
+  or: { loading: 'ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ...' },
+  ml: { loading: 'ദയവായി കാത്തിരിക്കുക...' },
+  pa: { loading: 'ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ...' },
+  as: { loading: 'অনুগ্ৰহ কৰি অপেক্ষা কৰক...' },
+  ur: { loading: 'براہ کرم انتظار کریں...' }
+};
+
 // Security Guard for Protected Pages
 const ProtectedRoute = ({ children }) => {
-  const { currentUser } = useAuth();
+  const { currentUser, loading } = useAuth();
+  const { language } = useTranslation();
+
+  const t = (key) => translations[language]?.[key] || translations['en'][key];
+  
+  // Prevent premature redirection by showing a loading state if auth is still initializing
+  if (loading || currentUser === undefined) {
+    return (
+      <div className="min-h-screen bg-[#F5F8FA] flex items-center justify-center">
+        <p className="text-gray-600 font-medium">{t('loading')}</p>
+      </div>
+    );
+  }
   
   if (!currentUser) {
     return <Navigate to="/" replace />;

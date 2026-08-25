@@ -138,7 +138,7 @@ const translations = {
     locationError: 'સ્થાન મળ્યું નથી. પરવાનગી આપો.',
     noLocation: 'તમારો ફોન સ્થાન શોધી શકતો નથી.',
     submitError: 'મોકલવામાં નિષ્ફળ. ફરી પ્રયાસ કરો.',
-    step1Title: 'સમસ્યા શું છે?',
+    step1Title: 'સમ સમસ્યા શું છે?',
     pollution: 'ગંદકી અથવા પ્રદૂષણ',
     safety: 'ખતરો અથવા જોખમ',
     civic: 'તૂટેલી સરકારી મિલકત',
@@ -146,7 +146,7 @@ const translations = {
     step2Desc: 'અમને સમસ્યા બતાવો.',
     continueBtn: 'આગળનું પગલું',
     step3Title: 'તમારું સ્થાન',
-    step3Desc: 'સમસ્યા ક્યાં છે તે કહો.',
+    step3Desc: 'સમ સમસ્યા ક્યાં છે તે કહો.',
     loadingLocation: 'સ્થાન શોધી રહ્યા છીએ...',
     getLocation: 'મારું સ્થાન મેળવો',
     step4Title: 'મોકલવા માટે તૈયાર',
@@ -235,7 +235,7 @@ const translations = {
     submitBtn: 'ਹੁਣੇ ਭੇਜੋ'
   },
   as: {
-    locationError: 'অৱস্থান পোৱা নগ’ল। অনুমতি দিয়ক।',
+    locationError: 'অৱস্থান পোৱা নগ’ল। অনুমতি দিয়ক।',
     noLocation: 'আপোনাৰ ফোনে অৱস্থান বিচাৰিব নোৱাৰে।',
     submitError: 'পঠোৱাত বিফল হৈছে। পুনৰ চেষ্টা কৰক।',
     step1Title: 'সমস্যাটো কি?',
@@ -250,9 +250,9 @@ const translations = {
     loadingLocation: 'অৱস্থান বিচাৰি থকা হৈছে...',
     getLocation: 'মোৰ অৱস্থান লওক',
     step4Title: 'পঠাবলৈ প্ৰস্তুত',
-    step4Desc: 'আপোনাৰ ৰিপৰ্ট প্ৰস্তুত আছে। সহায়ৰ বাবে ধন্যবাদ।',
+    step4Desc: 'আপোনাৰ ৰিপৰ্ট প্ৰস্তুত আছে। সহায়ৰ বাবে ধন্যবাদ।',
     loadingSaving: 'পঠাই থকা হৈছে...',
-    submitBtn: 'এতিয়া পঠাওক'
+    submitBtn: 'এতিয়া পঠাওক'
   },
   ur: {
     locationError: 'مقام نہیں ملا۔ براہ کرم اجازت دیں۔',
@@ -277,7 +277,8 @@ const translations = {
 };
 
 const ReportWizard = () => {
-  const { language } = useLanguage();
+  // FIXED: Changed useLanguage to useTranslation to match the imported context
+  const { language } = useTranslation();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);

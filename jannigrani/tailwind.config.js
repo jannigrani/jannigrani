@@ -1,21 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  // FEATURE 1: Precise Content Tracking
   // Ensures every generated page in the src directory is scanned for the latest UI classes
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
 
-  // FEATURE 2: High-Contrast Dark Mode
   // Set to 'class' to support our manual theme switcher and system preference sync
   darkMode: 'class',
 
   theme: {
     extend: {
-      // FEATURE 3: Stark Monochromatic Palette
-      // Enforces pure blacks, whites, and the specific premium light grey (#F2F4F7)
-      // along with the enterprise accent colors used in the 10+ landing page sections.
+      // Enforces color mapping along with enterprise accent colors
       colors: {
         brand: {
           black: '#000000',
@@ -26,10 +22,10 @@ export default {
         },
         citizenNavy: '#0B243B',
         nigraniBlue: '#174A7E',
+        actionBlue: '#00A9F7',
       },
 
-      // FEATURE 4: Premium Typography Scale
-      // Optimized for the "Inter" variable font with tight letter spacing for headings
+      // Typography Scale optimized for Inter and serif fonts
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         serif: ['Merriweather', 'Georgia', 'serif'],
@@ -40,8 +36,7 @@ export default {
         'subheading': ['clamp(1.5rem, 3vw, 2rem)', { lineHeight: '1.2', letterSpacing: '-0.01em', fontWeight: '800' }],
       },
 
-      // FEATURE 5: Real-Time Interaction Animations
-      // Custom keyframes for hardware-accelerated transitions used in the landing page sections
+      // Custom keyframes for hardware-accelerated transitions
       keyframes: {
         'fade-up': {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
@@ -72,7 +67,6 @@ export default {
         'spin-reverse-slow': 'spin-reverse-slow 20s linear infinite',
       },
 
-      // FEATURE 6: Signature Border Radius
       // Premium rounded corners for containers and input fields
       borderRadius: {
         'uber': '14px',
@@ -85,8 +79,7 @@ export default {
         'floating-card': '0 20px 40px -10px rgba(0, 0, 0, 0.15)',
       },
 
-      // FEATURE 7: Extended Spacing
-      // Supports the massive padding requirements of the enterprise layout
+      // Extended spacing supporting massive layout padding
       spacing: {
         '120': '30rem',
         '128': '32rem',
@@ -95,7 +88,5 @@ export default {
     },
   },
 
-  // FEATURE 8: Layout & Depth Plugins
-  // Standard plugins for responsive design logic and complex grid layouts
   plugins: [],
 }
