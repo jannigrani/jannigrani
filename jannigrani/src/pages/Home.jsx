@@ -17,8 +17,8 @@ const Home = () => {
           {t('homeSubtitle', 'Submit real reports to improve your city. Fast, secure, and direct.')}
         </p>
 
-        <div className="pt-6">
-          <PillButton navigateTo="/add-report" className="px-12 py-5 text-lg">
+        <div className="pt-6 w-full flex justify-center">
+          <PillButton navigateTo="/add-report" className="px-12 py-5 text-lg shadow-lg">
             {t('reportButton', 'Report')}
           </PillButton>
         </div>
