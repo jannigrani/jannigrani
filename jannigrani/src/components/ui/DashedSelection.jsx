@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../contexts/LanguageContext';
 
 const DashedSelection = ({ options, selectedId, onChange }) => {
   const { t } = useTranslation();
@@ -8,7 +8,7 @@ const DashedSelection = ({ options, selectedId, onChange }) => {
     <div className="flex flex-wrap gap-4">
       {options.map((option) => {
         const isActive = selectedId === option.id;
-        
+
         return (
           <button
             key={option.id}

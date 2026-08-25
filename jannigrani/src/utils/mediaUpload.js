@@ -1,9 +1,8 @@
 import pb from '../config/pocketbase';
-import i18n from '../i18n';
 
-export const uploadMedia = async (file) => {
+export const uploadMedia = async (file, t) => {
   if (!file) {
-    throw new Error(i18n.t('noFileError', 'No file selected. Please select a photo.'));
+    throw new Error(t('noFileError', 'No file selected. Please select a photo.'));
   }
 
   try {
@@ -19,6 +18,6 @@ export const uploadMedia = async (file) => {
     return fileUrl;
   } catch (error) {
     console.error(error);
-    throw new Error(i18n.t('uploadError', 'Failed to upload photo. Please try again.'));
+    throw new Error(t('uploadError', 'Failed to upload photo. Please try again.'));
   }
 };

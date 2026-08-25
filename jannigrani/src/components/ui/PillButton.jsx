@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../contexts/LanguageContext';
 
 const PillButton = ({ textKey, children, onClick, navigateTo, className = "" }) => {
   const { t } = useTranslation();
