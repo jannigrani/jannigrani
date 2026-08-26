@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../contexts/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from '../components/common/Header';
+import AuthModal from '../components/auth/AuthModal';
 
 // Real dictionary for 13+ Indian languages embedded strictly for the Welcome flow
 const welcomeTranslations = {
@@ -18,13 +19,14 @@ const welcomeTranslations = {
   or: { t1: "ଆସନ୍ତୁ କରିବା", t2: "ଆପଣଙ୍କ ସହରକୁ", t3: "ଅଧିକ ଭଲ", sub: "ଅପେକ୍ଷା ନାହିଁ। ସିଧା କାମ।", opt1: "ଅଳିଆ ସଫା କରନ୍ତୁ", opt2: "ରାସ୍ତା ସଜାଡନ୍ତୁ", opt3: "ଅପରାଧ ରୋକନ୍ତୁ", opt4: "ପାଣି ବଞ୍ଚାନ୍ତୁ", opt5: "ସାଧାରଣ ସାହାଯ୍ୟ", next: "ଆରମ୍ଭ କରନ୍ତୁ", login: "ମୋର ପୂର୍ବରୁ ଏକ ଆକାଉଣ୍ଟ୍ ଅଛି" },
   ml: { t1: "നമുക്ക് മാറ്റാം", t2: "നിങ്ങളുടെ നഗരത്തെ", t3: "കൂടുതൽ മികച്ചതായി", sub: "കാത്തിരിപ്പില്ല. നേരിട്ടുള്ള പ്രവർത്തനം.", opt1: "മാലിന്യം വൃത്തിയാക്കുക", opt2: "റോഡുകൾ നന്നാക്കുക", opt3: "കുറ്റകൃത്യങ്ങൾ തടയുക", opt4: "വെള്ളം സംരക്ഷിക്കുക", opt5: "പൊതു സഹായം", next: "തുടങ്ങുക", login: "എനിക്ക് ഇതിനകം ഒരു അക്കൗണ്ട് ഉണ്ട്" },
   pa: { t1: "ਆਓ ਬਣਾਈਏ", t2: "ਆਪਣੇ ਸ਼ਹਿਰ ਨੂੰ", t3: "ਬਿਹਤਰ", sub: "ਕੋਈ ਇੰਤਜ਼ਾਰ ਨਹੀਂ। ਸਿੱਧਾ ਕੰਮ।", opt1: "ਗੰਦਗੀ ਸਾਫ਼ ਕਰੋ", opt2: "ਸੜਕਾਂ ਠੀਕ ਕਰੋ", opt3: "ਅਪਰਾਧ ਰੋਕੋ", opt4: "ਪਾਣੀ ਬਚਾਓ", opt5: "ਜਨਤਕ ਮਦਦ", next: "ਸ਼ੁਰੂ ਕਰੋ", login: "ਮੇਰਾ ਪਹਿਲਾਂ ਹੀ ਖਾਤਾ ਹੈ" },
-  as: { title: "আহক সজাওঁ", t2: "আপোনাৰ চহৰখন", t3: "অধিক উন্নত", sub: "অপেক্ষা নাই। পোনপটীয়া কাম।", opt1: "আৱৰ্জনা পৰিষ্কাৰ কৰক", opt2: "ৰাস্তা মেৰামতি কৰক", opt3: "অপৰাধ ৰোধ কৰক", opt4: "পানী বচাওক", opt5: "ৰাজহুৱা সহায়", next: "আৰম্ভ কৰক", login: "মোৰ ইতিমধ্যে এটা একাউণ্ট আছে" }
+  as: { t1: "আহক সজাওঁ", t2: "আপোনাৰ চহৰখন", t3: "অধিক উন্নত", sub: "অপেক্ষা নাই। পোনপটীয়া কাম।", opt1: "আৱৰ্জনা পৰিষ্কাৰ কৰক", opt2: "ৰাস্তা মেৰামতি কৰক", opt3: "অপৰাধ ৰোধ কৰক", opt4: "পানী বচাওক", opt5: "ৰাজহুৱা সহায়", next: "আৰম্ভ কৰক", login: "মোৰ ইতিমধ্যে এটা একাউণ্ট আছে" }
 };
 
 const Welcome = () => {
   const { language } = useTranslation();
   const navigate = useNavigate();
   const [selectedConcern, setSelectedConcern] = useState(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   // Fallback to English if translation is missing for safety
   const tLocal = (key) => {
@@ -114,7 +116,7 @@ const Welcome = () => {
         {/* Bottom Action Area */}
         <div className="w-full max-w-sm z-10 flex flex-col items-center">
           <button 
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/tutorial')}
             disabled={!selectedConcern}
             className={`w-[90%] bg-[#1C1C1E] text-white rounded-full py-5 font-bold text-[17px] transition-all duration-300 shadow-xl ${
               selectedConcern ? 'opacity-100 hover:bg-black translate-y-0 scale-100' : 'opacity-40 pointer-events-none translate-y-2 scale-95'
@@ -124,7 +126,7 @@ const Welcome = () => {
           </button>
           
           <button 
-             onClick={() => navigate('/dashboard')}
+             onClick={() => setIsAuthModalOpen(true)}
              className="mt-6 text-sm font-bold text-gray-600 hover:text-black transition-colors"
           >
             {tLocal('login')}
@@ -132,6 +134,14 @@ const Welcome = () => {
         </div>
         
       </div>
+
+      {/* Render the AuthModal */}
+      {isAuthModalOpen && (
+        <AuthModal 
+          isOpen={isAuthModalOpen} 
+          onClose={() => setIsAuthModalOpen(false)} 
+        />
+      )}
     </>
   );
 };
