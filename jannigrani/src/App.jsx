@@ -13,7 +13,8 @@ import Dashboard from './pages/Dashboard';
 import Tutorial from './pages/Tutorial';
 import Profile from './pages/Profile';
 
-// Import Navigation and Modals
+// Import Navigation, Headers and Modals
+import Header from './components/common/Header';
 import FloatingBottomNav from './components/layout/FloatingBottomNav';
 import AuthModal from './components/auth/AuthModal';
 
@@ -40,7 +41,6 @@ const ProtectedRoute = ({ children }) => {
 
   const t = (key) => translations[language]?.[key] || translations['en'][key];
   
-  // Prevent premature redirection by showing a loading state if auth is still initializing
   if (loading || currentUser === undefined) {
     return (
       <div className="min-h-screen bg-[#F5F8FA] flex items-center justify-center">
@@ -74,17 +74,21 @@ const PageWrapper = ({ children }) => {
 const App = () => {
   const location = useLocation();
 
-  // Do not show the bottom menu on the root Welcome starting screen
-  const showBottomNav = !['/'].includes(location.pathname);
+  // Control visibility of Header and Bottom Navigation based on current route path
+  const showHeader = !['/'].includes(location.pathname);
+  const showBottomNav = !['/', '/welcome', '/tutorial'].includes(location.pathname);
 
   return (
     <div className="relative min-h-screen bg-[#F5F8FA] text-gray-900 font-sans">
       
+      {/* Conditionally Render Header Top Bar */}
+      {showHeader && <Header />}
+
       {/* Page Routing Engine with Animations */}
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           
-          {/* Public Starting Page (Now Welcome) */}
+          {/* Public Starting Page */}
           <Route path="/" element={<PageWrapper><Welcome /></PageWrapper>} />
           
           {/* Secured Core Application Pages */}
@@ -94,7 +98,7 @@ const App = () => {
           <Route path="/feed" element={<ProtectedRoute><PageWrapper><Feed /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed/:id" element={<ProtectedRoute><PageWrapper><IncidentDetails /></PageWrapper></ProtectedRoute>} />
           
-          {/* Profile Route properly connected to the Profile component */}
+          {/* Profile Route properly connected */}
           <Route path="/profile" element={<ProtectedRoute><PageWrapper><Profile /></PageWrapper></ProtectedRoute>} />
           
         </Routes>

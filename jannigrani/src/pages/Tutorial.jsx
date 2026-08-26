@@ -13,7 +13,8 @@ const translations = {
     slide2Title: "Send Report",
     slide2Desc: "Tell us where it is. We will record the exact place.",
     slide3Title: "See Changes",
-    slide3Desc: "Track your report and see when the work gets done."
+    slide3Desc: "Track your report and see when the work gets done.",
+    chooseLang: "Choose Your Language"
   },
   hi: {
     skip: "छोड़ें",
@@ -24,7 +25,8 @@ const translations = {
     slide2Title: "रिपोर्ट भेजें",
     slide2Desc: "हमें बताएं यह कहाँ है। हम सही जगह दर्ज करेंगे।",
     slide3Title: "बदलाव देखें",
-    slide3Desc: "अपनी रिपोर्ट ट्रैक करें और काम पूरा होते देखें।"
+    slide3Desc: "अपनी रिपोर्ट ट्रैक करें और काम पूरा होते देखें।",
+    chooseLang: "अपनी भाषा चुनें"
   },
   bn: {
     skip: "এড়িয়ে যান",
@@ -35,7 +37,8 @@ const translations = {
     slide2Title: "রিপোর্ট পাঠান",
     slide2Desc: "এটি কোথায় আমাদের বলুন। আমরা সঠিক জায়গা রেকর্ড করব।",
     slide3Title: "পরিবর্তন দেখুন",
-    slide3Desc: "আপনার রিপোর্ট ট্র্যাক করুন এবং কাজ শেষ হতে দেখুন।"
+    slide3Desc: "আপনার রিপোর্ট ট্র্যাক করুন এবং কাজ শেষ হতে দেখুন।",
+    chooseLang: "আপনার ভাষা বেছে নিন"
   },
   te: {
     skip: "దాటవేయి",
@@ -46,7 +49,8 @@ const translations = {
     slide2Title: "రిపోర్ట్ పంపండి",
     slide2Desc: "అది ఎక్కడ ఉందో చెప్పండి. మేము సరైన స్థలాన్ని రికార్డ్ చేస్తాము.",
     slide3Title: "మార్పులు చూడండి",
-    slide3Desc: "మీ రిపోర్ట్‌ను ట్రాక్ చేయండి మరియు పని పూర్తి కావడాన్ని చూడండి."
+    slide3Desc: "మీ రిపోర్ట్‌ను ట్రాక్ చేయండి మరియు పని పూర్తి కావడాన్ని చూడండి.",
+    chooseLang: "మీ భాషను ఎంచుకోండి"
   },
   mr: {
     skip: "वगळा",
@@ -57,7 +61,8 @@ const translations = {
     slide2Title: "अहवाल पाठवा",
     slide2Desc: "ते कुठे आहे ते सांगा. आम्ही योग्य जागा नोंदवू.",
     slide3Title: "बदल पहा",
-    slide3Desc: "तुमचा अहवाल ट्रॅक करा आणि काम पूर्ण होताना पहा."
+    slide3Desc: "तुमचा अहवाल ट्रॅक करा आणि काम पूर्ण होताना पहा.",
+    chooseLang: "तुमची भाषा निवडा"
   },
   ta: {
     skip: "தவிர்",
@@ -68,7 +73,8 @@ const translations = {
     slide2Title: "புகார் அனுப்பு",
     slide2Desc: "எங்கு என்று சொல். நாங்கள் சரியான இடத்தை பதிவு செய்வோம்.",
     slide3Title: "மாற்றத்தை பார்",
-    slide3Desc: "உன் புகாரை கவனி, வேலை முடிவதை பார்."
+    slide3Desc: "உன் புகாரை கவனி, வேலை முடிவதை பார்.",
+    chooseLang: "உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்"
   },
   gu: {
     skip: "છોડો",
@@ -79,7 +85,8 @@ const translations = {
     slide2Title: "રિપોર્ટ મોકલો",
     slide2Desc: "તે ક્યાં છે તે કહો. અમે સાચી જગ્યા નોંધીશું.",
     slide3Title: "ફેરફાર જુઓ",
-    slide3Desc: "તમારો રિપોર્ટ ટ્રેક કરો અને કામ પૂરું થતું જુઓ."
+    slide3Desc: "તમારો રિપોર્ટ ટ્રેક કરો અને કામ પૂરું થતું જુઓ.",
+    chooseLang: "તમારી ભાષા પસંદ કરો"
   },
   kn: {
     skip: "ಬಿಟ್ಟುಬಿಡಿ",
@@ -90,7 +97,8 @@ const translations = {
     slide2Title: "ವರದಿ ಕಳುಹಿಸಿ",
     slide2Desc: "ಅದು ಎಲ್ಲಿದೆ ಎಂದು ತಿಳಿಸಿ. ನಾವು ಸರಿಯಾದ ಸ್ಥಳವನ್ನು ದಾಖಲಿಸುತ್ತೇವೆ.",
     slide3Title: "ಬದಲಾವಣೆ ನೋಡಿ",
-    slide3Desc: "ನಿಮ್ಮ ವರದಿಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ ಮತ್ತು ಕೆಲಸ ಮುಗಿಯುವುದನ್ನು ನೋಡಿ."
+    slide3Desc: "ನಿಮ್ಮ ವರದಿಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ ಮತ್ತು ಕೆಲಸ ಮುಗಿಯುವುದನ್ನು ನೋಡಿ.",
+    chooseLang: "ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ"
   },
   or: {
     skip: "ବାଦ୍ ଦିଅନ୍ତୁ",
@@ -101,7 +109,8 @@ const translations = {
     slide2Title: "ରିପୋର୍ଟ ପଠାନ୍ତୁ",
     slide2Desc: "ଏହା କେଉଁଠାରେ ଅଛି କୁହନ୍ତୁ। ଆମେ ସଠିକ୍ ଜାଗା ରେକର୍ଡ କରିବୁ।",
     slide3Title: "ପରିବର୍ତ୍ତନ ଦେଖନ୍ତୁ",
-    slide3Desc: "ଆପଣଙ୍କ ରିପୋର୍ଟ ଟ୍ରାକ୍ କରନ୍ତୁ ଏବଂ କାମ ସରିବା ଦେଖନ୍ତୁ।"
+    slide3Desc: "ଆପଣଙ୍କ ରିପୋର୍ଟ ଟ୍ରାକ୍ କରନ୍ତୁ ଏବଂ କାମ ସରିବା ଦେଖନ୍ତୁ।",
+    chooseLang: "ଆପଣଙ୍କ ଭାଷା ବାଛନ୍ତୁ"
   },
   ml: {
     skip: "ഒഴിവാക്കുക",
@@ -112,7 +121,8 @@ const translations = {
     slide2Title: "റിപ്പോർട്ട് അയയ്ക്കുക",
     slide2Desc: "അതെവിടെയാണെന്ന് പറയുക. ഞങ്ങൾ കൃത്യമായ സ്ഥലം രേഖപ്പെടുത്തും.",
     slide3Title: "മാറ്റങ്ങൾ കാണുക",
-    slide3Desc: "നിങ്ങളുടെ റിപ്പോർട്ട് ട്രാക്ക് ചെയ്ത് പണി പൂർത്തിയാകുന്നത് കാണുക."
+    slide3Desc: "നിങ്ങളുടെ റിപ്പോർട്ട് ട്രാക്ക് ചെയ്ത് പണി പൂർത്തിയാകുന്നത് കാണുക.",
+    chooseLang: "നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക"
   },
   pa: {
     skip: "ਛੱਡੋ",
@@ -123,7 +133,8 @@ const translations = {
     slide2Title: "ਰਿਪੋਰਟ ਭੇਜੋ",
     slide2Desc: "ਸਾਨੂੰ ਦੱਸੋ ਇਹ ਕਿੱਥੇ ਹੈ। ਅਸੀਂ ਸਹੀ ਜਗ੍ਹਾ ਰਿਕਾਰਡ ਕਰਾਂਗੇ।",
     slide3Title: "ਬਦਲਾਅ ਦੇਖੋ",
-    slide3Desc: "ਆਪਣੀ ਰਿਪੋਰਟ ਟਰੈਕ ਕਰੋ ਅਤੇ ਕੰਮ ਪੂਰਾ ਹੁੰਦੇ ਦੇਖੋ।"
+    slide3Desc: "ਆਪਣੀ ਰਿਪੋਰਟ ਟਰੈਕ ਕਰੋ ਅਤੇ ਕੰਮ ਪੂਰਾ ਹੁੰਦੇ ਦੇਖੋ।",
+    chooseLang: "अपनी भाषा चुनें"
   },
   as: {
     skip: "এৰক",
@@ -134,7 +145,8 @@ const translations = {
     slide2Title: "ৰিপৰ্ট পঠাওক",
     slide2Desc: "সেইটো ক’ত আছে আমাক জনাওক। আমি সঠিক ঠাই ৰেকৰ্ড কৰিম।",
     slide3Title: "পৰিৱৰ্তন চাওক",
-    slide3Desc: "আপোনাৰ ৰিপৰ্ট ট্ৰেক কৰক আৰু কাম শেষ হোৱা চাওক।"
+    slide3Desc: "আপোনাৰ ৰিপৰ্ট ট্ৰেক কৰক আৰু কাম শেষ হোৱা চাওক।",
+    chooseLang: "আপোনাৰ ভাষা বাছক"
   },
   ur: {
     skip: "چھوڑیں",
@@ -145,14 +157,32 @@ const translations = {
     slide2Title: "رپورٹ بھیجیں",
     slide2Desc: "ہمیں بتائیں کہ یہ کہاں ہے۔ ہم صحیح جگہ ریکارڈ کریں گے۔",
     slide3Title: "تبدیلی دیکھیں",
-    slide3Desc: "اپنی رپورٹ ٹریک کریں اور کام مکمل ہوتے دیکھیں۔"
+    slide3Desc: "اپنی رپورٹ ٹریک کریں اور کام مکمل ہوتے دیکھیں۔",
+    chooseLang: "اپنی زبان منتخب کریں"
   }
 };
+
+const languagesList = [
+  { code: 'en', name: 'English' },
+  { code: 'hi', name: 'हिंदी (Hindi)' },
+  { code: 'mr', name: 'मराठी (Marathi)' },
+  { code: 'bn', name: 'বাংলা (Bengali)' },
+  { code: 'te', name: 'తెలుగు (Telugu)' },
+  { code: 'ta', name: 'தமிழ் (Tamil)' },
+  { code: 'gu', name: 'ગુજરાતી (Gujarati)' },
+  { code: 'ur', name: 'اردو (Urdu)' },
+  { code: 'kn', name: 'ಕನ್ನಡ (Kannada)' },
+  { code: 'or', name: 'ଓଡ଼ିଆ (Odia)' },
+  { code: 'ml', name: 'മലയാളം (Malayalam)' },
+  { code: 'pa', name: 'ਪੰਜਾਬੀ (Punjabi)' },
+  { code: 'as', name: 'অসমীয়া (Assamese)' }
+];
 
 const Tutorial = () => {
   const { language, changeLanguage } = useTranslation();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
+  const [isLangModalOpen, setIsLangModalOpen] = useState(false);
 
   const t = (key) => translations[language]?.[key] || translations['en'][key];
 
@@ -211,7 +241,7 @@ const Tutorial = () => {
 
   // Handle swipe gestures
   const handleDragEnd = (event, info) => {
-    const swipeThreshold = 50; // Minimum pixel drag to trigger a slide change
+    const swipeThreshold = 50; 
     if (info.offset.x < -swipeThreshold) {
       nextStep();
     } else if (info.offset.x > swipeThreshold) {
@@ -222,53 +252,18 @@ const Tutorial = () => {
   return (
     <div className="min-h-screen bg-[#F5F8FA] flex flex-col justify-between overflow-hidden relative">
       
-      {/* Background Artwork - Colored blurred circles layered behind content */}
+      {/* Background Artwork */}
       <div className="absolute top-[-10%] left-[-10%] w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0 pointer-events-none"></div>
       <div className="absolute bottom-[10%] right-[-10%] w-80 h-80 bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl opacity-60 z-0 pointer-events-none"></div>
 
-      {/* Top Header - Logo left, Translator & Skip right */}
-      <div className="flex justify-between items-center p-6 relative z-20 w-full">
-        {/* Logo Section */}
-        <div className="flex items-center">
-          <img src="https://i.postimg.cc/PrDX9Wtm/photo-6066349669190669559-y-removebg-preview.png" alt="Logo" className="h-8 object-contain" />
-        </div>
-        
-        {/* Controls Section */}
-        <div className="flex items-center gap-4">
-          {/* Translator Icon & Selector */}
-          <div className="relative flex items-center bg-white rounded-full px-3 py-1.5 shadow-sm border border-gray-200">
-            <svg className="w-5 h-5 text-citizenNavy mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <select
-              onChange={(e) => changeLanguage(e.target.value)}
-              value={language || 'en'}
-              className="bg-transparent text-xs font-bold text-citizenNavy focus:outline-none cursor-pointer appearance-none pr-4"
-            >
-              <option value="en">English</option>
-              <option value="hi">हिंदी</option>
-              <option value="mr">मराठी</option>
-              <option value="bn">বাংলা</option>
-              <option value="te">తెలుగు</option>
-              <option value="ta">தமிழ்</option>
-              <option value="gu">ગુજરાતી</option>
-              <option value="ur">اردو</option>
-              <option value="kn">ಕನ್ನಡ</option>
-              <option value="or">ଓଡ଼ିଆ</option>
-              <option value="ml">മലയാളം</option>
-              <option value="pa">ਪੰਜਾਬੀ</option>
-              <option value="as">অসমীয়া</option>
-            </select>
-          </div>
-
-          {/* Skip Button */}
-          <button 
-            onClick={skipTutorial}
-            className="text-gray-500 font-bold text-sm tracking-wide hover:text-citizenNavy transition-colors"
-          >
-            {t('skip')}
-          </button>
-        </div>
+      {/* Top Header - Logo and Translator strictly removed */}
+      <div className="flex justify-end items-center p-6 relative z-20 w-full">
+        <button 
+          onClick={skipTutorial}
+          className="text-gray-500 font-bold text-sm tracking-wide hover:text-citizenNavy transition-colors"
+        >
+          {t('skip')}
+        </button>
       </div>
 
       {/* Main Slide Content (Swipeable) */}
@@ -286,7 +281,6 @@ const Tutorial = () => {
             transition={{ duration: 0.3 }}
             className="absolute flex flex-col items-center text-center px-8 w-full max-w-md cursor-grab active:cursor-grabbing"
           >
-            {/* Added pointer-events-none to children so dragging the text still drags the parent div */}
             <div className="bg-white p-8 rounded-full shadow-floating-card mb-10 border border-gray-100 pointer-events-none">
               {slides[currentStep].icon}
             </div>
@@ -302,25 +296,25 @@ const Tutorial = () => {
         </AnimatePresence>
       </div>
 
-      {/* Bottom Controls */}
-      <div className="p-8 pb-12 w-full max-w-md mx-auto relative z-20">
+      {/* Bottom Controls with reduced top spacing */}
+      <div className="px-8 pt-2 pb-12 w-full max-w-md mx-auto relative z-20">
         
-        {/* Progress Dots */}
-        <div className="flex justify-center gap-2 mb-10">
+        {/* High-Contrast Active Progress Dots */}
+        <div className="flex justify-center gap-2 mb-6">
           {slides.map((_, index) => (
             <div 
               key={index}
               className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentStep ? 'w-8 bg-nigraniBlue' : 'w-2 bg-gray-300'
+                index === currentStep ? 'w-8 bg-[#00A9F7]' : 'w-2 bg-gray-300'
               }`}
             />
           ))}
         </div>
 
-        {/* Action Button */}
+        {/* Solid High-Contrast Action Button */}
         <button
           onClick={nextStep}
-          className="w-full bg-citizenNavy text-white font-bold py-4 rounded-extreme-pill shadow-xl hover:bg-black transition-colors"
+          className="w-full bg-[#0B243B] text-white font-bold py-4 rounded-full shadow-xl hover:bg-black active:scale-[0.98] transition-all"
         >
           {currentStep === slides.length - 1 ? t('start') : t('next')}
         </button>
