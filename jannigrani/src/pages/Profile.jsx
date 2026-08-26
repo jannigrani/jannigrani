@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { getAuth, signOut } from 'firebase/auth';
 import { db } from '../config/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import Header from '../components/common/Header';
 import { useTranslation } from '../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
-// IMPORTANT: Replace this with your actual HuggingFace Gradio API link
 const GRADIO_API_URL = "https://your-username-your-space.hf.space/api/predict";
 
 const translations = {
@@ -17,10 +18,11 @@ const translations = {
     emailLabel: "Email Address",
     uploadBtn: "Upload Picture",
     saveBtn: "Save Details",
+    logoutBtn: "Logout",
     saving: "Saving...",
     uploading: "Uploading...",
     success: "Profile saved successfully.",
-    error: "Failed to save. Please try again."
+    error: "Failed to save. Please try. Again."
   },
   hi: {
     title: "आपकी प्रोफ़ाइल",
@@ -29,6 +31,7 @@ const translations = {
     emailLabel: "ईमेल पता",
     uploadBtn: "फोटो बदलें",
     saveBtn: "जानकारी सेव करें",
+    logoutBtn: "लॉग आउट",
     saving: "सेव हो रहा है...",
     uploading: "अपलोड हो रहा है...",
     success: "प्रोफ़ाइल सेव हो गई।",
@@ -41,6 +44,7 @@ const translations = {
     emailLabel: "ইমেইল ঠিকানা",
     uploadBtn: "ছবি আপলোড করুন",
     saveBtn: "তথ্য সেভ করুন",
+    logoutBtn: "লগ আউট",
     saving: "সেভ হচ্ছে...",
     uploading: "আপলোড হচ্ছে...",
     success: "প্রোফাইল সেভ হয়েছে।",
@@ -53,6 +57,7 @@ const translations = {
     emailLabel: "ఇమెయిల్",
     uploadBtn: "ఫోటో మార్చండి",
     saveBtn: "వివరాలను సేవ్ చేయండి",
+    logoutBtn: "లాగ్ అవుట్",
     saving: "సేవ్ అవుతోంది...",
     uploading: "అప్‌లోడ్ అవుతోంది...",
     success: "ప్రొఫైల్ సేవ్ చేయబడింది.",
@@ -65,6 +70,7 @@ const translations = {
     emailLabel: "ईमेल",
     uploadBtn: "फोटो अपलोड करा",
     saveBtn: "माहिती सेव्ह करा",
+    logoutBtn: "बाहेर पडा",
     saving: "सेव्ह होत आहे...",
     uploading: "अपलोड होत आहे...",
     success: "प्रोफाईल सेव्ह झाले.",
@@ -77,6 +83,7 @@ const translations = {
     emailLabel: "மின்னஞ்சல்",
     uploadBtn: "படம் பதிவேற்று",
     saveBtn: "தகவலை சேமி",
+    logoutBtn: "வெளியேறு",
     saving: "சேமிக்கப்படுகிறது...",
     uploading: "பதிவேற்றுகிறது...",
     success: "விவரம் சேமிக்கப்பட்டது.",
@@ -89,6 +96,7 @@ const translations = {
     emailLabel: "ઈમેલ",
     uploadBtn: "ફોટો અપલોડ કરો",
     saveBtn: "માહિતી સેવ કરો",
+    logoutBtn: "બહાર નીકળો",
     saving: "સેવ થઈ રહ્યું છે...",
     uploading: "અપલોડ થઈ રહ્યું છે...",
     success: "પ્રોફાઇલ સેવ થઈ ગઈ.",
@@ -101,6 +109,7 @@ const translations = {
     emailLabel: "ಇಮೇಲ್",
     uploadBtn: "ಫೋಟೋ ಹಾಕಿ",
     saveBtn: "ಮಾಹಿತಿ ಉಳಿಸಿ",
+    logoutBtn: "ಹೊರಬನ್ನಿ",
     saving: "ಉಳಿಸಲಾಗುತ್ತಿದೆ...",
     uploading: "ಅಪ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
     success: "ಪ್ರೊಫೈಲ್ ಉಳಿಸಲಾಗಿದೆ.",
@@ -113,6 +122,7 @@ const translations = {
     emailLabel: "ଇମେଲ୍",
     uploadBtn: "ଫଟୋ ଅପଲୋଡ୍ କରନ୍ତୁ",
     saveBtn: "ତଥ୍ୟ ସେଭ୍ କରନ୍ତୁ",
+    logoutBtn: "ଲଗ୍ ଆଉଟ୍",
     saving: "ସେଭ୍ ହେଉଛି...",
     uploading: "ଅପଲୋଡ୍ ହେଉଛି...",
     success: "ପ୍ରୋଫାଇଲ୍ ସେଭ୍ ହୋଇଗଲା।",
@@ -125,6 +135,7 @@ const translations = {
     emailLabel: "ഇമെയിൽ",
     uploadBtn: "ഫോട്ടോ നൽകുക",
     saveBtn: "വിവരങ്ങൾ സംരക്ഷിക്കുക",
+    logoutBtn: "പുറത്തിറങ്ങുക",
     saving: "സംരക്ഷിക്കുന്നു...",
     uploading: "അപ്‌ലോഡ് ചെയ്യുന്നു...",
     success: "പ്രൊഫൈൽ സംരക്ഷിച്ചു.",
@@ -137,6 +148,7 @@ const translations = {
     emailLabel: "ਈਮੇਲ",
     uploadBtn: "ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ",
     saveBtn: "ਜਾਣਕਾਰੀ ਸੇਵ ਕਰੋ",
+    logoutBtn: "ਬਾਹਰ ਜਾਓ",
     saving: "ਸੇਵ ਹੋ ਰਿਹਾ ਹੈ...",
     uploading: "ਅਪਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
     success: "ਪ੍ਰੋਫਾਈਲ ਸੇਵ ਹੋ ਗਈ।",
@@ -149,6 +161,7 @@ const translations = {
     emailLabel: "ইমেইল",
     uploadBtn: "ফটো আপলোড কৰক",
     saveBtn: "তথ্য চেভ কৰক",
+    logoutBtn: "লগ আউট",
     saving: "চেভ হৈ আছে...",
     uploading: "আপলোড হৈ আছে...",
     success: "প্ৰোফাইল চেভ কৰা হ'ল।",
@@ -161,6 +174,7 @@ const translations = {
     emailLabel: "ای میل",
     uploadBtn: "تصویر اپ لوڈ کریں",
     saveBtn: "معلومات محفوظ کریں",
+    logoutBtn: "لاگ آؤٹ",
     saving: "محفوظ ہو رہا ہے...",
     uploading: "اپ لوڈ ہو رہا ہے...",
     success: "پروفائل محفوظ ہو گئی۔",
@@ -171,6 +185,7 @@ const translations = {
 const Profile = () => {
   const { language } = useTranslation();
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -187,14 +202,23 @@ const Profile = () => {
       try {
         const docRef = doc(db, 'users', currentUser.uid);
         const docSnap = await getDoc(docRef);
+        
         if (docSnap.exists()) {
           const data = docSnap.data();
           setName(data.name || '');
           setPhone(data.phone || '');
           setProfilePic(data.profilePic || '');
+        } else {
+          await setDoc(docRef, {
+            email: currentUser.email || '',
+            name: currentUser.displayName || '',
+            phone: '',
+            profilePic: '',
+            createdAt: new Date().toISOString()
+          }, { merge: true });
         }
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching or initializing profile:", error);
       } finally {
         setLoading(false);
       }
@@ -208,7 +232,6 @@ const Profile = () => {
 
     setUploading(true);
     
-    // Convert image to Base64 to send to Gradio API
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async () => {
@@ -225,7 +248,6 @@ const Profile = () => {
         
         const result = await response.json();
         
-        // Gradio returns processed outputs in the data array
         if (result && result.data && result.data[0]) {
           setProfilePic(result.data[0]);
         }
@@ -259,10 +281,20 @@ const Profile = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      const auth = getAuth();
+      await signOut(auth);
+      navigate('/');
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F5F8FA] flex items-center justify-center">
-        <p className="text-gray-500 font-medium">Loading...</p>
+        <p className="text-[#0B243B] font-bold text-lg">Loading...</p>
       </div>
     );
   }
@@ -275,29 +307,29 @@ const Profile = () => {
         className="max-w-md mx-auto space-y-8"
       >
         <div className="text-center mb-8">
-          <h1 className="font-serif text-3xl font-bold text-citizenNavy mb-2">
+          <h1 className="font-serif text-3xl font-bold text-[#0B243B] mb-2">
             {t('title')}
           </h1>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-floating-card p-8 flex flex-col items-center">
+        <div className="bg-white rounded-[32px] shadow-[0_20px_40px_-10px_rgba(11,36,59,0.15)] p-8 flex flex-col items-center border border-[#E8F1F8]">
           
           {/* Profile Picture Section */}
           <div className="relative w-32 h-32 mb-6">
-            <div className="w-full h-full rounded-full bg-gray-200 overflow-hidden border-4 border-white shadow-sm flex items-center justify-center">
+            <div className="w-full h-full rounded-full bg-[#E8F1F8] overflow-hidden border-4 border-white shadow-md flex items-center justify-center">
               {profilePic ? (
                 <img src={profilePic} alt="Profile" className="w-full h-full object-cover" />
               ) : (
-                <span className="text-gray-400 font-bold text-3xl">
+                <span className="text-[#174A7E] font-black text-3xl">
                   {name ? name.charAt(0).toUpperCase() : '?'}
                 </span>
               )}
             </div>
             
-            <label className="absolute bottom-0 right-0 bg-nigraniBlue text-white p-3 rounded-full cursor-pointer shadow-md hover:bg-citizenNavy transition-colors">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            <label className="absolute bottom-0 right-0 bg-[#00A9F7] text-white p-3 rounded-full cursor-pointer shadow-lg hover:bg-[#174A7E] active:scale-95 transition-all">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0:0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
               <input 
                 type="file" 
@@ -310,48 +342,55 @@ const Profile = () => {
           </div>
           
           {uploading && (
-            <p className="text-nigraniBlue text-sm font-bold mb-4">{t('uploading')}</p>
+            <p className="text-[#00A9F7] text-sm font-bold mb-4">{t('uploading')}</p>
           )}
 
           {/* Form Fields */}
           <div className="w-full space-y-5">
             
             <div className="flex flex-col text-left">
-              <label className="text-sm font-bold text-gray-500 mb-2">{t('emailLabel')}</label>
+              <label className="text-sm font-bold text-[#0B243B] mb-2">{t('emailLabel')}</label>
               <input 
                 type="email" 
                 value={currentUser?.email || ''} 
                 disabled 
-                className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-500 cursor-not-allowed font-medium"
+                className="w-full p-4 bg-[#F2F4F7] border border-[#E8F1F8] rounded-2xl text-[#111111] cursor-not-allowed font-bold"
               />
             </div>
 
             <div className="flex flex-col text-left">
-              <label className="text-sm font-bold text-gray-500 mb-2">{t('nameLabel')}</label>
+              <label className="text-sm font-bold text-[#0B243B] mb-2">{t('nameLabel')}</label>
               <input 
                 type="text" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)}
-                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-nigraniBlue focus:outline-none transition-colors font-medium text-citizenNavy"
+                className="w-full p-4 bg-white border-2 border-[#E8F1F8] rounded-2xl focus:border-[#00A9F7] focus:outline-none transition-all font-bold text-[#0B243B] shadow-sm"
               />
             </div>
 
             <div className="flex flex-col text-left">
-              <label className="text-sm font-bold text-gray-500 mb-2">{t('phoneLabel')}</label>
+              <label className="text-sm font-bold text-[#0B243B] mb-2">{t('phoneLabel')}</label>
               <input 
                 type="tel" 
                 value={phone} 
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-nigraniBlue focus:outline-none transition-colors font-medium text-citizenNavy"
+                className="w-full p-4 bg-white border-2 border-[#E8F1F8] rounded-2xl focus:border-[#00A9F7] focus:outline-none transition-all font-bold text-[#0B243B] shadow-sm"
               />
             </div>
 
             <button 
               onClick={handleSave}
               disabled={saving || uploading}
-              className="w-full mt-6 bg-citizenNavy text-white font-bold py-4 rounded-extreme-pill shadow-xl hover:bg-black transition-colors disabled:opacity-50"
+              className="w-full mt-6 bg-[#0B243B] text-white font-bold py-4 rounded-full shadow-lg hover:bg-[#174A7E] active:scale-[0.98] transition-all disabled:opacity-50"
             >
               {saving ? t('saving') : t('saveBtn')}
+            </button>
+
+            <button 
+              onClick={handleLogout}
+              className="w-full mt-3 bg-red-50 text-red-600 border border-red-200 font-bold py-4 rounded-full shadow-sm hover:bg-red-100 active:scale-[0.98] transition-all"
+            >
+              {t('logoutBtn')}
             </button>
 
           </div>

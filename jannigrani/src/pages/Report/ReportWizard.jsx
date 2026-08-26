@@ -15,8 +15,8 @@ const slideVariants = {
 
 const translations = {
   en: {
-    locationError: 'Cannot find location. Allow location access.',
-    noLocation: 'Your phone cannot find location.',
+    locationError: 'Cannot find location. Allow location access or enter manually below.',
+    noLocation: 'Your phone cannot find location. Enter manually below.',
     submitError: 'Failed to send. Try again.',
     step1Title: 'What is the problem?',
     pollution: 'Dirt or Pollution',
@@ -26,9 +26,13 @@ const translations = {
     step2Desc: 'Show us the problem clearly.',
     continueBtn: 'Next Step',
     step3Title: 'Your Location',
-    step3Desc: 'Tell us where the problem is.',
+    step3Desc: 'Tell us where the problem is or enter manually.',
     loadingLocation: 'Finding location...',
     getLocation: 'Get My Location',
+    manualTitle: 'Or Enter Manually',
+    latLabel: 'Latitude',
+    lngLabel: 'Longitude',
+    useDefaultLocation: 'Use Default City Location',
     step4Title: 'Ready to Send',
     step4Desc: 'Your report is ready. Thank you for helping.',
     loadingSaving: 'Sending...',
@@ -40,8 +44,8 @@ const translations = {
     close: 'Close'
   },
   hi: {
-    locationError: 'लोकेशन नहीं मिली। कृपया अनुमति दें।',
-    noLocation: 'आपका फोन लोकेशन नहीं ढूंढ सकता।',
+    locationError: 'लोकेशन नहीं मिली। कृपया अनुमति दें या नीचे मैन्युअल रूप से दर्ज करें।',
+    noLocation: 'आपका फोन लोकेशन नहीं ढूंढ सकता। नीचे मैन्युअल रूप से दर्ज करें।',
     submitError: 'भेजने में विफल। पुनः प्रयास करें।',
     step1Title: 'समस्या क्या है?',
     pollution: 'गंदगी या प्रदूषण',
@@ -51,9 +55,13 @@ const translations = {
     step2Desc: 'हमें समस्या दिखाएं।',
     continueBtn: 'अगला कदम',
     step3Title: 'आपका स्थान',
-    step3Desc: 'हमें बताएं कि समस्या कहां है।',
+    step3Desc: 'हमें बताएं कि समस्या कहां है या मैन्युअल रूप से दर्ज करें।',
     loadingLocation: 'स्थान ढूंढ रहे हैं...',
     getLocation: 'मेरा स्थान प्राप्त करें',
+    manualTitle: 'या मैन्युअल रूप से दर्ज करें',
+    latLabel: 'अक्षांश (Latitude)',
+    lngLabel: 'देशांतर (Longitude)',
+    useDefaultLocation: 'डिफ़ॉल्ट शहर का स्थान उपयोग करें',
     step4Title: 'भेजने के लिए तैयार',
     step4Desc: 'आपकी रिपोर्ट तैयार है। मदद के लिए धन्यवाद।',
     loadingSaving: 'भेज रहे हैं...',
@@ -65,8 +73,8 @@ const translations = {
     close: 'बंद करें'
   },
   bn: {
-    locationError: 'অবস্থান পাওয়া যায়নি। অনুমতি দিন।',
-    noLocation: 'আপনার ফোন অবস্থান খুঁজে পাচ্ছে না।',
+    locationError: 'অবস্থান পাওয়া যায়নি। অনুমতি দিন বা নিচে ম্যানুয়ালি লিখুন।',
+    noLocation: 'আপনার ফোন অবস্থান খুঁজে পাচ্ছে না। নিচে ম্যানুয়ালি লিখুন।',
     submitError: 'পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।',
     step1Title: 'সমস্যা কি?',
     pollution: 'ময়লা বা দূষণ',
@@ -76,9 +84,13 @@ const translations = {
     step2Desc: 'আমাদের সমস্যা দেখান।',
     continueBtn: 'পরবর্তী ধাপ',
     step3Title: 'আপনার অবস্থান',
-    step3Desc: 'সমস্যা কোথায় আমাদের বলুন।',
+    step3Desc: 'সমস্যা কোথায় বলুন বা ম্যানুয়ালি লিখুন।',
     loadingLocation: 'অবস্থান খোঁজা হচ্ছে...',
     getLocation: 'আমার অবস্থান নিন',
+    manualTitle: 'অথবা ম্যানুয়ালি লিখুন',
+    latLabel: 'অক্ষাংশ',
+    lngLabel: 'দ্রাঘিমাংশ',
+    useDefaultLocation: 'ডিফল্ট শহরের অবস্থান ব্যবহার করুন',
     step4Title: 'পাঠাতে প্রস্তুত',
     step4Desc: 'আপনার রিপোর্ট প্রস্তুত। সাহায্যের জন্য ধন্যবাদ।',
     loadingSaving: 'পাঠানো হচ্ছে...',
@@ -90,8 +102,8 @@ const translations = {
     close: 'বন্ধ করুন'
   },
   te: {
-    locationError: 'స్థానం కనుగొనబడలేదు. అనుమతి ఇవ్వండి.',
-    noLocation: 'మీ ఫోన్ స్థానాన్ని కనుగొనలేకపోయింది.',
+    locationError: 'స్థానం కనుగొనబడలేదు. అనుమతి ఇవ్వండి లేదా కింద మాన్యువల్‌గా నమోదు చేయండి.',
+    noLocation: 'మీ ఫోన్ స్థానాన్ని కనుగొనలేకపోయింది. కింద మాన్యువల్‌గా నమోదు చేయండి.',
     submitError: 'పంపడం విఫలమైంది. మళ్ళీ ప్రయత్నించండి.',
     step1Title: 'సమస్య ఏమిటి?',
     pollution: 'మురికి లేదా కాలుష్యం',
@@ -101,9 +113,13 @@ const translations = {
     step2Desc: 'మాకు సమస్యను చూపించండి.',
     continueBtn: 'తదుపరి దశ',
     step3Title: 'మీ స్థానం',
-    step3Desc: 'సమస్య ఎక్కడ ఉందో చెప్పండి.',
+    step3Desc: 'సమస్య ఎక్కడ ఉందో చెప్పండి లేదా మాన్యువల్‌గా నమోదు చేయండి.',
     loadingLocation: 'స్థానాన్ని కనుగొంటుంది...',
     getLocation: 'నా స్థానాన్ని పొందండి',
+    manualTitle: 'లేదా మాన్యువల్‌గా నమోదు చేయండి',
+    latLabel: 'అక్షాంశం',
+    lngLabel: 'రేఖాంశం',
+    useDefaultLocation: 'డిఫాల్ట్ నగరం స్థానాన్ని ఉపయోగించండి',
     step4Title: 'పంపడానికి సిద్ధంగా ఉంది',
     step4Desc: 'మీ నివేదిక సిద్ధంగా ఉంది. సహాయం చేసినందుకు ధన్యవాదాలు.',
     loadingSaving: 'పంపుతోంది...',
@@ -115,8 +131,8 @@ const translations = {
     close: 'మూసివేయి'
   },
   mr: {
-    locationError: 'स्थान सापडले नाही. परवानगी द्या.',
-    noLocation: 'तुमचा फोन स्थान शोधू शकत नाही.',
+    locationError: 'स्थान सापडले नाही. परवानगी द्या किंवा खाली मॅन्युअली प्रविष्ट करा.',
+    noLocation: 'तुमचा फोन स्थान शोधू शकत नाही. खाली मॅन्युअली प्रविष्ट करा.',
     submitError: 'पाठवणे अयशस्वी. पुन्हा प्रयत्न करा.',
     step1Title: 'समस्या काय आहे?',
     pollution: 'घाण किंवा प्रदूषण',
@@ -126,9 +142,13 @@ const translations = {
     step2Desc: 'आम्हाला समस्या दाखवा.',
     continueBtn: 'पुढची पायरी',
     step3Title: 'तुमचे स्थान',
-    step3Desc: 'समस्या कुठे आहे ते सांगा.',
+    step3Desc: 'समस्या कुठे आहे ते सांगा किंवा मॅन्युअली प्रविष्ट करा.',
     loadingLocation: 'स्थान शोधत आहे...',
     getLocation: 'माझे स्थान मिळवा',
+    manualTitle: 'किंवा मॅन्युअली प्रविष्ट करा',
+    latLabel: 'अंश (Latitude)',
+    lngLabel: 'रेखांश (Longitude)',
+    useDefaultLocation: 'डीफॉल्ट शहराचे स्थान वापर आणा',
     step4Title: 'पाठवण्यासाठी तयार',
     step4Desc: 'तुमचा अहवाल तयार आहे. मदतीसाठी धन्यवाद.',
     loadingSaving: 'पाठवत आहे...',
@@ -140,8 +160,8 @@ const translations = {
     close: 'बंद करा'
   },
   ta: {
-    locationError: 'இடத்தை கண்டுபிடிக்க முடியவில்லை. அனுமதி கொடுங்கள்.',
-    noLocation: 'உங்கள் போன் இடத்தை கண்டுபிடிக்கவில்லை.',
+    locationError: 'இடத்தை கண்டுபிடிக்க முடியவில்லை. அனுமதி கொடுங்கள் அல்லது கீழே உள்ளிடவும்.',
+    noLocation: 'உங்கள் போன் இடத்தை கண்டுபிடிக்கவில்லை. கீழே உள்ளிடவும்.',
     submitError: 'அனுப்ப முடியவில்லை. மீண்டும் முயற்சிக்கவும்.',
     step1Title: 'பிரச்சனை என்ன?',
     pollution: 'குப்பை அல்லது மாசு',
@@ -151,9 +171,13 @@ const translations = {
     step2Desc: 'பிரச்சனையை எங்களுக்கு காட்டுங்கள்.',
     continueBtn: 'அடுத்த படி',
     step3Title: 'உங்கள் இடம்',
-    step3Desc: 'பிரச்சனை எங்கே என்று சொல்லுங்கள்.',
+    step3Desc: 'பிரச்சனை எங்கே என்று சொல்லுங்கள் அல்லது உள்ளிடவும்.',
     loadingLocation: 'இடத்தை தேடுகிறது...',
     getLocation: 'என் இடத்தை எடு',
+    manualTitle: 'அல்லது கைமுறையாக உள்ளிடவும்',
+    latLabel: 'அகலாங்கு',
+    lngLabel: 'நெடுக்குக்கோடு',
+    useDefaultLocation: 'இயல்புநிலை நகர இடத்தைப் பயன்படுத்து',
     step4Title: 'அனுப்ப தயார்',
     step4Desc: 'உங்கள் புகார் தயார். உதவிக்கு நன்றி.',
     loadingSaving: 'அனுப்புகிறது...',
@@ -165,8 +189,8 @@ const translations = {
     close: 'மூடு'
   },
   gu: {
-    locationError: 'સ્થાન મળ્યું નથી. પરવાનગી આપો.',
-    noLocation: 'તમારો ફોન સ્થાન શોધી શકતો નથી.',
+    locationError: 'સ્થાન મળ્યું નથી. પરવાનગી આપો અથવા નીચે જાતે દાખલ કરો.',
+    noLocation: 'તમારો ફોન સ્થાન શોધી શકતો નથી. નીચે જાતે દાખલ કરો.',
     submitError: 'મોકલવામાં નિષ્ફળ. ફરી પ્રયાસ કરો.',
     step1Title: 'સમસ્યા શું છે?',
     pollution: 'ગંદકી અથવા પ્રદૂષણ',
@@ -176,9 +200,13 @@ const translations = {
     step2Desc: 'અમને સમસ્યા બતાવો.',
     continueBtn: 'આગળનું પગલું',
     step3Title: 'તમારું સ્થાન',
-    step3Desc: 'સમસ્યા ક્યાં છે તે કહો.',
+    step3Desc: 'સમસ્યા ક્યાં છે તે કહો અથવા જાતે દાખલ કરો.',
     loadingLocation: 'સ્થાન શોધી રહ્યા છીએ...',
     getLocation: 'મારું સ્થાન મેળવો',
+    manualTitle: 'અથવા જાતે દાખલ કરો',
+    latLabel: 'અક્ષાંશ',
+    lngLabel: 'રેખાંશ',
+    useDefaultLocation: 'ડિફૉલ્ટ શહેરનું સ્થાન વાપરો',
     step4Title: 'મોકલવા માટે તૈયાર',
     step4Desc: 'તમારો રિપોર્ટ તૈયાર છે. મદદ માટે આભાર.',
     loadingSaving: 'મોકલી રહ્યા છીએ...',
@@ -190,8 +218,8 @@ const translations = {
     close: 'બંધ કરો'
   },
   kn: {
-    locationError: 'ಸ್ಥಳ ಸಿಗುತ್ತಿಲ್ಲ. ಅನುಮತಿ ನೀಡಿ.',
-    noLocation: 'ನಿಮ್ಮ ಫೋನ್ ಸ್ಥಳವನ್ನು ಹುಡುಕಲು ಸಾಧ್ಯವಿಲ್ಲ.',
+    locationError: 'ಸ್ಥಳ ಸಿಗುತ್ತಿಲ್ಲ. ಅನುಮತಿ ನೀಡಿ ಅಥವಾ ಕೆಳಗೆ ನಮೂದಿಸಿ.',
+    noLocation: 'ನಿಮ್ಮ ಫೋನ್ ಸ್ಥಳವನ್ನು ಹುಡುಕಲು ಸಾಧ್ಯವಿಲ್ಲ. ಕೆಳಗೆ ನಮೂದಿಸಿ.',
     submitError: 'ಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.',
     step1Title: 'ಸಮಸ್ಯೆ ಏನು?',
     pollution: 'ಕೊಳಕು ಅಥವಾ ಮಾಲಿನ್ಯ',
@@ -201,9 +229,13 @@ const translations = {
     step2Desc: 'ನಮಗೆ ಸಮಸ್ಯೆ ತೋರಿಸಿ.',
     continueBtn: 'ಮುಂದಿನ ಹಂತ',
     step3Title: 'ನಿಮ್ಮ ಸ್ಥಳ',
-    step3Desc: 'ಸಮಸ್ಯೆ ಎಲ್ಲಿದೆ ಎಂದು ತಿಳಿಸಿ.',
+    step3Desc: 'ಸಮಸ್ಯೆ ಎಲ್ಲಿದೆ ಎಂದು ತಿಳಿಸಿ ಅಥವಾ ಕೈಯಿಂದ ನಮೂದಿಸಿ.',
     loadingLocation: 'ಸ್ಥಳವನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ...',
     getLocation: 'ನನ್ನ ಸ್ಥಳ ಪಡೆಯಿರಿ',
+    manualTitle: 'ಅಥವಾ ಕೈಯಿಂದ ನಮೂದಿಸಿ',
+    latLabel: 'ಅಕ್ಷಾಂಶ',
+    lngLabel: 'ರೇಖಾಂಶ',
+    useDefaultLocation: 'ಡೀಫಾಲ್ಟ್ ನಗರದ ಸ್ಥಳ ಬಳಸಿ',
     step4Title: 'ಕಳುಹಿಸಲು ಸಿದ್ಧವಾಗಿದೆ',
     step4Desc: 'ನಿಮ್ಮ ವರದಿ ಸಿದ್ಧವಾಗಿದೆ. ಸಹಾಯಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು.',
     loadingSaving: 'ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ...',
@@ -215,8 +247,8 @@ const translations = {
     close: 'ಮುಚ್ಚಿ'
   },
   or: {
-    locationError: 'ସ୍ଥାନ ମିଳିଲା ନାହିଁ। ଅନୁମତି ଦିଅନ୍ତୁ।',
-    noLocation: 'ଆପଣଙ୍କ ଫୋନ୍ ସ୍ଥାନ ଖୋଜିପାରିବ ନାହିଁ।',
+    locationError: 'ସ୍ଥାନ ମିଳିଲା ନାହିଁ। ଅନୁମତି ଦିଅନ୍ତୁ ବା ତଳେ ଲେଖନ୍ତୁ।',
+    noLocation: 'ଆପଣଙ୍କ ଫୋନ୍ ସ୍ଥାନ ଖୋଜିପାରିବ ନାହିଁ। ତଳେ ଲେଖନ୍ତୁ।',
     submitError: 'ପଠାଇବାରେ ବିଫଳ। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।',
     step1Title: 'ସମସ୍ୟା କଣ?',
     pollution: 'ମଇଳା କିମ୍ବା ପ୍ରଦୂଷଣ',
@@ -226,9 +258,13 @@ const translations = {
     step2Desc: 'ଆମକୁ ସମସ୍ୟା ଦେଖାନ୍ତୁ।',
     continueBtn: 'ପରବର୍ତ୍ତୀ ପଦକ୍ଷେପ',
     step3Title: 'ଆପଣଙ୍କ ସ୍ଥାନ',
-    step3Desc: 'ସମସ୍ୟା କେଉଁଠାରେ ଅଛି କୁହନ୍ତୁ।',
+    step3Desc: 'ସମସ୍ୟା କେଉଁଠାରେ ଅଛି କୁହନ୍ତୁ ବା ତଳେ ଲେଖନ୍ତୁ।',
     loadingLocation: 'ସ୍ଥାନ ଖୋଜୁଛି...',
     getLocation: 'ମୋର ସ୍ଥାନ ନିଅନ୍ତୁ',
+    manualTitle: 'ଅଥବା ମାନ୍ୟୁଆଲ୍ ପ୍ରବେଶ କରନ୍ତୁ',
+    latLabel: 'ଅକ୍ଷାଂଶ',
+    lngLabel: 'ଦ୍ରାଘିମାଂଶ',
+    useDefaultLocation: 'ଡିଫଲ୍ଟ ସହର ସ୍ଥାନ ବ୍ୟବହାର କରନ୍ତୁ',
     step4Title: 'ପଠାଇବାକୁ ପ୍ରସ୍ତୁତ',
     step4Desc: 'ଆପଣଙ୍କ ରିପୋର୍ଟ ପ୍ରସ୍ତୁତ ଅଛି। ସାହାଯ୍ୟ ପାଇଁ ଧନ୍ୟବାଦ।',
     loadingSaving: 'ପଠାଯାଉଛି...',
@@ -240,8 +276,8 @@ const translations = {
     close: 'ବନ୍ଦ କରନ୍ତୁ'
   },
   ml: {
-    locationError: 'സ്ഥലം കണ്ടെത്താനായില്ല. അനുമതി നൽകുക.',
-    noLocation: 'നിങ്ങളുടെ ഫോണിന് സ്ഥലം കണ്ടെത്താനാകുന്നില്ല.',
+    locationError: 'സ്ഥലം കണ്ടെത്താനായില്ല. അനുമതി നൽകുക അല്ലെങ്കിൽ താഴെ നൽകുക.',
+    noLocation: 'നിങ്ങളുടെ ഫോണിന് സ്ഥലം കണ്ടെത്താനാകുന്നില്ല. താഴെ നൽകുക.',
     submitError: 'അയയ്ക്കുന്നതിൽ പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക.',
     step1Title: 'എന്താണ് പ്രശ്നം?',
     pollution: 'അഴുക്ക് അല്ലെങ്കിൽ മലിനീകരണം',
@@ -251,9 +287,13 @@ const translations = {
     step2Desc: 'ഞങ്ങൾക്ക് പ്രശ്നം കാണിച്ചുതരിക.',
     continueBtn: 'അടുത്ത ഘട്ടം',
     step3Title: 'നിങ്ങളുടെ സ്ഥലം',
-    step3Desc: 'പ്രശ്നം എവിടെയാണെന്ന് പറയുക.',
+    step3Desc: 'പ്രശ്നം എവിടെയാണെന്ന് പറയുക അല്ലെങ്കിൽ നൽകുക.',
     loadingLocation: 'സ്ഥലം തിരയുന്നു...',
     getLocation: 'എന്റെ സ്ഥലം എടുക്കുക',
+    manualTitle: 'അല്ലെങ്കിൽ സ്വയം നൽകുക',
+    latLabel: 'അക്ഷാംശം',
+    lngLabel: 'രേഖാംശം',
+    useDefaultLocation: 'സ്ഥിരസ്ഥിതി നഗര സ്ഥാനം ഉപയോഗിക്കുക',
     step4Title: 'അയയ്ക്കാൻ തയ്യാറാണ്',
     step4Desc: 'നിങ്ങളുടെ റിപ്പോർട്ട് തയ്യാറാണ്. സഹായത്തിന് നന്ദി.',
     loadingSaving: 'അയയ്ക്കുന്നു...',
@@ -265,8 +305,8 @@ const translations = {
     close: 'അടയ്ക്കുക'
   },
   pa: {
-    locationError: 'ਲੋਕੇਸ਼ਨ ਨਹੀਂ ਮਿਲੀ। ਇਜਾਜ਼ਤ ਦਿਓ।',
-    noLocation: 'ਤੁਹਾਡਾ ਫੋਨ ਲੋਕੇਸ਼ਨ ਨਹੀਂ ਲੱਭ ਸਕਦਾ।',
+    locationError: 'ਲੋਕੇਸ਼ਨ ਨਹੀਂ ਮਿਲੀ। ਇਜਾਜ਼ਤ ਦਿਓ ਜਾਂ ਹੇਠਾਂ ਦਰਜ ਕਰੋ।',
+    noLocation: 'ਤੁਹਾਡਾ ਫੋਨ ਲੋਕੇਸ਼ਨ ਨਹੀਂ ਲੱਭ ਸਕਦਾ। ਹੇਠਾਂ ਦਰਜ ਕਰੋ।',
     submitError: 'ਭੇਜਣ ਵਿੱਚ ਅਸਫਲ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।',
     step1Title: 'ਸਮੱਸਿਆ ਕੀ ਹੈ?',
     pollution: 'ਗੰਦਗੀ ਜਾਂ ਪ੍ਰਦੂਸ਼ਣ',
@@ -276,9 +316,13 @@ const translations = {
     step2Desc: 'ਸਾਨੂੰ ਸਮੱਸਿਆ ਦਿਖਾਓ।',
     continueBtn: 'ਅਗਲਾ ਕਦਮ',
     step3Title: 'ਤੁਹਾਡੀ ਲੋਕੇਸ਼ਨ',
-    step3Desc: 'ਸਾਨੂੰ ਦੱਸੋ ਸਮੱਸਿਆ ਕਿੱਥੇ ਹੈ।',
+    step3Desc: 'ਸਾਨੂੰ ਦੱਸੋ ਸਮੱਸਿਆ ਕਿੱਥੇ ਹੈ ਜਾਂ ਹੇਠਾਂ ਦਰਜ ਕਰੋ।',
     loadingLocation: 'ਲੋਕੇਸ਼ਨ ਲੱਭ ਰਹੇ ਹਾਂ...',
     getLocation: 'ਮੇਰੀ ਲੋਕੇਸ਼ਨ ਲਵੋ',
+    manualTitle: 'ਜਾਂ ਹੱथੀਂ ਦਰਜ ਕਰੋ',
+    latLabel: 'ਅਕਸ਼ਾਂਸ਼',
+    lngLabel: 'ਦੇਸ਼ਾਂਤਰ',
+    useDefaultLocation: 'ਡਿਫੌल्ट ਸ਼ਹਿਰ ਦੀ ਸਥਿਤੀ ਵਰਤੋ',
     step4Title: 'ਭੇਜਣ ਲਈ ਤਿਆਰ',
     step4Desc: 'ਤੁਹਾਡੀ ਰਿਪੋਰਟ ਤਿਆਰ ਹੈ। ਮਦਦ ਲਈ ਧੰਨਵਾਦ।',
     loadingSaving: 'ਭੇਜ ਰਹੇ ਹਾਂ...',
@@ -290,8 +334,8 @@ const translations = {
     close: 'ਬੰਦ ਕਰੋ'
   },
   as: {
-    locationError: 'অৱস্থান পোৱা নগ’ল। অনুমতি দিয়ক।',
-    noLocation: 'আপোনাৰ ফোনে অৱস্থান বিচাৰিব নোৱাৰে।',
+    locationError: 'অৱস্থান পোৱা নগ’ল। অনুমতি দিয়ক বা তলত লিখক।',
+    noLocation: 'আপোনাৰ ফোনে অৱস্থান বিচাৰিব নোৱাৰে। তলত লিখক।',
     submitError: 'পঠোৱাত বিফল হৈছে। পুনৰ চেষ্টা কৰক।',
     step1Title: 'সমস্যাটো কি?',
     pollution: 'লেতেৰা বা প্ৰদূষণ',
@@ -301,9 +345,13 @@ const translations = {
     step2Desc: 'আমাৰ সমস্যাটো দেখুৱাওক।',
     continueBtn: 'পৰৱৰ্তী পদক্ষেপ',
     step3Title: 'আপোনাৰ অৱস্থান',
-    step3Desc: 'সমস্যাটো ক’ত আছে আমাক জনাওক।',
+    step3Desc: 'সমস্যাটো ক’ত আছে জনাওক বা তলত লিখক।',
     loadingLocation: 'অৱস্থান বিচাৰি থকা হৈছে...',
     getLocation: 'মোৰ অৱস্থান লওক',
+    manualTitle: 'অথবা নিজাকৈ লিখক',
+    latLabel: 'অক্ষাংশ',
+    lngLabel: 'দ্ৰাঘিমাংশ',
+    useDefaultLocation: 'অবিকল্পিত চহৰৰ অৱস্থান ব্যৱহাৰ কৰক',
     step4Title: 'পঠাবলৈ প্ৰস্তুত',
     step4Desc: 'আপোনাৰ ৰিপৰ্ট প্ৰস্তুত আছে। সহায়ৰ বাবে ধন্যবাদ।',
     loadingSaving: 'পঠাই থকা হৈছে...',
@@ -315,8 +363,8 @@ const translations = {
     close: 'বন্ধ কৰক'
   },
   ur: {
-    locationError: 'مقام نہیں ملا۔ براہ کرم اجازت دیں۔',
-    noLocation: 'آپ کا فون مقام تلاش نہیں کر سکتا۔',
+    locationError: 'مقام نہیں ملا۔ اجازت دیں یا نیچے درج کریں۔',
+    noLocation: 'آپ کا فون مقام تلاش نہیں کر سکتا۔ نیچے درج کریں۔',
     submitError: 'بھیجنے میں ناکام۔ دوبارہ کوشش کریں۔',
     step1Title: 'مسئلہ کیا ہے؟',
     pollution: 'گندگی یا آلودگی',
@@ -326,14 +374,18 @@ const translations = {
     step2Desc: 'ہمیں مسئلہ دکھائیں۔',
     continueBtn: 'اگلا قدم',
     step3Title: 'آپ کا مقام',
-    step3Desc: 'ہمیں بتائیں کہ مسئلہ کہاں ہے۔',
+    step3Desc: 'بتائیں مسئلہ کہاں ہے یا نیچے درج کریں۔',
     loadingLocation: 'مقام تلاش کر رہا ہے...',
     getLocation: 'میرا مقام حاصل کریں',
+    manualTitle: 'یا دستی طور پر درج کریں',
+    latLabel: 'عرض البلد',
+    lngLabel: 'طول البلد',
+    useDefaultLocation: 'پہلے سے طے شدہ شہر کا مقام استعمال کریں',
     step4Title: 'بھیجنے کے لیے تیار',
     step4Desc: 'آپ کی رپورٹ تیار ہے۔ مدد کے لیے شکریہ।',
     loadingSaving: 'بھیج رہا ہے...',
     submitBtn: 'ابھی بھیجیں',
-    openModalBtn: 'نئی رپورٹ بنائیں',
+    openModalBtn: 'ਨئی رپورٹ بنائیں',
     chooseMode: 'رپورٹ کرنے کا طریقہ منتخب کریں',
     photoOption: 'تصویر کے ذریعے شامل کریں',
     textOption: 'صرف متن',
@@ -346,13 +398,17 @@ const ReportWizard = () => {
   const navigate = useNavigate();
   
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const [reportMode, setReportMode] = useState(null); // 'photo' or 'text'
+  const [reportMode, setReportMode] = useState(null); 
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   
   const [category, setCategory] = useState('');
   const [mediaFile, setMediaFile] = useState(null);
   const [location, setLocation] = useState(null);
+
+  // Manual coordinate fallback states
+  const [manualLat, setManualLat] = useState('19.8762');
+  const [manualLng, setManualLng] = useState('75.3433');
 
   const t = (key) => translations[language]?.[key] || translations['en'][key];
 
@@ -383,12 +439,24 @@ const ReportWizard = () => {
           console.error(error);
           setIsProcessing(false);
           alert(t('locationError'));
-        }
+        },
+        { timeout: 10000 }
       );
     } else {
       setIsProcessing(false);
       alert(t('noLocation'));
     }
+  };
+
+  const handleManualLocationSubmit = () => {
+    const parsedLat = parseFloat(manualLat);
+    const parsedLng = parseFloat(manualLng);
+    if (isNaN(parsedLat) || isNaN(parsedLng)) {
+      alert(t('locationError'));
+      return;
+    }
+    setLocation({ lat: parsedLat, lng: parsedLng });
+    setStep(4);
   };
 
   const submitReport = async () => {
@@ -407,8 +475,8 @@ const ReportWizard = () => {
         category: category,
         mediaUrl: fileUrl,
         reportMode: reportMode || 'text',
-        latitude: location?.lat || 0,
-        longitude: location?.lng || 0,
+        latitude: location?.lat || 19.8762,
+        longitude: location?.lng || 75.3433,
         status: 'pending',
         createdAt: new Date().toISOString()
       });
@@ -451,7 +519,7 @@ const ReportWizard = () => {
 
       {/* Active Wizard Form Flow once mode is selected */}
       {reportMode && (
-        <div className="max-w-md w-full relative h-[600px] flex flex-col bg-white rounded-3xl shadow-floating-card overflow-hidden">
+        <div className="max-w-md w-full relative h-[650px] flex flex-col bg-white rounded-3xl shadow-floating-card overflow-hidden">
           
           {/* Progress Bar */}
           <div className="w-full bg-gray-100 h-2">
@@ -461,7 +529,7 @@ const ReportWizard = () => {
             ></div>
           </div>
 
-          <div className="flex-grow relative p-8">
+          <div className="flex-grow relative p-8 overflow-y-auto">
             <AnimatePresence mode="wait">
               
               {step === 1 && (
@@ -535,16 +603,44 @@ const ReportWizard = () => {
                   animate="center"
                   exit="exit"
                   transition={{ duration: 0.4 }}
-                  className="absolute inset-0 p-8 flex flex-col items-center text-center justify-center space-y-6"
+                  className="absolute inset-0 p-6 flex flex-col items-center text-center justify-between space-y-4 overflow-y-auto"
                 >
-                  <h2 className="text-2xl font-bold text-citizenNavy mb-2">
-                    {t('step3Title')}
-                  </h2>
-                  <p className="text-gray-500 mb-8">{t('step3Desc')}</p>
+                  <div>
+                    <h2 className="text-2xl font-bold text-citizenNavy mb-1">
+                      {t('step3Title')}
+                    </h2>
+                    <p className="text-gray-500 text-sm mb-4">{t('step3Desc')}</p>
+                  </div>
                   
-                  <PillButton onClick={getLocation} className="w-full">
+                  <PillButton onClick={getLocation} className="w-full py-3">
                     {isProcessing ? t('loadingLocation') : t('getLocation')}
                   </PillButton>
+
+                  <div className="w-full border-t border-gray-200 pt-4">
+                    <p className="text-xs font-bold text-gray-500 mb-2">{t('manualTitle')}</p>
+                    <div className="flex gap-2 mb-3">
+                      <input 
+                        type="text" 
+                        value={manualLat} 
+                        onChange={(e) => setManualLat(e.target.value)} 
+                        placeholder={t('latLabel')} 
+                        className="w-1/2 p-2.5 text-sm border border-gray-300 rounded-xl focus:outline-none focus:border-[#00A9F7]"
+                      />
+                      <input 
+                        type="text" 
+                        value={manualLng} 
+                        onChange={(e) => setManualLng(e.target.value)} 
+                        placeholder={t('lngLabel')} 
+                        className="w-1/2 p-2.5 text-sm border border-gray-300 rounded-xl focus:outline-none focus:border-[#00A9F7]"
+                      />
+                    </div>
+                    <button 
+                      onClick={handleManualLocationSubmit}
+                      className="w-full bg-gray-100 text-citizenNavy rounded-xl py-3 text-sm font-bold hover:bg-gray-200 transition-colors"
+                    >
+                      {t('useDefaultLocation')}
+                    </button>
+                  </div>
                 </motion.div>
               )}
 

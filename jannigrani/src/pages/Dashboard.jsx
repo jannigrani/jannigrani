@@ -36,7 +36,6 @@ const Dashboard = () => {
     const auth = getAuth();
     let unsubscribeSnapshot = null;
 
-    // Strictly wait for the user to be authenticated before fetching to prevent permission errors
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       if (user) {
         unsubscribeSnapshot = onSnapshot(collection(db, 'reports'), (snapshot) => {
@@ -52,10 +51,22 @@ const Dashboard = () => {
               verifiedCount++;
             }
             
+            // Safely parse timestamp regardless of format (Firestore Timestamp, ISO String, or Number)
+            let computedTimestamp = Date.now();
+            if (data.createdAt) {
+              if (typeof data.createdAt.toMillis === 'function') {
+                computedTimestamp = data.createdAt.toMillis();
+              } else if (typeof data.createdAt.toDate === 'function') {
+                computedTimestamp = data.createdAt.toDate().getTime();
+              } else if (typeof data.createdAt === 'string' || typeof data.createdAt === 'number') {
+                computedTimestamp = new Date(data.createdAt).getTime() || Date.now();
+              }
+            }
+
             fetchedReports.push({
               id: doc.id,
               ...data,
-              timestamp: data.createdAt?.toMillis() || Date.now()
+              timestamp: computedTimestamp
             });
           });
 
