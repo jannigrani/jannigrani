@@ -5,7 +5,6 @@ import { useTranslation } from './contexts/LanguageContext';
 import { useAuth } from './contexts/AuthContext';
 
 // Import All Real Pages
-import Home from './pages/Home';
 import Welcome from './pages/Welcome';
 import ReportWizard from './pages/Report/ReportWizard';
 import Feed from './pages/Feed';
@@ -77,8 +76,8 @@ const App = () => {
     changeLanguage(event.target.value);
   };
 
-  // Do not show the bottom menu on the Home or Welcome starting screens
-  const showBottomNav = !['/', '/welcome'].includes(location.pathname);
+  // Do not show the bottom menu on the root Welcome starting screen
+  const showBottomNav = !['/'].includes(location.pathname);
 
   return (
     <div className="relative min-h-screen bg-[#F5F8FA] text-gray-900 font-sans">
@@ -110,15 +109,17 @@ const App = () => {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           
-          {/* Public Starting Page */}
-          <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+          {/* Public Starting Page (Now Welcome) */}
+          <Route path="/" element={<PageWrapper><Welcome /></PageWrapper>} />
           
           {/* Secured Core Application Pages */}
-          <Route path="/welcome" element={<ProtectedRoute><PageWrapper><Welcome /></PageWrapper></ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute><PageWrapper><Dashboard /></PageWrapper></ProtectedRoute>} />
           <Route path="/add-report" element={<ProtectedRoute><PageWrapper><ReportWizard /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed" element={<ProtectedRoute><PageWrapper><Feed /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed/:id" element={<ProtectedRoute><PageWrapper><IncidentDetails /></PageWrapper></ProtectedRoute>} />
+          
+          {/* Profile Route to fix missing location error */}
+          <Route path="/profile" element={<ProtectedRoute><PageWrapper><Dashboard /></PageWrapper></ProtectedRoute>} />
           
         </Routes>
       </AnimatePresence>

@@ -1,252 +1,120 @@
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { db } from '../config/firebase';
 import { motion } from 'framer-motion';
-import GlowingCard from '../components/ui/GlowingCard';
 import { useTranslation } from '../contexts/LanguageContext';
 
 const translations = {
-  en: {
-    dashboardTitle: 'Your Work',
-    dashboardSubtitle: 'Live data of city reports',
-    verificationProgress: 'Checking Progress',
-    totalReports: 'Total',
-    submitted: 'Given',
-    verified: 'Checked',
-    categoryBreakdown: 'Reports by Type',
-    pollution: 'Dirt',
-    safety: 'Danger',
-    civic: 'Property'
-  },
-  hi: {
-    dashboardTitle: 'आपका काम',
-    dashboardSubtitle: 'शहर की रिपोर्ट का सीधा डेटा',
-    verificationProgress: 'जांच का काम',
-    totalReports: 'कुल',
-    submitted: 'जमा किया',
-    verified: 'सही मिला',
-    categoryBreakdown: 'समस्या के प्रकार',
-    pollution: 'गंदगी',
-    safety: 'खतरा',
-    civic: 'सरकारी संपत्ति'
-  },
-  bn: {
-    dashboardTitle: 'আপনার কাজ',
-    dashboardSubtitle: 'শহরের রিপোর্টের লাইভ ডেটা',
-    verificationProgress: 'যাচাইয়ের কাজ',
-    totalReports: 'মোট',
-    submitted: 'জমা দেওয়া',
-    verified: 'সঠিক পাওয়া',
-    categoryBreakdown: 'সমস্যার ধরন',
-    pollution: 'ময়লা',
-    safety: 'বিপদ',
-    civic: 'সরকারি সম্পত্তি'
-  },
-  te: {
-    dashboardTitle: 'మీ పని',
-    dashboardSubtitle: 'నగర రిపోర్టుల ప్రత్యక్ష డేటా',
-    verificationProgress: 'తనిఖీ పని',
-    totalReports: 'మొత్తం',
-    submitted: 'ఇచ్చినవి',
-    verified: 'సరైనవి',
-    categoryBreakdown: 'సమస్య రకాలు',
-    pollution: 'మురికి',
-    safety: 'ప్రమాదం',
-    civic: 'ప్రభుత్వ ఆస్తి'
-  },
-  mr: {
-    dashboardTitle: 'तुमचे काम',
-    dashboardSubtitle: 'शहराच्या अहवालाचा थेट डेटा',
-    verificationProgress: 'तपासणीचे काम',
-    totalReports: 'एकूण',
-    submitted: 'जमा केले',
-    verified: 'बरोबर आढळले',
-    categoryBreakdown: 'समस्येचे प्रकार',
-    pollution: 'घाण',
-    safety: 'धोका',
-    civic: 'सरकारी मालमत्ता'
-  },
-  ta: {
-    dashboardTitle: 'உங்கள் வேலை',
-    dashboardSubtitle: 'நகர புகார்களின் நேரடி தரவு',
-    verificationProgress: 'சரிபார்க்கும் வேலை',
-    totalReports: 'மொத்தம்',
-    submitted: 'கொடுக்கப்பட்டது',
-    verified: 'உறுதியானது',
-    categoryBreakdown: 'பிரச்சனை வகைகள்',
-    pollution: 'குப்பை',
-    safety: 'ஆபத்து',
-    civic: 'பொது சொத்து'
-  },
-  gu: {
-    dashboardTitle: 'તમારું કામ',
-    dashboardSubtitle: 'શહેરના રિપોર્ટનો લાઈવ ડેટા',
-    verificationProgress: 'તપાસનું કામ',
-    totalReports: 'કુલ',
-    submitted: 'જમા કર્યું',
-    verified: 'સાચું મળ્યું',
-    categoryBreakdown: 'સમસ્યાના પ્રકાર',
-    pollution: 'ગંદકી',
-    safety: 'ખતરો',
-    civic: 'સરકારી મિલકત'
-  },
-  kn: {
-    dashboardTitle: 'ನಿಮ್ಮ ಕೆಲಸ',
-    dashboardSubtitle: 'ನಗರದ ವರದಿಗಳ ನೇರ ಡೇಟಾ',
-    verificationProgress: 'ಪರಿಶೀಲನೆ ಕೆಲಸ',
-    totalReports: 'ಒಟ್ಟು',
-    submitted: 'ನೀಡಲಾಗಿದೆ',
-    verified: 'ಸರಿಯಾಗಿದೆ',
-    categoryBreakdown: 'ಸಮಸ್ಯೆಯ ಪ್ರಕಾರಗಳು',
-    pollution: 'ಕೊಳಕು',
-    safety: 'ಅಪಾಯ',
-    civic: 'ಸಾರ್ವಜನಿಕ ಆಸ್ತಿ'
-  },
-  or: {
-    dashboardTitle: 'ଆପଣଙ୍କ କାମ',
-    dashboardSubtitle: 'ସହର ରିପୋର୍ଟର ଲାଇଭ୍ ଡାଟା',
-    verificationProgress: 'ଯାଞ୍ଚ କାମ',
-    totalReports: 'ମୋଟ',
-    submitted: 'ଦିଆଯାଇଛି',
-    verified: 'ସଠିକ୍ ମିଳିଲା',
-    categoryBreakdown: 'ସମସ୍ୟାର ପ୍ରକାର',
-    pollution: 'ମଇଳା',
-    safety: 'ବିପଦ',
-    civic: 'ସରକାରୀ ସମ୍ପତ୍ତି'
-  },
-  ml: {
-    dashboardTitle: 'നിങ്ങളുടെ ജോലി',
-    dashboardSubtitle: 'നഗര റിപ്പോർട്ടുകളുടെ തത്സമയ ഡാറ്റ',
-    verificationProgress: 'പരിശോധന ജോലി',
-    totalReports: 'ആകെ',
-    submitted: 'നൽകി',
-    verified: 'ശരിയാണെന്ന് കണ്ടു',
-    categoryBreakdown: 'പ്രശ്നങ്ങളുടെ തരങ്ങൾ',
-    pollution: 'അഴുക്ക്',
-    safety: 'അപകടം',
-    civic: 'പൊതു സ്വത്ത്'
-  },
-  pa: {
-    dashboardTitle: 'ਤੁਹਾਡਾ ਕੰਮ',
-    dashboardSubtitle: 'ਸ਼ਹਿਰ ਦੀਆਂ ਰਿਪੋਰਟਾਂ ਦਾ ਲਾਈਵ ਡਾਟਾ',
-    verificationProgress: 'ਜਾਂਚ ਦਾ ਕੰਮ',
-    totalReports: 'ਕੁੱਲ',
-    submitted: 'ਜਮ੍ਹਾਂ ਕੀਤਾ',
-    verified: 'ਸਹੀ ਮਿਲਿਆ',
-    categoryBreakdown: 'ਸਮੱਸਿਆ ਦੀਆਂ ਕਿਸਮਾਂ',
-    pollution: 'ਗੰਦਗੀ',
-    safety: 'ਖਤਰਾ',
-    civic: 'ਸਰਕਾਰੀ ਜਾਇਦਾਦ'
-  },
-  as: {
-    dashboardTitle: 'আপোনাৰ কাম',
-    dashboardSubtitle: 'চহৰৰ ৰিপৰ্টৰ লাইভ ডাটা',
-    verificationProgress: 'পৰীক্ষাৰ কাম',
-    totalReports: 'মুঠ',
-    submitted: 'জমা দিয়া হৈছে',
-    verified: 'সঁচা পোৱা গৈছে',
-    categoryBreakdown: 'সমস্যাৰ প্ৰকাৰ',
-    pollution: 'লেতেৰা',
-    safety: 'বিপদ',
-    civic: 'চৰকাৰী সম্পত্তি'
-  },
-  ur: {
-    dashboardTitle: 'آپ کا کام',
-    dashboardSubtitle: 'شہر کی رپورٹ کا لائیو ڈیٹا',
-    verificationProgress: 'چیکنگ کا کام',
-    totalReports: 'کل',
-    submitted: 'جمع کرایا',
-    verified: 'درست ملا',
-    categoryBreakdown: 'مسئلے کی اقسام',
-    pollution: 'گندگی',
-    safety: 'خطرہ',
-    civic: 'سرکاری جائیداد'
-  }
+  en: { title: 'Your Work', sub: 'Live city reports', progress: 'Fixed Problems', total: 'Total Reports', recent: 'Recent Reports', empty: 'No reports found' },
+  hi: { title: 'आपका काम', sub: 'शहर की रिपोर्ट', progress: 'ठीक की गई समस्या', total: 'कुल रिपोर्ट', recent: 'हाल की रिपोर्ट', empty: 'कोई रिपोर्ट नहीं मिली' },
+  bn: { title: 'আপনার কাজ', sub: 'শহরের রিপোর্ট', progress: 'সমাধান করা সমস্যা', total: 'মোট রিপোর্ট', recent: 'নতুন রিপোর্ট', empty: 'কোনো রিপোর্ট নেই' },
+  te: { title: 'మీ పని', sub: 'నగర రిపోర్టులు', progress: 'పరిష్కరించిన సమస్యలు', total: 'మొత్తం రిపోర్టులు', recent: 'తాజా రిపోర్టులు', empty: 'రిపోర్టులు లేవు' },
+  mr: { title: 'तुमचे काम', sub: 'शहराचा अहवाल', progress: 'सोडवलेल्या समस्या', total: 'एकूण अहवाल', recent: 'नवीन अहवाल', empty: 'अहवाल नाही' },
+  ta: { title: 'உங்கள் வேலை', sub: 'நகர அறிக்கைகள்', progress: 'சரிசெய்யப்பட்டவை', total: 'மொத்த அறிக்கைகள்', recent: 'புதிய அறிக்கைகள்', empty: 'அறிக்கைகள் இல்லை' },
+  gu: { title: 'તમારું કામ', sub: 'શહેરનો રિપોર્ટ', progress: 'ઉકેલાયેલ સમસ્યા', total: 'કુલ રિપોર્ટ', recent: 'નવા રિપોર્ટ', empty: 'કોઈ રિપોર્ટ નથી' },
+  kn: { title: 'ನಿಮ್ಮ ಕೆಲಸ', sub: 'ನಗರದ ವರದಿಗಳು', progress: 'ಪರಿಹರಿಸಲಾದ ಸಮಸ್ಯೆಗಳು', total: 'ಒಟ್ಟು ವರದಿಗಳು', recent: 'ಇತ್ತೀಚಿನ ವರದಿಗಳು', empty: 'ವರದಿಗಳಿಲ್ಲ' },
+  or: { title: 'ଆପଣଙ୍କ କାମ', sub: 'ସହର ରିପୋର୍ଟ', progress: 'ସମାଧାନ ହୋଇଥିବା ସମସ୍ୟା', total: 'ମୋଟ ରିପୋର୍ଟ', recent: 'ନୂଆ ରିପୋର୍ଟ', empty: 'କୌଣସି ରିପୋର୍ଟ ନାହିଁ' },
+  ml: { title: 'നിങ്ങളുടെ ജോലി', sub: 'നഗര റിപ്പോർട്ടുകൾ', progress: 'പരിഹരിച്ച പ്രശ്നങ്ങൾ', total: 'ആകെ റിപ്പോർട്ടുകൾ', recent: 'പുതിയ റിപ്പോർട്ടുകൾ', empty: 'റിപ്പോർട്ടുകളില്ല' },
+  pa: { title: 'ਤੁਹਾਡਾ ਕੰਮ', sub: 'ਸ਼ਹਿਰ ਦੀ ਰਿਪੋਰਟ', progress: 'ਹੱਲ ਕੀਤੀਆਂ ਸਮੱਸਿਆਵਾਂ', total: 'ਕੁੱਲ ਰਿਪੋਰਟਾਂ', recent: 'ਨਵੀਆਂ ਰਿਪੋਰਟਾਂ', empty: 'ਕੋਈ ਰਿਪੋਰਟ ਨਹੀਂ' },
+  as: { title: 'আপোনাৰ কাম', sub: 'চহৰৰ ৰিপৰ্ট', progress: 'সমাধান কৰা সমস্যা', total: 'মুঠ ৰিপৰ্ট', recent: 'নতুন ৰিপৰ্ট', empty: 'কোনো ৰিপৰ্ট নাই' },
+  ur: { title: 'آپ کا کام', sub: 'شہر کی رپورٹ', progress: 'حل شدہ مسائل', total: 'کل رپورٹیں', recent: 'حالیہ رپورٹیں', empty: 'کوئی رپورٹ نہیں ملی' }
 };
 
 const Dashboard = () => {
   const { language } = useTranslation();
-  const [stats, setStats] = useState({
-    total: 0,
-    verified: 0,
-    categories: { pollution: 0, safety: 0, civic: 0 }
-  });
+  const [stats, setStats] = useState({ total: 0, verified: 0 });
+  const [reportsList, setReportsList] = useState([]);
+  const [activeFilter, setActiveFilter] = useState('All');
 
-  const t = (key) => translations[language]?.[key] || translations['en'][key] || key;
+  const tLocal = (key) => {
+    const langData = translations[language] || translations['en'];
+    return langData[key] || translations['en'][key];
+  };
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'reports'), (snapshot) => {
-      let totalCount = 0;
-      let verifiedCount = 0;
-      let catCounts = { pollution: 0, safety: 0, civic: 0 };
+    const auth = getAuth();
+    let unsubscribeSnapshot = null;
 
-      snapshot.forEach((doc) => {
-        totalCount++;
-        const data = doc.data();
-        
-        if (data.status === 'Verified') {
-          verifiedCount++;
-        }
-        
-        if (data.category && catCounts[data.category] !== undefined) {
-          catCounts[data.category]++;
-        }
-      });
+    // Strictly wait for the user to be authenticated before fetching to prevent permission errors
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        unsubscribeSnapshot = onSnapshot(collection(db, 'reports'), (snapshot) => {
+          let totalCount = 0;
+          let verifiedCount = 0;
+          let fetchedReports = [];
 
-      setStats({
-        total: totalCount,
-        verified: verifiedCount,
-        categories: catCounts
-      });
-    }, (error) => {
-      console.error(error);
+          snapshot.forEach((doc) => {
+            totalCount++;
+            const data = doc.data();
+            
+            if (data.status === 'Verified') {
+              verifiedCount++;
+            }
+            
+            fetchedReports.push({
+              id: doc.id,
+              ...data,
+              timestamp: data.createdAt?.toMillis() || Date.now()
+            });
+          });
+
+          fetchedReports.sort((a, b) => b.timestamp - a.timestamp);
+
+          setStats({ total: totalCount, verified: verifiedCount });
+          setReportsList(fetchedReports);
+        }, (error) => {
+          console.error("Database connection error:", error);
+        });
+      } else {
+        setReportsList([]);
+        setStats({ total: 0, verified: 0 });
+      }
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribeAuth();
+      if (unsubscribeSnapshot) unsubscribeSnapshot();
+    };
   }, []);
 
-  const radius = 40;
+  const radius = 60;
   const circumference = 2 * Math.PI * radius;
   const verifiedPercentage = stats.total > 0 ? (stats.verified / stats.total) * 100 : 0;
   const strokeDashoffset = circumference - (verifiedPercentage / 100) * circumference;
 
-  const maxCategoryValue = Math.max(stats.categories.pollution, stats.categories.safety, stats.categories.civic, 1);
+  const filters = ['All', 'M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
   return (
-    <div className="min-h-screen bg-[#F5F8FA] p-6 pb-32">
-      <div className="max-w-2xl mx-auto space-y-8 animate-fade-up">
+    <div className="min-h-screen bg-gray-50 font-sans relative">
+      
+      {/* Clean White Top Section for High Contrast */}
+      <div className="bg-white pt-12 pb-32 px-6 rounded-b-[40px] shadow-sm relative z-10">
         
-        <div className="text-center mb-8">
-          <h1 className="font-serif text-4xl font-bold text-citizenNavy mb-2">
-            {t('dashboardTitle')}
-          </h1>
-          <p className="text-gray-600 font-medium">
-            {t('dashboardSubtitle')}
-          </p>
-        </div>
+        <div className="max-w-md mx-auto relative z-10">
+          <div className="mb-8 text-center">
+            <h1 className="text-3xl font-bold tracking-tight mb-1 text-citizenNavy">{tLocal('title')}</h1>
+            <p className="text-gray-500 text-sm font-medium">{tLocal('sub')}</p>
+          </div>
 
-        <GlowingCard glowColor="blue">
-          <div className="flex flex-col items-center justify-center p-4">
-            <h3 className="text-lg font-bold text-citizenNavy mb-6">
-              {t('verificationProgress')}
-            </h3>
-            
-            <div className="relative flex items-center justify-center">
+          {/* Large Glowing Circular Progress Widget */}
+          <div className="flex flex-col items-center justify-center mb-8">
+            <div className="relative flex items-center justify-center w-48 h-48 bg-white rounded-full shadow-[0_10px_30px_rgba(0,169,247,0.1)] border border-gray-100">
               <svg className="w-40 h-40 transform -rotate-90">
                 <circle
                   cx="80"
                   cy="80"
                   r={radius}
                   stroke="#E8F1F8"
-                  strokeWidth="12"
+                  strokeWidth="8"
                   fill="transparent"
                 />
                 <motion.circle
                   cx="80"
                   cy="80"
                   r={radius}
-                  stroke="#10B981" 
-                  strokeWidth="12"
+                  stroke="#00A9F7" 
+                  strokeWidth="8"
                   fill="transparent"
                   strokeLinecap="round"
                   strokeDasharray={circumference}
@@ -257,80 +125,73 @@ const Dashboard = () => {
               </svg>
               
               <div className="absolute flex flex-col items-center justify-center text-center">
-                <span className="text-3xl font-black text-citizenNavy">
-                  {stats.total}
+                <span className="text-4xl font-black text-citizenNavy mb-1">
+                  {stats.verified}
                 </span>
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('totalReports')}
+                <span className="text-[10px] font-medium text-gray-400 uppercase tracking-widest max-w-[80px] leading-tight">
+                  {tLocal('progress')}
                 </span>
-              </div>
-            </div>
-
-            <div className="flex justify-between w-full max-w-xs mt-8 px-4">
-              <div className="flex flex-col items-center">
-                <span className="text-2xl font-bold text-gray-800">{stats.total}</span>
-                <span className="text-xs text-gray-500">{t('submitted')}</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="text-2xl font-bold text-green-500">{stats.verified}</span>
-                <span className="text-xs text-gray-500">{t('verified')}</span>
               </div>
             </div>
           </div>
-        </GlowingCard>
 
-        <GlowingCard glowColor="purple">
-          <div className="p-4">
-            <h3 className="text-lg font-bold text-citizenNavy mb-6 text-center">
-              {t('categoryBreakdown')}
-            </h3>
-            
-            <div className="flex items-end justify-around h-48 mt-4 border-b-2 border-gray-100 pb-2">
-              
-              <div className="flex flex-col items-center w-1/4">
-                <span className="text-sm font-bold text-gray-600 mb-2">{stats.categories.pollution}</span>
-                <motion.div 
-                  className="w-full bg-nigraniBlue rounded-t-md"
-                  initial={{ height: 0 }}
-                  animate={{ height: `${(stats.categories.pollution / maxCategoryValue) * 100}%` }}
-                  transition={{ duration: 1, delay: 0.2 }}
-                ></motion.div>
-                <span className="text-xs font-medium text-gray-500 mt-2 truncate w-full text-center">
-                  {t('pollution')}
-                </span>
-              </div>
-
-              <div className="flex flex-col items-center w-1/4">
-                <span className="text-sm font-bold text-gray-600 mb-2">{stats.categories.safety}</span>
-                <motion.div 
-                  className="w-full bg-citizenNavy rounded-t-md"
-                  initial={{ height: 0 }}
-                  animate={{ height: `${(stats.categories.safety / maxCategoryValue) * 100}%` }}
-                  transition={{ duration: 1, delay: 0.4 }}
-                ></motion.div>
-                <span className="text-xs font-medium text-gray-500 mt-2 truncate w-full text-center">
-                  {t('safety')}
-                </span>
-              </div>
-
-              <div className="flex flex-col items-center w-1/4">
-                <span className="text-sm font-bold text-gray-600 mb-2">{stats.categories.civic}</span>
-                <motion.div 
-                  className="w-full bg-gray-400 rounded-t-md"
-                  initial={{ height: 0 }}
-                  animate={{ height: `${(stats.categories.civic / maxCategoryValue) * 100}%` }}
-                  transition={{ duration: 1, delay: 0.6 }}
-                ></motion.div>
-                <span className="text-xs font-medium text-gray-500 mt-2 truncate w-full text-center">
-                  {t('civic')}
-                </span>
-              </div>
-
-            </div>
+          {/* Horizontal Selector */}
+          <div className="flex justify-between items-center bg-gray-50 p-1.5 rounded-full mb-4 overflow-x-auto no-scrollbar border border-gray-100">
+            {filters.map((f, i) => (
+              <button 
+                key={i} 
+                onClick={() => setActiveFilter(f)}
+                className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
+                  activeFilter === f ? 'bg-[#00A9F7] text-white shadow-md scale-105' : 'text-gray-400 hover:bg-gray-200 hover:text-gray-600'
+                }`}
+              >
+                {f}
+              </button>
+            ))}
           </div>
-        </GlowingCard>
-
+          
+        </div>
       </div>
+
+      {/* Bottom Sheet-Style List with pb-48 to prevent navigation collision */}
+      <div className="bg-gray-50 w-full min-h-[50vh] rounded-t-[40px] -mt-20 relative z-20 px-6 pt-8 pb-48 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]">
+        <div className="max-w-md mx-auto">
+          
+          <div className="flex justify-between items-end mb-6">
+            <h2 className="text-xl font-bold text-citizenNavy">{tLocal('recent')}</h2>
+            <span className="text-sm font-bold text-gray-500">{stats.total} {tLocal('total')}</span>
+          </div>
+
+          <div className="space-y-4">
+            {reportsList.length === 0 ? (
+              <div className="bg-white rounded-3xl p-8 text-center shadow-sm border border-gray-100">
+                <p className="text-gray-500 font-medium">{tLocal('empty')}</p>
+              </div>
+            ) : (
+              reportsList.map((report) => (
+                <div key={report.id} className="bg-white rounded-3xl p-5 flex items-center justify-between shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full bg-[#E8F1F8] flex items-center justify-center text-[#00A9F7] font-bold">
+                      {report.category ? report.category.substring(0, 1).toUpperCase() : 'R'}
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-citizenNavy capitalize">{report.category || 'Report'}</h3>
+                      <p className="text-xs text-gray-500 font-medium mt-0.5 capitalize">{report.status || 'Pending'}</p>
+                    </div>
+                  </div>
+                  <div className="w-8 h-8 rounded-full border-2 border-gray-100 flex items-center justify-center text-gray-400">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+          
+        </div>
+      </div>
+
     </div>
   );
 };

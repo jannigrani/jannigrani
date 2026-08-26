@@ -23,17 +23,44 @@ export default {
         citizenNavy: '#0B243B',
         nigraniBlue: '#174A7E',
         actionBlue: '#00A9F7',
+        // New dark palette for the bottom navigation and solid buttons
+        ui: {
+          dark: '#1C1C1E',
+          black: '#000000',
+          panel: '#2C2C2E'
+        }
+      },
+
+      // New background gradients for the onboarding and dashboard screens
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(135deg, #4A90E2 0%, #8E2DE2 100%)',
+        'gradient-blue': 'linear-gradient(180deg, #3B82F6 0%, #1D4ED8 100%)',
+        'gradient-radial-glow': 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,0,0,0) 70%)',
       },
 
       // Typography Scale optimized for Inter and serif fonts
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        serif: ['Merriweather', 'Georgia', 'serif'],
+        // Added Playfair Display to match the elegant serif headers in the references
+        serif: ['Playfair Display', 'Merriweather', 'Georgia', 'serif'],
       },
       fontSize: {
         'display': ['clamp(3.5rem, 8vw, 5.25rem)', { lineHeight: '1.05', letterSpacing: '-0.05em', fontWeight: '900' }],
         'heading': ['clamp(2.5rem, 5vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '900' }],
         'subheading': ['clamp(1.5rem, 3vw, 2rem)', { lineHeight: '1.2', letterSpacing: '-0.01em', fontWeight: '800' }],
+      },
+      // Exact typography weights to ensure text is perfectly matched
+      fontWeight: {
+        'light': '300',
+        'medium': '500',
+        'bold': '700',
+        'heavy': '900',
+      },
+
+      // Specific custom border properties for the wide dashed pill borders
+      borderWidth: {
+        '3': '3px',
+        '4': '4px',
       },
 
       // Custom keyframes for hardware-accelerated transitions
@@ -77,6 +104,7 @@ export default {
 
       boxShadow: {
         'floating-card': '0 20px 40px -10px rgba(0, 0, 0, 0.15)',
+        'heavy-bottom': '0 30px 60px -15px rgba(0, 0, 0, 0.4)',
       },
 
       // Extended spacing supporting massive layout padding
