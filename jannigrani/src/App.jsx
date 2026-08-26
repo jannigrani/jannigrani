@@ -70,11 +70,6 @@ const PageWrapper = ({ children }) => {
 
 const App = () => {
   const location = useLocation();
-  const { language, changeLanguage } = useTranslation();
-
-  const handleLanguageChange = (event) => {
-    changeLanguage(event.target.value);
-  };
 
   // Do not show the bottom menu on the root Welcome starting screen
   const showBottomNav = !['/'].includes(location.pathname);
@@ -82,29 +77,6 @@ const App = () => {
   return (
     <div className="relative min-h-screen bg-[#F5F8FA] text-gray-900 font-sans">
       
-      {/* 13+ Language Universal Selector */}
-      <div className="absolute top-4 right-4 z-50">
-        <select
-          onChange={handleLanguageChange}
-          value={language || 'en'}
-          className="bg-white border border-gray-200 text-sm font-medium text-citizenNavy rounded-full px-4 py-2 shadow-sm focus:outline-none focus:border-nigraniBlue transition-colors"
-        >
-          <option value="en">English</option>
-          <option value="hi">हिंदी (Hindi)</option>
-          <option value="mr">मराठी (Marathi)</option>
-          <option value="bn">বাংলা (Bengali)</option>
-          <option value="te">తెలుగు (Telugu)</option>
-          <option value="ta">தமிழ் (Tamil)</option>
-          <option value="gu">ગુજરાતી (Gujarati)</option>
-          <option value="ur">اردو (Urdu)</option>
-          <option value="kn">ಕನ್ನಡ (Kannada)</option>
-          <option value="or">ଓଡ଼ିଆ (Odia)</option>
-          <option value="ml">മലയാളം (Malayalam)</option>
-          <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
-          <option value="as">অসমীয়া (Assamese)</option>
-        </select>
-      </div>
-
       {/* Page Routing Engine with Animations */}
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>

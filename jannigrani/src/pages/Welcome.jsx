@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../contexts/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import Header from '../components/common/Header';
 
 // Real dictionary for 13+ Indian languages embedded strictly for the Welcome flow
 const welcomeTranslations = {
   en: { t1: "Let's make", t2: "your city", t3: "better", sub: "No waiting. Direct action.", opt1: "Clean Dirt", opt2: "Fix Roads", opt3: "Stop Crime", opt4: "Save Water", opt5: "Public Help", next: "Get Started", login: "I Already Have an Account" },
   hi: { t1: "आइए बनाएं", t2: "अपने शहर को", t3: "बेहतर", sub: "कोई इंतज़ार नहीं। सीधा काम।", opt1: "कचरा साफ", opt2: "सड़क सुधार", opt3: "अपराध रोकें", opt4: "पानी बचाएं", opt5: "जनता की मदद", next: "शुरू करें", login: "मेरे पास पहले से खाता है" },
   mr: { t1: "चला बनवूया", t2: "आपले शहर", t3: "अधिक चांगले", sub: "वाट पाहू नका. थेट काम.", opt1: "कचरा साफ करा", opt2: "रस्ते दुरुस्त करा", opt3: "गुन्हेगारी थांबवा", opt4: "पाणी वाचवा", opt5: "सार्वजनिक मदत", next: "सुरू करा", login: "माझे आधीच खाते आहे" },
-  bn: { t1: "আসুন তৈরি করি", t2: "আপনার শহরকে", t3: "আরও ভালো", sub: "অপেক্ষা নয়। সরাসরি কাজ।", opt1: "পরিষ্কার করুন", opt2: "রাস্তা ঠিক করুন", opt3: "অপরাধ কমান", opt4: "জল বাঁচান", opt5: "জনসাধারণের সাহায্য", next: "শুরু করুন", login: "আমার ইতিমধ্যে একটি অ্যাকাউন্ট আছে" },
+  bn: { t1: "আসুন তৈরি করি", t2: "আপনার শহরকে", t3: "আরও ভালো", sub: "অপেক্ষা নয়। সরাসরি কাজ।", opt1: "পরিষ্কার করুন", opt2: "রাস্তা ঠিক করুন", opt3: "অপরাধ কমান", opt4: "জল বাঁচান", opt5: "জনসাধারণের সাহায্য", next: "শুরু করুন", login: "আমার ইতিমধ্যে একটি অ্যাকাউন্ট আছে" },
   te: { t1: "మరింత మెరుగ్గా", t2: "మీ నగరాన్ని", t3: "తీర్చిదిద్దుదాం", sub: "వేచి ఉండొద్దు. నేరుగా పని.", opt1: "చెత్త శుభ్రం", opt2: "రోడ్ల మరమ్మత్తు", opt3: "నేరాలను ఆపండి", opt4: "నీటిని ఆదా చేయండి", opt5: "ప్రజల సహాయం", next: "ప్రారంభించండి", login: "నాకు ఇప్పటికే ఖాతా ఉంది" },
   ta: { t1: "உருவாக்குவோம்", t2: "உங்கள் நகரத்தை", t3: "சிறப்பாக", sub: "காத்திருக்க வேண்டாம். நேரடி செயல்.", opt1: "சுத்தம் செய்", opt2: "சாலைகளை சரிசெய்", opt3: "குற்றங்களை தடு", opt4: "நீரை சேமி", opt5: "பொது உதவி", next: "தொடங்கு", login: "என்னிடம் ஏற்கனவே கணக்கு உள்ளது" },
   gu: { t1: "ચાલો બનાવીએ", t2: "તમારા શહેરને", t3: "વધુ સારું", sub: "કોઈ રાહ નહીં. સીધું કામ.", opt1: "કચરો સાફ કરો", opt2: "રસ્તાઓ ઠીક કરો", opt3: "ગુનાઓ અટકાવો", opt4: "પાણી બચાવો", opt5: "જાહેર મદદ", next: "શરૂ કરો", login: "મારું પહેલેથી જ એકાઉન્ટ છે" },
@@ -56,79 +57,82 @@ const Welcome = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-between p-6 pb-12 text-center text-brand-stark overflow-hidden">
-      
-      {/* Main Content Area - Large Typography */}
-      <div className="w-full mt-20 flex flex-col items-center z-10">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="font-serif text-[3.25rem] md:text-7xl font-black tracking-tight leading-[1.05]"
-        >
-          {tLocal('t1')} <br />
-          <span className="italic font-light opacity-90">{tLocal('t2')}</span> <br />
-          {tLocal('t3')}
-        </motion.h1>
+    <>
+      <Header />
+      <div className="min-h-screen bg-white flex flex-col items-center justify-between p-6 pb-12 text-center text-brand-stark overflow-hidden">
         
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-gray-900 mt-6 text-sm md:text-base font-bold tracking-wide"
-        >
-          {tLocal('sub')}
-        </motion.p>
-      </div>
-
-      {/* Floating Horizontally Staggered Dashed Selection Pills */}
-      <div className="flex-grow flex items-center justify-center w-full my-10 relative">
-        <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4 max-w-lg">
-          <AnimatePresence>
-            {concernOptions.map((option, index) => {
-              const isActive = selectedConcern === option.id;
-              return (
-                <motion.button
-                  key={option.id}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2 + (index * 0.1) }}
-                  onClick={() => setSelectedConcern(option.id)}
-                  className={`flex items-center py-3 px-5 rounded-full border border-dashed transition-all duration-300 text-sm font-bold shadow-sm ${option.marginClass} ${
-                    isActive 
-                      ? 'bg-blue-50 border-[#00A9F7] text-[#00A9F7] shadow-md scale-105' 
-                      : 'bg-white border-gray-300 text-gray-600 hover:border-gray-500'
-                  }`}
-                >
-                  {option.icon}
-                  {option.label}
-                </motion.button>
-              );
-            })}
-          </AnimatePresence>
+        {/* Main Content Area - Large Typography */}
+        <div className="w-full mt-20 flex flex-col items-center z-10">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="font-serif text-[3.25rem] md:text-7xl font-black tracking-tight leading-[1.05]"
+          >
+            {tLocal('t1')} <br />
+            <span className="italic font-light opacity-90">{tLocal('t2')}</span> <br />
+            {tLocal('t3')}
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-gray-900 mt-6 text-sm md:text-base font-bold tracking-wide"
+          >
+            {tLocal('sub')}
+          </motion.p>
         </div>
-      </div>
 
-      {/* Bottom Action Area */}
-      <div className="w-full max-w-sm z-10 flex flex-col items-center">
-        <button 
-          onClick={() => navigate('/dashboard')}
-          disabled={!selectedConcern}
-          className={`w-[90%] bg-[#1C1C1E] text-white rounded-full py-5 font-bold text-[17px] transition-all duration-300 shadow-xl ${
-            selectedConcern ? 'opacity-100 hover:bg-black translate-y-0 scale-100' : 'opacity-40 pointer-events-none translate-y-2 scale-95'
-          }`}
-        >
-          {tLocal('next')}
-        </button>
+        {/* Floating Horizontally Staggered Dashed Selection Pills */}
+        <div className="flex-grow flex items-center justify-center w-full my-10 relative">
+          <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4 max-w-lg">
+            <AnimatePresence>
+              {concernOptions.map((option, index) => {
+                const isActive = selectedConcern === option.id;
+                return (
+                  <motion.button
+                    key={option.id}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 + (index * 0.1) }}
+                    onClick={() => setSelectedConcern(option.id)}
+                    className={`flex items-center py-3 px-5 rounded-full border border-dashed transition-all duration-300 text-sm font-bold shadow-sm ${option.marginClass} ${
+                      isActive 
+                        ? 'bg-blue-50 border-[#00A9F7] text-[#00A9F7] shadow-md scale-105' 
+                        : 'bg-white border-gray-300 text-gray-600 hover:border-gray-500'
+                    }`}
+                  >
+                    {option.icon}
+                    {option.label}
+                  </motion.button>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Bottom Action Area */}
+        <div className="w-full max-w-sm z-10 flex flex-col items-center">
+          <button 
+            onClick={() => navigate('/dashboard')}
+            disabled={!selectedConcern}
+            className={`w-[90%] bg-[#1C1C1E] text-white rounded-full py-5 font-bold text-[17px] transition-all duration-300 shadow-xl ${
+              selectedConcern ? 'opacity-100 hover:bg-black translate-y-0 scale-100' : 'opacity-40 pointer-events-none translate-y-2 scale-95'
+            }`}
+          >
+            {tLocal('next')}
+          </button>
+          
+          <button 
+             onClick={() => navigate('/dashboard')}
+             className="mt-6 text-sm font-bold text-gray-600 hover:text-black transition-colors"
+          >
+            {tLocal('login')}
+          </button>
+        </div>
         
-        <button 
-           onClick={() => navigate('/dashboard')}
-           className="mt-6 text-sm font-bold text-gray-600 hover:text-black transition-colors"
-        >
-          {tLocal('login')}
-        </button>
       </div>
-      
-    </div>
+    </>
   );
 };
 

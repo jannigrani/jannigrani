@@ -34,8 +34,9 @@ const FloatingBottomNav = () => {
       id: 'home',
       path: '/',
       label: tLocal('home'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      // Dynamically switches between stroke and fill based on active status
+      icon: (isActive) => (
+        <svg className="w-6 h-6 transition-all duration-300" fill={isActive ? "currentColor" : "none"} stroke={isActive ? "none" : "currentColor"} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
       )
@@ -44,8 +45,8 @@ const FloatingBottomNav = () => {
       id: 'dashboard',
       path: '/dashboard',
       label: tLocal('work'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      icon: (isActive) => (
+        <svg className="w-6 h-6 transition-all duration-300" fill={isActive ? "currentColor" : "none"} stroke={isActive ? "none" : "currentColor"} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
         </svg>
       )
@@ -54,9 +55,10 @@ const FloatingBottomNav = () => {
       id: 'addReport',
       path: '/add-report',
       label: tLocal('report'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+      icon: (isActive) => (
+        <svg className="w-6 h-6 transition-all duration-300" fill={isActive ? "currentColor" : "none"} stroke={isActive ? "none" : "currentColor"} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          {/* Swaps to a drawn polygon when active so the plus sign stays visible without a stroke */}
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isActive ? "M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6z" : "M12 4v16m8-8H4"} />
         </svg>
       )
     },
@@ -64,8 +66,8 @@ const FloatingBottomNav = () => {
       id: 'profile',
       path: '/profile',
       label: tLocal('profile'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      icon: (isActive) => (
+        <svg className="w-6 h-6 transition-all duration-300" fill={isActive ? "currentColor" : "none"} stroke={isActive ? "none" : "currentColor"} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg>
       )
@@ -74,7 +76,7 @@ const FloatingBottomNav = () => {
 
   return (
     <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[92%] max-w-md z-50">
-      <nav className="bg-ui-dark rounded-full shadow-heavy-bottom px-8 py-4 flex justify-between items-center border border-white/5">
+      <nav className="bg-black rounded-full shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] px-8 py-4 flex justify-between items-center border border-gray-800">
         {navItems.map((item) => (
           <NavLink
             key={item.id}
@@ -88,10 +90,10 @@ const FloatingBottomNav = () => {
             {({ isActive }) => (
               <>
                 <div className={`transition-transform duration-300 ${isActive ? '-translate-y-2' : ''}`}>
-                  {item.icon}
+                  {item.icon(isActive)}
                 </div>
                 
-                {/* Active State Dot Indicator matching the reference design */}
+                {/* Active State Dot Indicator */}
                 {isActive && (
                   <motion.div
                     layoutId="navIndicator"
@@ -102,7 +104,7 @@ const FloatingBottomNav = () => {
                   />
                 )}
 
-                {/* Small Translated Label for accessibility and clarity */}
+                {/* Small Translated Label */}
                 <span className={`absolute -bottom-2 text-[9px] font-medium whitespace-nowrap transition-all duration-300 ${
                   isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 hidden'
                 }`}>
