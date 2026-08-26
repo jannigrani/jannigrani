@@ -73,9 +73,10 @@ const PageWrapper = ({ children }) => {
 
 const App = () => {
   const location = useLocation();
+  const { currentUser } = useAuth();
 
   // Control visibility of Header and Bottom Navigation based on current route path
-  const showHeader = !['/'].includes(location.pathname);
+  const showHeader = !['/', '/welcome'].includes(location.pathname);
   const showBottomNav = !['/', '/welcome', '/tutorial'].includes(location.pathname);
 
   return (
@@ -88,17 +89,27 @@ const App = () => {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           
-          {/* Public Starting Page */}
-          <Route path="/" element={<PageWrapper><Welcome /></PageWrapper>} />
+          {/* Public Starting Page / Onboarding Welcome */}
+          <Route 
+            path="/" 
+            element={
+              currentUser ? <Navigate to="/dashboard" replace /> : <PageWrapper><Welcome /></PageWrapper>
+            } 
+          />
           
-          {/* Secured Core Application Pages */}
+          <Route 
+            path="/welcome" 
+            element={<PageWrapper><Welcome /></PageWrapper>} 
+          />
+          
+          {/* Secured Core Application Pages / Homepage */}
           <Route path="/tutorial" element={<ProtectedRoute><PageWrapper><Tutorial /></PageWrapper></ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute><PageWrapper><Dashboard /></PageWrapper></ProtectedRoute>} />
           <Route path="/add-report" element={<ProtectedRoute><PageWrapper><ReportWizard /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed" element={<ProtectedRoute><PageWrapper><Feed /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed/:id" element={<ProtectedRoute><PageWrapper><IncidentDetails /></PageWrapper></ProtectedRoute>} />
           
-          {/* Profile Route properly connected */}
+          {/* Profile Route properly connected and protected */}
           <Route path="/profile" element={<ProtectedRoute><PageWrapper><Profile /></PageWrapper></ProtectedRoute>} />
           
         </Routes>
