@@ -32,7 +32,12 @@ const translations = {
     step4Title: 'Ready to Send',
     step4Desc: 'Your report is ready. Thank you for helping.',
     loadingSaving: 'Sending...',
-    submitBtn: 'Send Now'
+    submitBtn: 'Send Now',
+    openModalBtn: 'Create New Report',
+    chooseMode: 'Choose How to Report',
+    photoOption: 'Add via Photo',
+    textOption: 'Text Only',
+    close: 'Close'
   },
   hi: {
     locationError: 'लोकेशन नहीं मिली। कृपया अनुमति दें।',
@@ -52,7 +57,12 @@ const translations = {
     step4Title: 'भेजने के लिए तैयार',
     step4Desc: 'आपकी रिपोर्ट तैयार है। मदद के लिए धन्यवाद।',
     loadingSaving: 'भेज रहे हैं...',
-    submitBtn: 'अभी भेजें'
+    submitBtn: 'अभी भेजें',
+    openModalBtn: 'नई रिपोर्ट बनाएं',
+    chooseMode: 'रिपोर्ट करने का तरीका चुनें',
+    photoOption: 'फोटो के साथ जोड़ें',
+    textOption: 'केवल टेक्स्ट',
+    close: 'बंद करें'
   },
   bn: {
     locationError: 'অবস্থান পাওয়া যায়নি। অনুমতি দিন।',
@@ -72,7 +82,12 @@ const translations = {
     step4Title: 'পাঠাতে প্রস্তুত',
     step4Desc: 'আপনার রিপোর্ট প্রস্তুত। সাহায্যের জন্য ধন্যবাদ।',
     loadingSaving: 'পাঠানো হচ্ছে...',
-    submitBtn: 'এখন পাঠান'
+    submitBtn: 'এখন পাঠান',
+    openModalBtn: 'নতুন রিপোর্ট তৈরি করুন',
+    chooseMode: 'কীভাবে রিপোর্ট করবেন তা বেছে নিন',
+    photoOption: 'ছবির মাধ্যমে যোগ করুন',
+    textOption: 'শুধু লেখা',
+    close: 'বন্ধ করুন'
   },
   te: {
     locationError: 'స్థానం కనుగొనబడలేదు. అనుమతి ఇవ్వండి.',
@@ -92,7 +107,12 @@ const translations = {
     step4Title: 'పంపడానికి సిద్ధంగా ఉంది',
     step4Desc: 'మీ నివేదిక సిద్ధంగా ఉంది. సహాయం చేసినందుకు ధన్యవాదాలు.',
     loadingSaving: 'పంపుతోంది...',
-    submitBtn: 'ఇప్పుడే పంపండి'
+    submitBtn: 'ఇప్పుడే పంపండి',
+    openModalBtn: 'కొత్త రిపోర్ట్ సృష్టించండి',
+    chooseMode: 'రిపోర్ట్ చేసే విధానాన్ని ఎంచుకోండి',
+    photoOption: 'ఫోటో ద్వారా జోడించండి',
+    textOption: 'టెక్స్ట్ మాత్రమే',
+    close: 'మూసివేయి'
   },
   mr: {
     locationError: 'स्थान सापडले नाही. परवानगी द्या.',
@@ -112,7 +132,12 @@ const translations = {
     step4Title: 'पाठवण्यासाठी तयार',
     step4Desc: 'तुमचा अहवाल तयार आहे. मदतीसाठी धन्यवाद.',
     loadingSaving: 'पाठवत आहे...',
-    submitBtn: 'आता पाठवा'
+    submitBtn: 'आता पाठवा',
+    openModalBtn: 'नवीन अहवाल तयार करा',
+    chooseMode: 'अहवाल कसा द्यायचा ते निवडा',
+    photoOption: 'फोटोद्वारे जोडा',
+    textOption: 'फक्त मजकूर',
+    close: 'बंद करा'
   },
   ta: {
     locationError: 'இடத்தை கண்டுபிடிக்க முடியவில்லை. அனுமதி கொடுங்கள்.',
@@ -132,13 +157,18 @@ const translations = {
     step4Title: 'அனுப்ப தயார்',
     step4Desc: 'உங்கள் புகார் தயார். உதவிக்கு நன்றி.',
     loadingSaving: 'அனுப்புகிறது...',
-    submitBtn: 'இப்போது அனுப்பு'
+    submitBtn: 'இப்போது அனுப்பு',
+    openModalBtn: 'புதிய அறிக்கை உருவாக்கு',
+    chooseMode: 'அறிக்கை செய்யும் முறையை தேர்ந்தெடுக்கவும்',
+    photoOption: 'புகைப்படம் மூலம் சேர்க்கவும்',
+    textOption: 'உரை மட்டும்',
+    close: 'மூடு'
   },
   gu: {
     locationError: 'સ્થાન મળ્યું નથી. પરવાનગી આપો.',
     noLocation: 'તમારો ફોન સ્થાન શોધી શકતો નથી.',
     submitError: 'મોકલવામાં નિષ્ફળ. ફરી પ્રયાસ કરો.',
-    step1Title: 'સમ સમસ્યા શું છે?',
+    step1Title: 'સમસ્યા શું છે?',
     pollution: 'ગંદકી અથવા પ્રદૂષણ',
     safety: 'ખતરો અથવા જોખમ',
     civic: 'તૂટેલી સરકારી મિલકત',
@@ -146,13 +176,18 @@ const translations = {
     step2Desc: 'અમને સમસ્યા બતાવો.',
     continueBtn: 'આગળનું પગલું',
     step3Title: 'તમારું સ્થાન',
-    step3Desc: 'સમ સમસ્યા ક્યાં છે તે કહો.',
+    step3Desc: 'સમસ્યા ક્યાં છે તે કહો.',
     loadingLocation: 'સ્થાન શોધી રહ્યા છીએ...',
     getLocation: 'મારું સ્થાન મેળવો',
     step4Title: 'મોકલવા માટે તૈયાર',
     step4Desc: 'તમારો રિપોર્ટ તૈયાર છે. મદદ માટે આભાર.',
     loadingSaving: 'મોકલી રહ્યા છીએ...',
-    submitBtn: 'હવે મોકલો'
+    submitBtn: 'હવે મોકલો',
+    openModalBtn: 'નવો રિપોર્ટ બનાવો',
+    chooseMode: 'રિપોર્ટ કરવાની રીત પસંદ કરો',
+    photoOption: 'ફોટો દ્વારા ઉમેરો',
+    textOption: 'ફક્ત લખાણ',
+    close: 'બંધ કરો'
   },
   kn: {
     locationError: 'ಸ್ಥಳ ಸಿಗುತ್ತಿಲ್ಲ. ಅನುಮತಿ ನೀಡಿ.',
@@ -172,7 +207,12 @@ const translations = {
     step4Title: 'ಕಳುಹಿಸಲು ಸಿದ್ಧವಾಗಿದೆ',
     step4Desc: 'ನಿಮ್ಮ ವರದಿ ಸಿದ್ಧವಾಗಿದೆ. ಸಹಾಯಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು.',
     loadingSaving: 'ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ...',
-    submitBtn: 'ಈಗ ಕಳುಹಿಸಿ'
+    submitBtn: 'ಈಗ ಕಳುಹಿಸಿ',
+    openModalBtn: 'ಹೊಸ ವರದಿ ರಚಿಸಿ',
+    chooseMode: 'ವರದಿ ಮಾಡುವ ವಿಧಾನವನ್ನು ಆಯ್ಕೆಮಾಡಿ',
+    photoOption: 'ಫೋಟೋದೊಂದಿಗೆ ಸೇರಿಸಿ',
+    textOption: 'ಪಠ್ಯ ಮಾತ್ರ',
+    close: 'ಮುಚ್ಚಿ'
   },
   or: {
     locationError: 'ସ୍ଥାନ ମିଳିଲା ନାହିଁ। ଅନୁମତି ଦିଅନ୍ତୁ।',
@@ -192,7 +232,12 @@ const translations = {
     step4Title: 'ପଠାଇବାକୁ ପ୍ରସ୍ତୁତ',
     step4Desc: 'ଆପଣଙ୍କ ରିପୋର୍ଟ ପ୍ରସ୍ତୁତ ଅଛି। ସାହାଯ୍ୟ ପାଇଁ ଧନ୍ୟବାଦ।',
     loadingSaving: 'ପଠାଯାଉଛି...',
-    submitBtn: 'ଏବେ ପଠାନ୍ତୁ'
+    submitBtn: 'ଏବେ ପଠାନ୍ତୁ',
+    openModalBtn: 'ନୂଆ ରିପୋର୍ଟ ତିଆରି କରନ୍ତୁ',
+    chooseMode: 'କିପରି ରିପୋର୍ଟ କରିବେ ବାଛନ୍ତୁ',
+    photoOption: 'ଫଟୋ ମାଧ୍ୟମରେ ଯୋଡନ୍ତୁ',
+    textOption: 'କେବଳ ଲେଖା',
+    close: 'ବନ୍ଦ କରନ୍ତୁ'
   },
   ml: {
     locationError: 'സ്ഥലം കണ്ടെത്താനായില്ല. അനുമതി നൽകുക.',
@@ -212,7 +257,12 @@ const translations = {
     step4Title: 'അയയ്ക്കാൻ തയ്യാറാണ്',
     step4Desc: 'നിങ്ങളുടെ റിപ്പോർട്ട് തയ്യാറാണ്. സഹായത്തിന് നന്ദി.',
     loadingSaving: 'അയയ്ക്കുന്നു...',
-    submitBtn: 'ഇപ്പോൾ അയയ്ക്കുക'
+    submitBtn: 'ഇപ്പോൾ അയയ്ക്കുക',
+    openModalBtn: 'പുതിയ റിപ്പോർട്ട് സൃഷ്ടിക്കുക',
+    chooseMode: 'റിപ്പോർട്ട് ചെയ്യുന്ന വിധം തിരഞ്ഞെടുക്കുക',
+    photoOption: 'ഫോട്ടോ വഴി ചേർക്കുക',
+    textOption: 'ടെക്സ്റ്റ് മാത്രം',
+    close: 'അടയ്ക്കുക'
   },
   pa: {
     locationError: 'ਲੋਕੇਸ਼ਨ ਨਹੀਂ ਮਿਲੀ। ਇਜਾਜ਼ਤ ਦਿਓ।',
@@ -232,7 +282,12 @@ const translations = {
     step4Title: 'ਭੇਜਣ ਲਈ ਤਿਆਰ',
     step4Desc: 'ਤੁਹਾਡੀ ਰਿਪੋਰਟ ਤਿਆਰ ਹੈ। ਮਦਦ ਲਈ ਧੰਨਵਾਦ।',
     loadingSaving: 'ਭੇਜ ਰਹੇ ਹਾਂ...',
-    submitBtn: 'ਹੁਣੇ ਭੇਜੋ'
+    submitBtn: 'ਹੁਣੇ ਭੇਜੋ',
+    openModalBtn: 'ਨਵੀਂ ਰਿਪੋਰਟ ਬਣਾਓ',
+    chooseMode: 'ਰਿਪੋਰਟ ਕਰਨ ਦਾ ਤਰੀਕਾ ਚੁਣੋ',
+    photoOption: 'ਫੋਟੋ ਰਾਹੀਂ ਜੋੜੋ',
+    textOption: 'ਸਿਰਫ਼ ਲਿਖਤ',
+    close: 'ਬੰਦ ਕਰੋ'
   },
   as: {
     locationError: 'অৱস্থান পোৱা নগ’ল। অনুমতি দিয়ক।',
@@ -252,7 +307,12 @@ const translations = {
     step4Title: 'পঠাবলৈ প্ৰস্তুত',
     step4Desc: 'আপোনাৰ ৰিপৰ্ট প্ৰস্তুত আছে। সহায়ৰ বাবে ধন্যবাদ।',
     loadingSaving: 'পঠাই থকা হৈছে...',
-    submitBtn: 'এতিয়া পঠাওক'
+    submitBtn: 'এতিয়া পঠাওক',
+    openModalBtn: 'নতুন ৰিপৰ্ট বনাওক',
+    chooseMode: 'কিদৰে ৰিপৰ্ট কৰিব বাছক',
+    photoOption: 'ফটোৰ দ্বাৰা যোগ কৰক',
+    textOption: 'কেৱল টেক্সট',
+    close: 'বন্ধ কৰক'
   },
   ur: {
     locationError: 'مقام نہیں ملا۔ براہ کرم اجازت دیں۔',
@@ -270,40 +330,43 @@ const translations = {
     loadingLocation: 'مقام تلاش کر رہا ہے...',
     getLocation: 'میرا مقام حاصل کریں',
     step4Title: 'بھیجنے کے لیے تیار',
-    step4Desc: 'آپ کی رپورٹ تیار ہے۔ مدد کے لیے شکریہ۔',
+    step4Desc: 'آپ کی رپورٹ تیار ہے۔ مدد کے لیے شکریہ।',
     loadingSaving: 'بھیج رہا ہے...',
-    submitBtn: 'ابھی بھیجیں'
+    submitBtn: 'ابھی بھیجیں',
+    openModalBtn: 'نئی رپورٹ بنائیں',
+    chooseMode: 'رپورٹ کرنے کا طریقہ منتخب کریں',
+    photoOption: 'تصویر کے ذریعے شامل کریں',
+    textOption: 'صرف متن',
+    close: 'بند کریں'
   }
 };
 
 const ReportWizard = () => {
-  // FIXED: Changed useLanguage to useTranslation to match the imported context
   const { language } = useTranslation();
   const navigate = useNavigate();
+  
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [reportMode, setReportMode] = useState(null); // 'photo' or 'text'
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   
-  // Real form data state
   const [category, setCategory] = useState('');
   const [mediaFile, setMediaFile] = useState(null);
   const [location, setLocation] = useState(null);
 
   const t = (key) => translations[language]?.[key] || translations['en'][key];
 
-  // Step 1: Category Selection
   const handleCategorySelect = (selected) => {
     setCategory(selected);
     setStep(2);
   };
 
-  // Step 2: Media Upload Preparation
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setMediaFile(e.target.files[0]);
     }
   };
 
-  // Step 3: Real Device Geolocation
   const getLocation = () => {
     setIsProcessing(true);
     if ("geolocation" in navigator) {
@@ -328,24 +391,22 @@ const ReportWizard = () => {
     }
   };
 
-  // Step 4: Final Real Submission (PocketBase + Firestore)
   const submitReport = async () => {
     setIsProcessing(true);
     try {
       let fileUrl = '';
       
-      // 1. Upload actual file to PocketBase
-      if (mediaFile) {
+      if (mediaFile && reportMode === 'photo') {
         const formData = new FormData();
         formData.append('file', mediaFile);
         const record = await pb.collection('attachments').create(formData);
         fileUrl = `${pb.baseUrl}/api/files/${record.collectionId}/${record.id}/${record.file}`;
       }
 
-      // 2. Save complete record to Firebase
       await addDoc(collection(db, 'reports'), {
         category: category,
         mediaUrl: fileUrl,
+        reportMode: reportMode || 'text',
         latitude: location?.lat || 0,
         longitude: location?.lng || 0,
         status: 'pending',
@@ -361,119 +422,208 @@ const ReportWizard = () => {
     }
   };
 
+  const startReporting = (mode) => {
+    setReportMode(mode);
+    setIsBottomSheetOpen(false);
+    setStep(1);
+  };
+
   return (
-    <div className="min-h-screen bg-[#F5F8FA] overflow-hidden flex flex-col items-center justify-center p-6">
-      <div className="max-w-md w-full relative h-[600px] flex flex-col bg-white rounded-3xl shadow-floating-card overflow-hidden">
-        
-        {/* Progress Bar */}
-        <div className="w-full bg-gray-100 h-2">
-          <div 
-            className="bg-citizenNavy h-2 transition-all duration-500" 
-            style={{ width: `${(step / 4) * 100}%` }}
-          ></div>
+    <div className="min-h-screen bg-[#F5F8FA] overflow-hidden flex flex-col items-center justify-center p-6 pb-32">
+      
+      {/* Central Action Button to Trigger Bottom Sheet Modal */}
+      {!reportMode && (
+        <div className="flex flex-col items-center justify-center text-center max-w-sm w-full space-y-6">
+          <div className="w-20 h-20 bg-white rounded-full shadow-floating-card flex items-center justify-center text-[#00A9F7]">
+            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-black text-citizenNavy">{t('openModalBtn')}</h1>
+          <button
+            onClick={() => setIsBottomSheetOpen(true)}
+            className="w-full bg-[#1C1C1E] text-white rounded-full py-5 font-bold text-lg shadow-xl hover:bg-black transition-all"
+          >
+            {t('openModalBtn')}
+          </button>
         </div>
+      )}
 
-        <div className="flex-grow relative p-8">
-          <AnimatePresence mode="wait">
-            
-            {step === 1 && (
-              <motion.div
-                key="step1"
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0 p-8 flex flex-col items-center text-center space-y-6"
-              >
-                <h2 className="text-2xl font-bold text-citizenNavy mb-4">
-                  {t('step1Title')}
-                </h2>
-                <button onClick={() => handleCategorySelect('pollution')} className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-nigraniBlue transition-colors font-medium text-gray-700">
-                  {t('pollution')}
-                </button>
-                <button onClick={() => handleCategorySelect('safety')} className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-nigraniBlue transition-colors font-medium text-gray-700">
-                  {t('safety')}
-                </button>
-                <button onClick={() => handleCategorySelect('civic')} className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-nigraniBlue transition-colors font-medium text-gray-700">
-                  {t('civic')}
-                </button>
-              </motion.div>
-            )}
+      {/* Active Wizard Form Flow once mode is selected */}
+      {reportMode && (
+        <div className="max-w-md w-full relative h-[600px] flex flex-col bg-white rounded-3xl shadow-floating-card overflow-hidden">
+          
+          {/* Progress Bar */}
+          <div className="w-full bg-gray-100 h-2">
+            <div 
+              className="bg-citizenNavy h-2 transition-all duration-500" 
+              style={{ width: `${(step / 4) * 100}%` }}
+            ></div>
+          </div>
 
-            {step === 2 && (
-              <motion.div
-                key="step2"
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0 p-8 flex flex-col items-center text-center justify-center space-y-6"
-              >
-                <h2 className="text-2xl font-bold text-citizenNavy mb-2">
-                  {t('step2Title')}
-                </h2>
-                <p className="text-gray-500 mb-6">{t('step2Desc')}</p>
-                
-                <input 
-                  type="file" 
-                  accept="image/*" 
-                  onChange={handleFileChange}
-                  className="w-full p-2 border border-gray-300 rounded-lg mb-4"
-                />
-                
-                <PillButton onClick={() => setStep(3)} className="w-full mt-auto">
-                  {t('continueBtn')}
-                </PillButton>
-              </motion.div>
-            )}
+          <div className="flex-grow relative p-8">
+            <AnimatePresence mode="wait">
+              
+              {step === 1 && (
+                <motion.div
+                  key="step1"
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0 p-8 flex flex-col items-center text-center space-y-6"
+                >
+                  <h2 className="text-2xl font-bold text-citizenNavy mb-4">
+                    {t('step1Title')}
+                  </h2>
+                  <button onClick={() => handleCategorySelect('pollution')} className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-nigraniBlue transition-colors font-medium text-gray-700">
+                    {t('pollution')}
+                  </button>
+                  <button onClick={() => handleCategorySelect('safety')} className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-nigraniBlue transition-colors font-medium text-gray-700">
+                    {t('safety')}
+                  </button>
+                  <button onClick={() => handleCategorySelect('civic')} className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-nigraniBlue transition-colors font-medium text-gray-700">
+                    {t('civic')}
+                  </button>
+                  <button onClick={() => setReportMode(null)} className="text-sm font-bold text-gray-400 mt-4">
+                    {t('close')}
+                  </button>
+                </motion.div>
+              )}
 
-            {step === 3 && (
-              <motion.div
-                key="step3"
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0 p-8 flex flex-col items-center text-center justify-center space-y-6"
-              >
-                <h2 className="text-2xl font-bold text-citizenNavy mb-2">
-                  {t('step3Title')}
-                </h2>
-                <p className="text-gray-500 mb-8">{t('step3Desc')}</p>
-                
-                <PillButton onClick={getLocation} className="w-full">
-                  {isProcessing ? t('loadingLocation') : t('getLocation')}
-                </PillButton>
-              </motion.div>
-            )}
+              {step === 2 && (
+                <motion.div
+                  key="step2"
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0 p-8 flex flex-col items-center text-center justify-center space-y-6"
+                >
+                  <h2 className="text-2xl font-bold text-citizenNavy mb-2">
+                    {reportMode === 'photo' ? t('step2Title') : 'Text Description'}
+                  </h2>
+                  <p className="text-gray-500 mb-6">{reportMode === 'photo' ? t('step2Desc') : 'Provide details of the issue.'}</p>
+                  
+                  {reportMode === 'photo' ? (
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={handleFileChange}
+                      className="w-full p-2 border border-gray-300 rounded-lg mb-4"
+                    />
+                  ) : (
+                    <textarea 
+                      placeholder="Describe the issue..."
+                      className="w-full p-4 border border-gray-300 rounded-xl mb-4 h-32 focus:outline-none focus:border-nigraniBlue"
+                    />
+                  )}
+                  
+                  <PillButton onClick={() => setStep(3)} className="w-full mt-auto">
+                    {t('continueBtn')}
+                  </PillButton>
+                </motion.div>
+              )}
 
-            {step === 4 && (
-              <motion.div
-                key="step4"
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0 p-8 flex flex-col items-center text-center justify-center space-y-6"
-              >
-                <h2 className="text-2xl font-bold text-citizenNavy mb-2">
-                  {t('step4Title')}
-                </h2>
-                <p className="text-gray-500 mb-8">{t('step4Desc')}</p>
-                
-                <PillButton onClick={submitReport} className="w-full bg-nigraniBlue">
-                  {isProcessing ? t('loadingSaving') : t('submitBtn')}
-                </PillButton>
-              </motion.div>
-            )}
+              {step === 3 && (
+                <motion.div
+                  key="step3"
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0 p-8 flex flex-col items-center text-center justify-center space-y-6"
+                >
+                  <h2 className="text-2xl font-bold text-citizenNavy mb-2">
+                    {t('step3Title')}
+                  </h2>
+                  <p className="text-gray-500 mb-8">{t('step3Desc')}</p>
+                  
+                  <PillButton onClick={getLocation} className="w-full">
+                    {isProcessing ? t('loadingLocation') : t('getLocation')}
+                  </PillButton>
+                </motion.div>
+              )}
 
-          </AnimatePresence>
+              {step === 4 && (
+                <motion.div
+                  key="step4"
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0 p-8 flex flex-col items-center text-center justify-center space-y-6"
+                >
+                  <h2 className="text-2xl font-bold text-citizenNavy mb-2">
+                    {t('step4Title')}
+                  </h2>
+                  <p className="text-gray-500 mb-8">{t('step4Desc')}</p>
+                  
+                  <PillButton onClick={submitReport} className="w-full bg-nigraniBlue">
+                    {isProcessing ? t('loadingSaving') : t('submitBtn')}
+                  </PillButton>
+                </motion.div>
+              )}
+
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Sliding Bottom-Sheet Modal */}
+      <AnimatePresence>
+        {isBottomSheetOpen && (
+          <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/60 backdrop-blur-sm">
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-white rounded-t-[40px] w-full max-w-md p-8 pb-12 shadow-2xl relative"
+            >
+              <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-6"></div>
+              
+              <h3 className="text-2xl font-black text-citizenNavy text-center mb-8">
+                {t('chooseMode')}
+              </h3>
+
+              <div className="space-y-4">
+                <button
+                  onClick={() => startReporting('photo')}
+                  className="w-full bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-[#00A9F7] text-citizenNavy rounded-2xl py-5 px-6 font-bold text-lg flex items-center justify-between transition-all shadow-sm"
+                >
+                  <span>{t('photoOption')}</span>
+                  <svg className="w-6 h-6 text-[#00A9F7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                  </svg>
+                </button>
+
+                <button
+                  onClick={() => startReporting('text')}
+                  className="w-full bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-[#00A9F7] text-citizenNavy rounded-2xl py-5 px-6 font-bold text-lg flex items-center justify-between transition-all shadow-sm"
+                >
+                  <span>{t('textOption')}</span>
+                  <svg className="w-6 h-6 text-[#00A9F7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </button>
+              </div>
+
+              <button
+                onClick={() => setIsBottomSheetOpen(false)}
+                className="w-full mt-6 bg-gray-100 text-gray-700 rounded-full py-4 font-bold text-base hover:bg-gray-200 transition-colors"
+              >
+                {t('close')}
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 };

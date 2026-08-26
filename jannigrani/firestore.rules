@@ -5,23 +5,15 @@ service cloud.firestore {
 
     // Security rules for city reports
     match /reports/{reportId} {
-      
-      // Anyone can read reports marked as public
-      // Logged-in users can read their own reports
-      allow read: if resource.data.status == 'public' || 
-                     (request.auth != null && resource.data.userId == request.auth.uid);
+      // Allow everyone to read reports and submit new ones
+      allow read, create: if true;
+      // Allow logged-in users to update or delete reports
+      allow update, delete: if request.auth != null;
+    }
 
-      // Only logged-in users can submit a new report
-      allow create: if request.auth != null && 
-                       request.resource.data.userId == request.auth.uid;
-
-      // Logged-in users can only edit their own reports
-      allow update: if request.auth != null && 
-                       resource.data.userId == request.auth.uid;
-
-      // Logged-in users can only delete their own reports
-      allow delete: if request.auth != null && 
-                       resource.data.userId == request.auth.uid;
+    // Security rules for user profile data tables (locked down to owner)
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
     }
 
     // Lock down all other collections by default
