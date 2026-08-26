@@ -150,7 +150,7 @@ const translations = {
 };
 
 const Tutorial = () => {
-  const { language } = useTranslation();
+  const { language, changeLanguage } = useTranslation();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -199,43 +199,103 @@ const Tutorial = () => {
     }
   };
 
+  const prevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
   const skipTutorial = () => {
     navigate('/dashboard');
   };
 
+  // Handle swipe gestures
+  const handleDragEnd = (event, info) => {
+    const swipeThreshold = 50; // Minimum pixel drag to trigger a slide change
+    if (info.offset.x < -swipeThreshold) {
+      nextStep();
+    } else if (info.offset.x > swipeThreshold) {
+      prevStep();
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#F5F8FA] flex flex-col justify-between overflow-hidden">
+    <div className="min-h-screen bg-[#F5F8FA] flex flex-col justify-between overflow-hidden relative">
       
-      {/* Top Header */}
-      <div className="flex justify-end p-6">
-        <button 
-          onClick={skipTutorial}
-          className="text-gray-500 font-bold text-sm tracking-wide"
-        >
-          {t('skip')}
-        </button>
+      {/* Background Artwork - Colored blurred circles layered behind content */}
+      <div className="absolute top-[-10%] left-[-10%] w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0 pointer-events-none"></div>
+      <div className="absolute bottom-[10%] right-[-10%] w-80 h-80 bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl opacity-60 z-0 pointer-events-none"></div>
+
+      {/* Top Header - Logo left, Translator & Skip right */}
+      <div className="flex justify-between items-center p-6 relative z-20 w-full">
+        {/* Logo Section */}
+        <div className="flex items-center">
+          <img src="https://i.postimg.cc/PrDX9Wtm/photo-6066349669190669559-y-removebg-preview.png" alt="Logo" className="h-8 object-contain" />
+        </div>
+        
+        {/* Controls Section */}
+        <div className="flex items-center gap-4">
+          {/* Translator Icon & Selector */}
+          <div className="relative flex items-center bg-white rounded-full px-3 py-1.5 shadow-sm border border-gray-200">
+            <svg className="w-5 h-5 text-citizenNavy mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <select
+              onChange={(e) => changeLanguage(e.target.value)}
+              value={language || 'en'}
+              className="bg-transparent text-xs font-bold text-citizenNavy focus:outline-none cursor-pointer appearance-none pr-4"
+            >
+              <option value="en">English</option>
+              <option value="hi">हिंदी</option>
+              <option value="mr">मराठी</option>
+              <option value="bn">বাংলা</option>
+              <option value="te">తెలుగు</option>
+              <option value="ta">தமிழ்</option>
+              <option value="gu">ગુજરાતી</option>
+              <option value="ur">اردو</option>
+              <option value="kn">ಕನ್ನಡ</option>
+              <option value="or">ଓଡ଼ିଆ</option>
+              <option value="ml">മലയാളം</option>
+              <option value="pa">ਪੰਜਾਬੀ</option>
+              <option value="as">অসমীয়া</option>
+            </select>
+          </div>
+
+          {/* Skip Button */}
+          <button 
+            onClick={skipTutorial}
+            className="text-gray-500 font-bold text-sm tracking-wide hover:text-citizenNavy transition-colors"
+          >
+            {t('skip')}
+          </button>
+        </div>
       </div>
 
-      {/* Main Slide Content */}
-      <div className="flex-grow flex items-center justify-center relative w-full">
+      {/* Main Slide Content (Swipeable) */}
+      <div className="flex-grow flex items-center justify-center relative w-full z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={handleDragEnd}
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.3 }}
-            className="absolute flex flex-col items-center text-center px-8 w-full max-w-md"
+            className="absolute flex flex-col items-center text-center px-8 w-full max-w-md cursor-grab active:cursor-grabbing"
           >
-            <div className="bg-white p-8 rounded-full shadow-floating-card mb-10">
+            {/* Added pointer-events-none to children so dragging the text still drags the parent div */}
+            <div className="bg-white p-8 rounded-full shadow-floating-card mb-10 border border-gray-100 pointer-events-none">
               {slides[currentStep].icon}
             </div>
             
-            <h2 className="text-3xl font-black text-citizenNavy mb-4">
+            <h2 className="text-3xl font-black text-citizenNavy mb-4 pointer-events-none">
               {slides[currentStep].title}
             </h2>
             
-            <p className="text-gray-600 font-medium text-lg leading-relaxed">
+            <p className="text-gray-600 font-medium text-lg leading-relaxed pointer-events-none">
               {slides[currentStep].desc}
             </p>
           </motion.div>
@@ -243,7 +303,7 @@ const Tutorial = () => {
       </div>
 
       {/* Bottom Controls */}
-      <div className="p-8 pb-12 w-full max-w-md mx-auto">
+      <div className="p-8 pb-12 w-full max-w-md mx-auto relative z-20">
         
         {/* Progress Dots */}
         <div className="flex justify-center gap-2 mb-10">

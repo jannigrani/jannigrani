@@ -58,7 +58,7 @@ const Header = () => {
       
       {/* Logo updated to use standard image tag with exact sizing */}
       <div className="flex items-center space-x-3">
-        <img src="https://i.postimg.cc/6p643zBR/photo-6066349669190669559-y.jpg" alt="JanNigrani" className="w-10 h-10 object-contain" />
+        <img src="https://i.postimg.cc/PrDX9Wtm/photo-6066349669190669559-y-removebg-preview.png" alt="JanNigrani" className="w-10 h-10 object-contain" />
         <span className="font-serif text-xl font-bold text-citizenNavy tracking-tight">
         </span>
       </div>

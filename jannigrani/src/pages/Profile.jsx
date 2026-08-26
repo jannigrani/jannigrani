@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useAuth } from '../contexts/AuthContext';
+import Header from '../components/common/Header';
 import { useTranslation } from '../contexts/LanguageContext';
 
 // IMPORTANT: Replace this with your actual HuggingFace Gradio API link

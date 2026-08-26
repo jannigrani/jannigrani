@@ -10,9 +10,12 @@ import ReportWizard from './pages/Report/ReportWizard';
 import Feed from './pages/Feed';
 import IncidentDetails from './pages/Feed/IncidentDetails';
 import Dashboard from './pages/Dashboard';
+import Tutorial from './pages/Tutorial';
+import Profile from './pages/Profile';
 
-// Import Navigation
+// Import Navigation and Modals
 import FloatingBottomNav from './components/layout/FloatingBottomNav';
+import AuthModal from './components/auth/AuthModal';
 
 const translations = {
   en: { loading: 'Please wait...' },
@@ -85,19 +88,23 @@ const App = () => {
           <Route path="/" element={<PageWrapper><Welcome /></PageWrapper>} />
           
           {/* Secured Core Application Pages */}
+          <Route path="/tutorial" element={<ProtectedRoute><PageWrapper><Tutorial /></PageWrapper></ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute><PageWrapper><Dashboard /></PageWrapper></ProtectedRoute>} />
           <Route path="/add-report" element={<ProtectedRoute><PageWrapper><ReportWizard /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed" element={<ProtectedRoute><PageWrapper><Feed /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed/:id" element={<ProtectedRoute><PageWrapper><IncidentDetails /></PageWrapper></ProtectedRoute>} />
           
-          {/* Profile Route to fix missing location error */}
-          <Route path="/profile" element={<ProtectedRoute><PageWrapper><Dashboard /></PageWrapper></ProtectedRoute>} />
+          {/* Profile Route properly connected to the Profile component */}
+          <Route path="/profile" element={<ProtectedRoute><PageWrapper><Profile /></PageWrapper></ProtectedRoute>} />
           
         </Routes>
       </AnimatePresence>
 
       {/* Conditional Bottom Menu */}
       {showBottomNav && <FloatingBottomNav />}
+      
+      {/* Global Auth Modal for app-wide authentication triggers */}
+      <AuthModal />
       
     </div>
   );
