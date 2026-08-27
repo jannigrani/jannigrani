@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useTranslation } from '../../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 const authTranslations = {
   en: { loginTitle: "Login", signupTitle: "Create Account", email: "Email Address", password: "Password", submitLogin: "Login", submitSignup: "Sign Up", google: "Continue with Google", toSignup: "New here? Create Account", toLogin: "Have an account? Login", or: "OR", wait: "Please wait...", err: "Action failed. Please check details." },
@@ -21,6 +22,7 @@ const authTranslations = {
 
 const AuthModal = () => {
   const { language } = useTranslation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
@@ -34,7 +36,6 @@ const AuthModal = () => {
   };
 
   useEffect(() => {
-    // Listen for the custom event dispatched from the Header
     const handleOpen = () => {
       setIsOpen(true);
       setError('');
@@ -63,6 +64,7 @@ const AuthModal = () => {
         await createUserWithEmailAndPassword(auth, email, password);
       }
       setIsOpen(false);
+      navigate('/tutorial'); // Strictly navigate to tutorial after successful auth
     } catch (err) {
       console.error(err);
       setError(tLocal('err'));
@@ -80,6 +82,7 @@ const AuthModal = () => {
     try {
       await signInWithPopup(auth, provider);
       setIsOpen(false);
+      navigate('/tutorial'); // Strictly navigate to tutorial after successful auth
     } catch (err) {
       console.error(err);
       setError(tLocal('err'));
