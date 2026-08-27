@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../contexts/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import Header from '../components/common/Header';
-import AuthModal from '../components/auth/AuthModal';
 
 // Real dictionary for 13+ Indian languages embedded strictly for the Welcome flow
 const welcomeTranslations = {
@@ -22,19 +20,50 @@ const welcomeTranslations = {
   as: { t1: "আহক সজাওঁ", t2: "আপোনাৰ চহৰখন", t3: "অধিক উন্নত", sub: "অপেক্ষা নাই। পোনপটীয়া কাম।", opt1: "আৱৰ্জনা পৰিষ্কাৰ কৰক", opt2: "ৰাস্তা মেৰামতি কৰক", opt3: "অপৰাধ ৰোধ কৰক", opt4: "পানী বচাওক", opt5: "ৰাজহুৱা সহায়", next: "আৰম্ভ কৰক", login: "মোৰ ইতিমধ্যে এটা একাউণ্ট আছে" }
 };
 
+const languagesList = [
+  { code: 'en', name: 'English' },
+  { code: 'hi', name: 'हिंदी' },
+  { code: 'mr', name: 'मराठी' },
+  { code: 'bn', name: 'বাংলা' },
+  { code: 'te', name: 'తెలుగు' },
+  { code: 'ta', name: 'தமிழ்' },
+  { code: 'gu', name: 'ગુજરાતી' },
+  { code: 'ur', name: 'اردو' },
+  { code: 'kn', name: 'ಕನ್ನಡ' },
+  { code: 'or', name: 'ଓଡ଼ିଆ' },
+  { code: 'ml', name: 'മലയാളം' },
+  { code: 'pa', name: 'ਪੰਜਾਬੀ' },
+  { code: 'as', name: 'অসমীয়া' }
+];
+
 const Welcome = () => {
-  const { language } = useTranslation();
+  const { language, changeLanguage } = useTranslation();
   const navigate = useNavigate();
   const [selectedConcern, setSelectedConcern] = useState(null);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isLangModalOpen, setIsLangModalOpen] = useState(false);
 
-  // Fallback to English if translation is missing for safety
+  // Strict session check: Redirect returning users to dashboard immediately
+  useEffect(() => {
+    const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
+    if (hasSeenOnboarding === 'true') {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [navigate]);
+
   const tLocal = (key) => {
     const langData = welcomeTranslations[language] || welcomeTranslations['en'];
     return langData[key] || welcomeTranslations['en'][key];
   };
 
-  // Options mapped with specific margins to create the horizontally staggered layout
+  const handleGetStarted = () => {
+    localStorage.setItem('hasSeenOnboarding', 'true');
+    navigate('/tutorial');
+  };
+
+  const openGlobalAuthModal = () => {
+    window.dispatchEvent(new CustomEvent('openAuthModal'));
+  };
+
   const concernOptions = [
     { 
       id: 'clean', label: tLocal('opt1'), marginClass: 'mt-0',
@@ -60,11 +89,23 @@ const Welcome = () => {
 
   return (
     <>
-      <Header />
-      <div className="min-h-screen bg-white flex flex-col items-center justify-between p-6 pb-12 text-center text-brand-stark overflow-hidden">
+      <div className="min-h-screen bg-white flex flex-col items-center justify-between p-6 pb-12 text-center text-[#111111] overflow-hidden relative">
         
-        {/* Main Content Area - Large Typography */}
-        <div className="w-full mt-20 flex flex-col items-center z-10">
+        {/* Isolated Translator Icon strictly replacing Header */}
+        <div className="w-full flex justify-end mb-4">
+          <button 
+            onClick={() => setIsLangModalOpen(true)}
+            className="p-2 bg-white rounded-full shadow-sm border border-gray-200 text-[#0B243B] hover:bg-gray-50 transition-colors flex items-center justify-center focus:outline-none"
+            aria-label="Choose Language"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Main Content Area */}
+        <div className="w-full mt-10 flex flex-col items-center z-10">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -85,7 +126,7 @@ const Welcome = () => {
           </motion.p>
         </div>
 
-        {/* Floating Horizontally Staggered Dashed Selection Pills */}
+        {/* Floating Selection Pills */}
         <div className="flex-grow flex items-center justify-center w-full my-10 relative">
           <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4 max-w-lg">
             <AnimatePresence>
@@ -116,7 +157,7 @@ const Welcome = () => {
         {/* Bottom Action Area */}
         <div className="w-full max-w-sm z-10 flex flex-col items-center">
           <button 
-            onClick={() => navigate('/tutorial')}
+            onClick={handleGetStarted}
             disabled={!selectedConcern}
             className={`w-[90%] bg-[#1C1C1E] text-white rounded-full py-5 font-bold text-[17px] transition-all duration-300 shadow-xl ${
               selectedConcern ? 'opacity-100 hover:bg-black translate-y-0 scale-100' : 'opacity-40 pointer-events-none translate-y-2 scale-95'
@@ -126,22 +167,66 @@ const Welcome = () => {
           </button>
           
           <button 
-             onClick={() => setIsAuthModalOpen(true)}
+             onClick={openGlobalAuthModal}
              className="mt-6 text-sm font-bold text-gray-600 hover:text-black transition-colors"
           >
             {tLocal('login')}
           </button>
         </div>
-        
       </div>
 
-      {/* Render the AuthModal */}
-      {isAuthModalOpen && (
-        <AuthModal 
-          isOpen={isAuthModalOpen} 
-          onClose={() => setIsAuthModalOpen(false)} 
-        />
-      )}
+      {/* Language Selection Modal */}
+      <AnimatePresence>
+        {isLangModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-white rounded-[32px] shadow-2xl w-full max-w-sm p-6 relative overflow-hidden"
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-serif text-2xl font-black text-[#0B243B]">
+                  Language
+                </h3>
+                <button 
+                  onClick={() => setIsLangModalOpen(false)}
+                  className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:bg-gray-200 hover:text-black transition-colors"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <div className="max-h-80 overflow-y-auto space-y-2 pr-1 no-scrollbar">
+                {languagesList.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      changeLanguage(lang.code);
+                      setIsLangModalOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${
+                      language === lang.code 
+                        ? 'bg-[#00A9F7] text-white shadow-md' 
+                        : 'bg-gray-50 text-gray-800 hover:bg-gray-100'
+                    }`}
+                  >
+                    <span>{lang.name}</span>
+                    {language === lang.code && (
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

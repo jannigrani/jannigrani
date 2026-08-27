@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from './contexts/LanguageContext';
@@ -44,7 +44,7 @@ const ProtectedRoute = ({ children }) => {
   if (loading || currentUser === undefined) {
     return (
       <div className="min-h-screen bg-[#F5F8FA] flex items-center justify-center">
-        <p className="text-gray-600 font-medium">{t('loading')}</p>
+        <p className="text-[#0B243B] font-bold text-lg">{t('loading')}</p>
       </div>
     );
   }
@@ -53,6 +53,40 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/" replace />;
   }
   
+  return children;
+};
+
+// Root Guard to strictly prioritize Onboarding check over Authentication
+const RootGuard = ({ children }) => {
+  const [isChecking, setIsChecking] = useState(true);
+  const [hasSeenOnboarding, setHasSeenOnboarding] = useState(false);
+  const { currentUser, loading } = useAuth();
+
+  useEffect(() => {
+    const flag = localStorage.getItem('hasSeenOnboarding');
+    setHasSeenOnboarding(flag === 'true');
+    setIsChecking(false);
+  }, []);
+
+  if (isChecking || loading) {
+    return (
+      <div className="min-h-screen bg-[#F5F8FA] flex items-center justify-center">
+        <p className="text-[#0B243B] font-bold text-lg">...</p>
+      </div>
+    );
+  }
+
+  // 1. Always force Welcome screen if local storage flag is missing (e.g. cache cleared)
+  if (!hasSeenOnboarding) {
+    return children;
+  }
+
+  // 2. If onboarding is complete, check auth. If logged in, go to Dashboard.
+  if (currentUser) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  // 3. If onboarding is complete but not logged in, stay on Welcome to force login/action
   return children;
 };
 
@@ -73,14 +107,13 @@ const PageWrapper = ({ children }) => {
 
 const App = () => {
   const location = useLocation();
-  const { currentUser } = useAuth();
 
   // Control visibility of Header and Bottom Navigation based on current route path
   const showHeader = !['/', '/welcome'].includes(location.pathname);
   const showBottomNav = !['/', '/welcome', '/tutorial'].includes(location.pathname);
 
   return (
-    <div className="relative min-h-screen bg-[#F5F8FA] text-gray-900 font-sans">
+    <div className="relative min-h-screen bg-[#F5F8FA] text-[#111111] font-sans">
       
       {/* Conditionally Render Header Top Bar */}
       {showHeader && <Header />}
@@ -89,11 +122,13 @@ const App = () => {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           
-          {/* Public Starting Page / Onboarding Welcome */}
+          {/* Public Starting Page guarded by RootGuard */}
           <Route 
             path="/" 
             element={
-              currentUser ? <Navigate to="/dashboard" replace /> : <PageWrapper><Welcome /></PageWrapper>
+              <RootGuard>
+                <PageWrapper><Welcome /></PageWrapper>
+              </RootGuard>
             } 
           />
           
@@ -103,7 +138,7 @@ const App = () => {
           />
           
           {/* Secured Core Application Pages / Homepage */}
-          <Route path="/tutorial" element={<ProtectedRoute><PageWrapper><Tutorial /></PageWrapper></ProtectedRoute>} />
+          <Route path="/tutorial" element={<PageWrapper><Tutorial /></PageWrapper>} />
           <Route path="/dashboard" element={<ProtectedRoute><PageWrapper><Dashboard /></PageWrapper></ProtectedRoute>} />
           <Route path="/add-report" element={<ProtectedRoute><PageWrapper><ReportWizard /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed" element={<ProtectedRoute><PageWrapper><Feed /></PageWrapper></ProtectedRoute>} />
