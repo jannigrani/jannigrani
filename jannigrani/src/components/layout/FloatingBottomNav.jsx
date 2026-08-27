@@ -73,7 +73,10 @@ const FloatingBottomNav = () => {
       label: tLocal('more'),
       icon: (isActive) => (
         <svg className="w-6 h-6 transition-all duration-300" fill={isActive ? "currentColor" : "none"} stroke={isActive ? "none" : "currentColor"} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          <rect x="3" y="3" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+          <rect x="14" y="3" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+          <rect x="14" y="14" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+          <rect x="3" y="14" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
         </svg>
       )
     });
