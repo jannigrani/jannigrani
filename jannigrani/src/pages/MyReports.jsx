@@ -4,6 +4,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 const translations = {
   en: { title: "My Reports", sub: "Track your submitted complaints", empty: "No reports found", status: "Status", pending: "Pending", verified: "Verified", date: "Date", category: "Category" },
@@ -24,6 +25,7 @@ const translations = {
 const MyReports = () => {
   const { language } = useTranslation();
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [reportsList, setReportsList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -49,6 +51,12 @@ const MyReports = () => {
             ...data
           });
         }
+      });
+      // Sort by newest first based on createdAt or local fallback
+      fetchedReports.sort((a, b) => {
+        const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return timeB - timeA;
       });
       setReportsList(fetchedReports);
       setLoading(false);
@@ -93,9 +101,10 @@ const MyReports = () => {
             reportsList.map((report) => (
               <motion.div 
                 key={report.id}
+                onClick={() => navigate(`/feed/${report.id}`)}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center justify-between"
+                className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer hover:shadow-md hover:border-[#00A9F7] transition-all"
               >
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 rounded-xl bg-[#E8F1F8] flex items-center justify-center text-[#00A9F7] font-bold uppercase">
@@ -110,7 +119,7 @@ const MyReports = () => {
                     </p>
                   </div>
                 </div>
-                <div>
+                <div className="flex items-center space-x-3">
                   <span className={`px-3 py-1 rounded-full text-xs font-bold ${
                     report.status === 'Verified' || report.status === 'Resolved'
                       ? 'bg-green-50 text-green-600 border border-green-200'
@@ -118,6 +127,11 @@ const MyReports = () => {
                   }`}>
                     {report.status === 'Verified' ? tLocal('verified') : tLocal('pending')}
                   </span>
+                  <div className="w-8 h-8 rounded-full border-2 border-gray-100 flex items-center justify-center text-gray-400">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </div>
                 </div>
               </motion.div>
             ))

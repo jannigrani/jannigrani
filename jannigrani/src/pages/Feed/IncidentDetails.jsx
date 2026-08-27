@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { doc, onSnapshot, updateDoc, increment } from 'firebase/firestore';
+import { doc, onSnapshot, updateDoc, increment, deleteDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import GlowingCard from '../../components/ui/GlowingCard';
 import PillButton from '../../components/ui/PillButton';
 import { useTranslation } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const translations = {
   en: {
@@ -22,7 +23,10 @@ const translations = {
     safety: 'Danger or Risk',
     civic: 'Broken Public Property',
     pending: 'Waiting to be checked',
-    Verified: 'Checked & True'
+    Verified: 'Checked & True',
+    deleteReport: 'Delete Report',
+    confirmDelete: 'Are you sure you want to delete this report?',
+    deleting: 'Deleting...'
   },
   hi: {
     loading: 'जानकारी ला रहे हैं...',
@@ -39,7 +43,10 @@ const translations = {
     safety: 'खतरा या जोखिम',
     civic: 'टूटी हुई सरकारी संपत्ति',
     pending: 'जांच बाकी है',
-    Verified: 'सही पाया गया'
+    Verified: 'सही पाया गया',
+    deleteReport: 'रिपोर्ट हटाएं',
+    confirmDelete: 'क्या आप सुनिश्चित हैं?',
+    deleting: 'हटा रहे हैं...'
   },
   bn: {
     loading: 'তথ্য আনা হচ্ছে...',
@@ -56,7 +63,10 @@ const translations = {
     safety: 'বিপদ বা ঝুঁকি',
     civic: 'ভাঙ্গা সরকারি সম্পত্তি',
     pending: 'চেক করার অপেক্ষায়',
-    Verified: 'সঠিক পাওয়া গেছে'
+    Verified: 'সঠিক পাওয়া গেছে',
+    deleteReport: 'রিপোর্ট মুছুন',
+    confirmDelete: 'আপনি কি নিশ্চিত?',
+    deleting: 'মোছা হচ্ছে...'
   },
   te: {
     loading: 'వివరాలు తీసుకువస్తున్నాము...',
@@ -73,7 +83,10 @@ const translations = {
     safety: 'ప్రమాదం లేదా రిస్క్',
     civic: 'విరిగిన ప్రభుత్వ ఆస్తి',
     pending: 'తనిఖీకి వేచి ఉంది',
-    Verified: 'సరైనదిగా గుర్తించబడింది'
+    Verified: 'సరైనదిగా గుర్తించబడింది',
+    deleteReport: 'రిపోర్టును తొలగించండి',
+    confirmDelete: 'మీరు ఖచ్చితంగా అనుకుంటున్నారా?',
+    deleting: 'తొలగిస్తున్నాము...'
   },
   mr: {
     loading: 'माहिती आणत आहोत...',
@@ -90,7 +103,10 @@ const translations = {
     safety: 'धोका किंवा जोखीम',
     civic: 'तुटलेली सरकारी मालमत्ता',
     pending: 'तपासणी बाकी आहे',
-    Verified: 'बरोबर आढळले'
+    Verified: 'बरोबर आढळले',
+    deleteReport: 'अहवाल हटवा',
+    confirmDelete: 'तुम्हाला खात्री आहे का?',
+    deleting: 'हटवत आहे...'
   },
   ta: {
     loading: 'விவரங்கள் வருகின்றன...',
@@ -107,7 +123,10 @@ const translations = {
     safety: 'ஆபத்து',
     civic: 'உடைந்த பொது சொத்து',
     pending: 'சரிபார்க்க காத்திருக்கிறது',
-    Verified: 'உண்மை என உறுதியானது'
+    Verified: 'உண்மை என உறுதியானது',
+    deleteReport: 'அறிக்கையை நீக்கு',
+    confirmDelete: 'நீங்கள் உறுதியாக இருக்கிறீர்களா?',
+    deleting: 'நீக்கப்படுகிறது...'
   },
   gu: {
     loading: 'માહિતી લાવી રહ્યા છીએ...',
@@ -124,7 +143,10 @@ const translations = {
     safety: 'ખતરો અથવા જોખમ',
     civic: 'તૂટેલી સરકારી મિલકત',
     pending: 'તપાસ બાકી છે',
-    Verified: 'સાચું મળ્યું'
+    Verified: 'સાચું મળ્યું',
+    deleteReport: 'રિપોર્ટ કાઢી નાખો',
+    confirmDelete: 'શું તમને ખાતરી છે?',
+    deleting: 'કાઢી રહ્યા છીએ...'
   },
   kn: {
     loading: 'ವಿವರಗಳನ್ನು ತರಲಾಗುತ್ತಿದೆ...',
@@ -141,7 +163,10 @@ const translations = {
     safety: 'ಅಪಾಯ',
     civic: 'ಒಡೆದ ಸಾರ್ವಜನಿಕ ಆಸ್ತಿ',
     pending: 'ಪರಿಶೀಲನೆಗೆ ಕಾಯುತ್ತಿದೆ',
-    Verified: 'ಸರಿ ಎಂದು ಕಂಡುಬಂದಿದೆ'
+    Verified: 'ಸರಿ ಎಂದು ಕಂಡುಬಂದಿದೆ',
+    deleteReport: 'ವರದಿ ಅಳಿಸಿ',
+    confirmDelete: 'ನೀವು ಖಚಿತವಾಗಿರುವಿರಾ?',
+    deleting: 'ಅಳಿಸಲಾಗುತ್ತಿದೆ...'
   },
   or: {
     loading: 'ତଥ୍ୟ ଆଣୁଛୁ...',
@@ -158,7 +183,10 @@ const translations = {
     safety: 'ବିପଦ କିମ୍ବା ରିସ୍କ',
     civic: 'ଭଙ୍ଗା ସରକାରୀ ସମ୍ପତ୍ତି',
     pending: 'ଯାଞ୍ଚ ବାକି ଅଛି',
-    Verified: 'ସଠିକ୍ ମିଳିଲା'
+    Verified: 'ସଠିକ୍ ମିଳିଲା',
+    deleteReport: 'ରିପୋର୍ଟ ବିଲୋପ କରନ୍ତୁ',
+    confirmDelete: 'ଆପଣ ନିଶ୍ଚିତ କି?',
+    deleting: 'ବିଲୋପ ହେଉଛି...'
   },
   ml: {
     loading: 'വിവരങ്ങൾ കൊണ്ടുവരുന്നു...',
@@ -175,7 +203,10 @@ const translations = {
     safety: 'അപകടം അല്ലെങ്കിൽ സാധ്യത',
     civic: 'തകർന്ന പൊതു സ്വത്ത്',
     pending: 'പരിശോധിക്കാൻ കാത്തിരിക്കുന്നു',
-    Verified: 'ശരിയാണെന്ന് കണ്ടെത്തി'
+    Verified: 'ശരിയാണെന്ന് കണ്ടെത്തി',
+    deleteReport: 'റിപ്പോർട്ട് ഇല്ലാതാക്കുക',
+    confirmDelete: 'ഉറപ്പാണോ?',
+    deleting: 'ഇല്ലാതാക്കുന്നു...'
   },
   pa: {
     loading: 'ਜਾਣਕਾਰੀ ਲਿਆ ਰਹੇ ਹਾਂ...',
@@ -192,7 +223,10 @@ const translations = {
     safety: 'ਖਤਰਾ ਜਾਂ ਜੋਖਮ',
     civic: 'ਟੁੱਟੀ ਸਰਕਾਰੀ ਜਾਇਦਾਦ',
     pending: 'ਜਾਂਚ ਬਾਕੀ ਹੈ',
-    Verified: 'ਸਹੀ ਪਾਇਆ ਗਿਆ'
+    Verified: 'ਸਹੀ ਪਾਇਆ ਗਿਆ',
+    deleteReport: 'ਰਿਪੋਰਟ ਹਟਾਓ',
+    confirmDelete: 'ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ?',
+    deleting: 'ਹਟਾ ਰਹੇ ਹਾਂ...'
   },
   as: {
     loading: 'তথ্য অনা হৈছে...',
@@ -209,7 +243,10 @@ const translations = {
     safety: 'বিপদ বা শংকা',
     civic: 'ভঙা চৰকাৰী সম্পত্তি',
     pending: 'পৰীক্ষাৰ বাবে ৰৈ আছে',
-    Verified: 'সঁচা বুলি পোৱা গৈছে'
+    Verified: 'সঁচা বুলি পোৱা গৈছে',
+    deleteReport: 'ৰিপৰ্ট মচি পেলাওক',
+    confirmDelete: 'আপুনি নিশ্চিতনে?',
+    deleting: 'মচি পেলোৱা হৈছে...'
   },
   ur: {
     loading: 'معلومات لا رہے ہیں...',
@@ -226,23 +263,28 @@ const translations = {
     safety: 'خطرہ یا رسک',
     civic: 'ٹوٹی ہوئی سرکاری جائیداد',
     pending: 'چیکنگ باقی ہے',
-    Verified: 'درست پایا گیا'
+    Verified: 'درست پایا گیا',
+    deleteReport: 'رپورٹ حذف کریں',
+    confirmDelete: 'کیا آپ کو یقین ہے؟',
+    deleting: 'حذف کر رہا ہے...'
   }
 };
 
 const IncidentDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { language } = useLanguage();
+  const { language } = useTranslation();
+  const { currentUser } = useAuth();
   
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isVoting, setIsVoting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const t = (key) => translations[language]?.[key] || translations['en'][key] || key;
+  const isAdmin = currentUser && currentUser.email === 'testcodecfg@gmail.com';
 
   useEffect(() => {
-    // Real-time listener for this specific report
     const docRef = doc(db, 'reports', id);
     const unsubscribe = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
@@ -264,7 +306,6 @@ const IncidentDetails = () => {
     setIsVoting(true);
     try {
       const docRef = doc(db, 'reports', id);
-      // Add one support vote to the database in real-time
       await updateDoc(docRef, {
         upvotes: increment(1)
       });
@@ -272,6 +313,18 @@ const IncidentDetails = () => {
       console.error(error);
     } finally {
       setIsVoting(false);
+    }
+  };
+
+  const handleDeleteReport = async () => {
+    if (!window.confirm(t('confirmDelete'))) return;
+    setIsDeleting(true);
+    try {
+      await deleteDoc(doc(db, 'reports', id));
+      navigate(-1); // Go back to the previous screen after deletion
+    } catch (error) {
+      console.error("Error deleting report:", error);
+      setIsDeleting(false);
     }
   };
 
@@ -293,89 +346,124 @@ const IncidentDetails = () => {
   }
 
   const currentVotes = report.upvotes || 0;
+  
+  // Format the date safely
+  let dateReportedString = 'Recent';
+  if (report.createdAt) {
+    try {
+      dateReportedString = typeof report.createdAt.toDate === 'function' 
+        ? report.createdAt.toDate().toLocaleString() 
+        : new Date(report.createdAt).toLocaleString();
+    } catch (e) {
+      // fallback
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#F5F8FA] pb-32">
       {/* Top Image Section */}
-      <div className="relative w-full h-80 bg-gray-200">
+      <div className="relative w-full h-80 bg-[#0B243B]">
         {report.mediaUrl ? (
           <img 
             src={report.mediaUrl} 
             alt="Report Evidence" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-90"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-300">
-            <span className="text-gray-500">{t('noImage')}</span>
+          <div className="w-full h-full flex items-center justify-center bg-gray-200">
+            <span className="text-gray-500 font-bold">{t('noImage')}</span>
           </div>
         )}
         
         {/* Back Button Overlay */}
         <button 
           onClick={() => navigate(-1)}
-          className="absolute top-6 left-6 bg-white/80 backdrop-blur-md text-citizenNavy px-4 py-2 rounded-extreme-pill font-bold shadow-sm"
+          className="absolute top-6 left-6 bg-white/90 backdrop-blur-md text-[#0B243B] px-5 py-2 rounded-full font-bold shadow-md hover:bg-white transition-all"
         >
           {t('back')}
         </button>
+
+        {/* Admin Delete Button Overlay */}
+        {isAdmin && (
+          <button 
+            onClick={handleDeleteReport}
+            disabled={isDeleting}
+            className="absolute top-6 right-6 bg-red-600/90 backdrop-blur-md text-white px-5 py-2 rounded-full font-bold shadow-md hover:bg-red-700 transition-all disabled:opacity-50 flex items-center space-x-2"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path>
+            </svg>
+            <span>{isDeleting ? t('deleting') : t('deleteReport')}</span>
+          </button>
+        )}
       </div>
 
       {/* Details Section */}
       <div className="max-w-2xl mx-auto px-6 -mt-12 relative z-10 space-y-6">
         
         {/* Impact Score Card */}
-        <GlowingCard glowColor="blue" className="w-full">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col">
-              <span className="text-3xl font-black text-citizenNavy">
-                +{currentVotes}
-              </span>
-              <span className="text-sm font-medium text-gray-500 mt-1">
-                {t('impactScore')}
-              </span>
-            </div>
-            
-            <button 
-              onClick={handleSupportClick}
-              disabled={isVoting}
-              className="bg-nigraniBlue text-white px-6 py-3 rounded-extreme-pill font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-            >
-              {isVoting ? t('saving') : t('supportThis')}
-            </button>
+        <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex items-center justify-between">
+          <div className="flex flex-col">
+            <span className="text-4xl font-black text-[#00A9F7]">
+              +{currentVotes}
+            </span>
+            <span className="text-sm font-bold text-gray-500 mt-1">
+              {t('impactScore')}
+            </span>
           </div>
-        </GlowingCard>
+          
+          <button 
+            onClick={handleSupportClick}
+            disabled={isVoting}
+            className="bg-[#0B243B] text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-black transition-all disabled:opacity-50"
+          >
+            {isVoting ? t('saving') : t('supportThis')}
+          </button>
+        </div>
 
         {/* Information Card */}
-        <div className="bg-white rounded-3xl p-8 shadow-floating-card space-y-6">
-          <div>
-            <span className="bg-[#E8F1F8] text-citizenNavy text-xs font-bold px-4 py-2 rounded-extreme-pill uppercase">
-              {t(report.category)}
+        <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 space-y-6">
+          <div className="flex items-center justify-between">
+            <span className="bg-[#E8F1F8] text-[#00A9F7] text-sm font-bold px-5 py-2.5 rounded-full uppercase tracking-wide">
+              {t(report.category || 'civic')}
             </span>
           </div>
 
           <div>
-            <h2 className="text-xl font-bold text-citizenNavy mb-2">
+            <h2 className="text-lg font-bold text-gray-500 mb-2">
               {t('statusTitle')}
             </h2>
-            <p className="text-gray-600 font-medium">
-              {t(report.status)}
-            </p>
+            <div className={`inline-block px-4 py-2 rounded-lg font-bold text-sm border ${
+              report.status === 'Verified' || report.status === 'Resolved'
+                ? 'bg-green-50 text-green-700 border-green-200'
+                : 'bg-yellow-50 text-yellow-700 border-yellow-200'
+            }`}>
+              {t(report.status || 'pending')}
+            </div>
           </div>
 
-          <div className="pt-4 border-t border-gray-100">
-            <h2 className="text-sm font-bold text-gray-500 mb-2">
+          <div className="pt-6 border-t border-gray-100">
+            <h2 className="text-lg font-bold text-gray-500 mb-2">
               {t('location')}
             </h2>
-            <p className="text-gray-700 font-mono">
-              {report.latitude?.toFixed(6)}, {report.longitude?.toFixed(6)}
+            <p className="text-[#0B243B] font-bold">
+              {report.address || report.location_district || `${report.latitude?.toFixed(6) || ''}, ${report.longitude?.toFixed(6) || ''}`}
             </p>
           </div>
 
-          <div className="pt-4 border-t border-gray-100">
-            <h2 className="text-sm font-bold text-gray-500 mb-2">
+          <div className="pt-6 border-t border-gray-100">
+            <h2 className="text-lg font-bold text-gray-500 mb-2">
               {t('dateReported')}
             </h2>
-            <p className="text-gray-700 font-medium">
-              {new Date(report.createdAt).toLocaleString()}
+            <p className="text-[#0B243B] font-bold">
+              {dateReportedString}
+            </p>
+          </div>
+          
+          {/* Reporter Privacy Notice */}
+          <div className="pt-6 border-t border-gray-100">
+            <p className="text-xs text-gray-400 font-medium text-center">
+              Reporter identity is protected securely by JanNigrani.
             </p>
           </div>
         </div>
