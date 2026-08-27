@@ -192,7 +192,7 @@ const Tutorial = () => {
       title: t('slide1Title'),
       desc: t('slide1Desc'),
       icon: (
-        <svg className="w-24 h-24 text-nigraniBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-24 h-24 text-[#00A9F7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
@@ -203,7 +203,7 @@ const Tutorial = () => {
       title: t('slide2Title'),
       desc: t('slide2Desc'),
       icon: (
-        <svg className="w-24 h-24 text-nigraniBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-24 h-24 text-[#00A9F7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
@@ -214,7 +214,7 @@ const Tutorial = () => {
       title: t('slide3Title'),
       desc: t('slide3Desc'),
       icon: (
-        <svg className="w-24 h-24 text-nigraniBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-24 h-24 text-[#00A9F7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       )
@@ -256,11 +256,23 @@ const Tutorial = () => {
       <div className="absolute top-[-10%] left-[-10%] w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0 pointer-events-none"></div>
       <div className="absolute bottom-[10%] right-[-10%] w-80 h-80 bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl opacity-60 z-0 pointer-events-none"></div>
 
-      {/* Top Header - Logo and Translator strictly removed */}
-      <div className="flex justify-end items-center p-6 relative z-20 w-full">
+      {/* Top Header - Translator Icon and Skip Button strictly only */}
+      <div className="flex justify-between items-center p-6 relative z-20 w-full">
+        {/* Translator Icon Button */}
+        <button 
+          onClick={() => setIsLangModalOpen(true)}
+          className="p-2 bg-white rounded-full shadow-sm border border-gray-200 text-[#0B243B] hover:bg-gray-50 transition-colors flex items-center justify-center focus:outline-none"
+          aria-label="Choose Language"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </button>
+
+        {/* Skip Button */}
         <button 
           onClick={skipTutorial}
-          className="text-gray-500 font-bold text-sm tracking-wide hover:text-citizenNavy transition-colors"
+          className="text-gray-500 font-bold text-sm tracking-wide hover:text-[#0B243B] transition-colors"
         >
           {t('skip')}
         </button>
@@ -281,11 +293,11 @@ const Tutorial = () => {
             transition={{ duration: 0.3 }}
             className="absolute flex flex-col items-center text-center px-8 w-full max-w-md cursor-grab active:cursor-grabbing"
           >
-            <div className="bg-white p-8 rounded-full shadow-floating-card mb-10 border border-gray-100 pointer-events-none">
+            <div className="bg-white p-8 rounded-full shadow-lg mb-10 border border-gray-100 pointer-events-none">
               {slides[currentStep].icon}
             </div>
             
-            <h2 className="text-3xl font-black text-citizenNavy mb-4 pointer-events-none">
+            <h2 className="text-3xl font-black text-[#0B243B] mb-4 pointer-events-none">
               {slides[currentStep].title}
             </h2>
             
@@ -320,6 +332,59 @@ const Tutorial = () => {
         </button>
         
       </div>
+
+      {/* Language Selection Modal Popup */}
+      <AnimatePresence>
+        {isLangModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-white rounded-[32px] shadow-2xl w-full max-w-sm p-6 relative overflow-hidden"
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-serif text-2xl font-black text-[#0B243B]">
+                  {t('chooseLang')}
+                </h3>
+                <button 
+                  onClick={() => setIsLangModalOpen(false)}
+                  className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:bg-gray-200 hover:text-black transition-colors"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <div className="max-h-80 overflow-y-auto space-y-2 pr-1 no-scrollbar">
+                {languagesList.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      changeLanguage(lang.code);
+                      setIsLangModalOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between ${
+                      language === lang.code 
+                        ? 'bg-[#00A9F7] text-white shadow-md' 
+                        : 'bg-gray-50 text-gray-800 hover:bg-gray-100'
+                    }`}
+                  >
+                    <span>{lang.name}</span>
+                    {language === lang.code && (
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
       
     </div>
   );
