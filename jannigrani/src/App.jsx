@@ -5,6 +5,7 @@ import { useTranslation } from './contexts/LanguageContext';
 import { useAuth } from './contexts/AuthContext';
 
 // Import All Real Pages
+import Splash from './pages/Splash';
 import Welcome from './pages/Welcome';
 import ReportWizard from './pages/Report/ReportWizard';
 import Feed from './pages/Feed';
@@ -56,8 +57,9 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// Root Guard to strictly prioritize Onboarding check over Authentication
+// Root Guard to prioritize Splash screen, then Onboarding, then Authentication
 const RootGuard = ({ children }) => {
+  const [showSplash, setShowSplash] = useState(true);
   const [isChecking, setIsChecking] = useState(true);
   const [hasSeenOnboarding, setHasSeenOnboarding] = useState(false);
   const { currentUser, loading } = useAuth();
@@ -68,6 +70,10 @@ const RootGuard = ({ children }) => {
     setIsChecking(false);
   }, []);
 
+  if (showSplash) {
+    return <Splash onFinish={() => setShowSplash(false)} />;
+  }
+
   if (isChecking || loading) {
     return (
       <div className="min-h-screen bg-[#F5F8FA] flex items-center justify-center">
@@ -76,17 +82,17 @@ const RootGuard = ({ children }) => {
     );
   }
 
-  // 1. Always force Welcome screen if local storage flag is missing (e.g. cache cleared)
+  // 1. Force Welcome screen if local storage flag is missing (e.g., first time or cache cleared)
   if (!hasSeenOnboarding) {
     return children;
   }
 
-  // 2. If onboarding is complete, check auth. If logged in, go to Dashboard.
+  // 2. If onboarding is complete and logged in, go to Home (Dashboard)
   if (currentUser) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/home" replace />;
   }
 
-  // 3. If onboarding is complete but not logged in, stay on Welcome to force login/action
+  // 3. If onboarding is complete but not logged in, stay on Welcome to force login
   return children;
 };
 
@@ -108,8 +114,10 @@ const PageWrapper = ({ children }) => {
 const App = () => {
   const location = useLocation();
 
-  // Control visibility of Header and Bottom Navigation based on current route path
-  const showHeader = !['/', '/welcome'].includes(location.pathname);
+  // Strictly hide Header on root, welcome, and tutorial routes
+  const showHeader = !['/', '/welcome', '/tutorial'].includes(location.pathname);
+  
+  // Conditionally hide Bottom Navigation
   const showBottomNav = !['/', '/welcome', '/tutorial'].includes(location.pathname);
 
   return (
@@ -122,7 +130,7 @@ const App = () => {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           
-          {/* Public Starting Page guarded by RootGuard */}
+          {/* Public Starting Page guarded by RootGuard (handles Splash and Onboarding) */}
           <Route 
             path="/" 
             element={
@@ -137,14 +145,18 @@ const App = () => {
             element={<PageWrapper><Welcome /></PageWrapper>} 
           />
           
-          {/* Secured Core Application Pages / Homepage */}
+          {/* Unprotected Tutorial Screen (Header is hidden) */}
           <Route path="/tutorial" element={<PageWrapper><Tutorial /></PageWrapper>} />
-          <Route path="/dashboard" element={<ProtectedRoute><PageWrapper><Dashboard /></PageWrapper></ProtectedRoute>} />
+
+          {/* Secured Core Application Pages / Homepage mapped to Dashboard */}
+          <Route path="/home" element={<ProtectedRoute><PageWrapper><Dashboard /></PageWrapper></ProtectedRoute>} />
+          <Route path="/dashboard" element={<Navigate to="/home" replace />} />
+          
           <Route path="/add-report" element={<ProtectedRoute><PageWrapper><ReportWizard /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed" element={<ProtectedRoute><PageWrapper><Feed /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed/:id" element={<ProtectedRoute><PageWrapper><IncidentDetails /></PageWrapper></ProtectedRoute>} />
           
-          {/* Profile Route properly connected and protected */}
+          {/* Profile Route strictly connected and protected */}
           <Route path="/profile" element={<ProtectedRoute><PageWrapper><Profile /></PageWrapper></ProtectedRoute>} />
           
         </Routes>
