@@ -18,6 +18,7 @@ const translations = {
     emailLabel: "Email Address",
     uploadBtn: "Upload Picture",
     saveBtn: "Save Details",
+    settingsBtn: "Settings",
     logoutBtn: "Logout",
     saving: "Saving...",
     uploading: "Uploading...",
@@ -31,6 +32,7 @@ const translations = {
     emailLabel: "ईमेल पता",
     uploadBtn: "फोटो बदलें",
     saveBtn: "जानकारी सेव करें",
+    settingsBtn: "सेटिंग्स",
     logoutBtn: "लॉग आउट",
     saving: "सेव हो रहा है...",
     uploading: "अपलोड हो रहा है...",
@@ -44,6 +46,7 @@ const translations = {
     emailLabel: "ইমেইল ঠিকানা",
     uploadBtn: "ছবি আপলোড করুন",
     saveBtn: "তথ্য সেভ করুন",
+    settingsBtn: "সেটিংস",
     logoutBtn: "লগ আউট",
     saving: "সেভ হচ্ছে...",
     uploading: "আপলোড হচ্ছে...",
@@ -57,6 +60,7 @@ const translations = {
     emailLabel: "ఇమెయిల్",
     uploadBtn: "ఫోటో మార్చండి",
     saveBtn: "వివరాలను సేవ్ చేయండి",
+    settingsBtn: "సెట్టింగ్స్",
     logoutBtn: "లాగ్ అవుట్",
     saving: "సేవ్ అవుతోంది...",
     uploading: "అప్‌లోడ్ అవుతోంది...",
@@ -70,6 +74,7 @@ const translations = {
     emailLabel: "ईमेल",
     uploadBtn: "फोटो अपलोड करा",
     saveBtn: "माहिती सेव्ह करा",
+    settingsBtn: "सेटिंग्ज",
     logoutBtn: "बाहेर पडा",
     saving: "सेव्ह होत आहे...",
     uploading: "अपलोड होत आहे...",
@@ -83,6 +88,7 @@ const translations = {
     emailLabel: "மின்னஞ்சல்",
     uploadBtn: "படம் பதிவேற்று",
     saveBtn: "தகவலை சேமி",
+    settingsBtn: "அமைப்புகள்",
     logoutBtn: "வெளியேறு",
     saving: "சேமிக்கப்படுகிறது...",
     uploading: "பதிவேற்றுகிறது...",
@@ -96,6 +102,7 @@ const translations = {
     emailLabel: "ઈમેલ",
     uploadBtn: "ફોટો અપલોડ કરો",
     saveBtn: "માહિતી સેવ કરો",
+    settingsBtn: "સેટિંગ્સ",
     logoutBtn: "બહાર નીકળો",
     saving: "સેવ થઈ રહ્યું છે...",
     uploading: "અપલોડ થઈ રહ્યું છે...",
@@ -109,6 +116,7 @@ const translations = {
     emailLabel: "ಇಮೇಲ್",
     uploadBtn: "ಫೋಟೋ ಹಾಕಿ",
     saveBtn: "ಮಾಹಿತಿ ಉಳಿಸಿ",
+    settingsBtn: "ಸೆಟ್ಟಿಂಗ್ಸ್",
     logoutBtn: "ಹೊರಬನ್ನಿ",
     saving: "ಉಳಿಸಲಾಗುತ್ತಿದೆ...",
     uploading: "ಅಪ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
@@ -122,6 +130,7 @@ const translations = {
     emailLabel: "ଇମେଲ୍",
     uploadBtn: "ଫଟୋ ଅପଲୋଡ୍ କରନ୍ତୁ",
     saveBtn: "ତଥ୍ୟ ସେଭ୍ କରନ୍ତୁ",
+    settingsBtn: "ସେଟିଂସ",
     logoutBtn: "ଲଗ୍ ଆଉଟ୍",
     saving: "ସେଭ୍ ହେଉଛି...",
     uploading: "ଅପଲୋଡ୍ ହେଉଛି...",
@@ -135,6 +144,7 @@ const translations = {
     emailLabel: "ഇമെയിൽ",
     uploadBtn: "ഫോട്ടോ നൽകുക",
     saveBtn: "വിവരങ്ങൾ സംരക്ഷിക്കുക",
+    settingsBtn: "ക്രമീകരണങ്ങൾ",
     logoutBtn: "പുറത്തിറങ്ങുക",
     saving: "സംരക്ഷിക്കുന്നു...",
     uploading: "അപ്‌ലോഡ് ചെയ്യുന്നു...",
@@ -148,6 +158,7 @@ const translations = {
     emailLabel: "ਈਮੇਲ",
     uploadBtn: "ਫੋਟੋ ਅਪਲੋਡ ਕਰੋ",
     saveBtn: "ਜਾਣਕਾਰੀ ਸੇਵ ਕਰੋ",
+    settingsBtn: "ਸੈਟਿੰਗਜ਼",
     logoutBtn: "ਬਾਹਰ ਜਾਓ",
     saving: "ਸੇਵ ਹੋ ਰਿਹਾ ਹੈ...",
     uploading: "ਅਪਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
@@ -161,6 +172,7 @@ const translations = {
     emailLabel: "ইমেইল",
     uploadBtn: "ফটো আপলোড কৰক",
     saveBtn: "তথ্য চেভ কৰক",
+    settingsBtn: "ছেটিংছ",
     logoutBtn: "লগ আউট",
     saving: "চেভ হৈ আছে...",
     uploading: "আপলোড হৈ আছে...",
@@ -174,6 +186,7 @@ const translations = {
     emailLabel: "ای میل",
     uploadBtn: "تصویر اپ لوڈ کریں",
     saveBtn: "معلومات محفوظ کریں",
+    settingsBtn: "ترتیبات",
     logoutBtn: "لاگ آؤٹ",
     saving: "محفوظ ہو رہا ہے...",
     uploading: "اپ لوڈ ہو رہا ہے...",
@@ -326,7 +339,6 @@ const Profile = () => {
               )}
             </div>
             
-            {/* FIXED: SVG viewBox attribute corrected here */}
             <label className="absolute bottom-0 right-0 bg-[#00A9F7] text-white p-3 rounded-full cursor-pointer shadow-lg hover:bg-[#174A7E] active:scale-95 transition-all">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -385,6 +397,14 @@ const Profile = () => {
               className="w-full mt-6 bg-[#0B243B] text-white font-bold py-4 rounded-full shadow-lg hover:bg-[#174A7E] active:scale-[0.98] transition-all disabled:opacity-50"
             >
               {saving ? t('saving') : t('saveBtn')}
+            </button>
+
+            {/* Added Settings Button strictly routing to /settings */}
+            <button 
+              onClick={() => navigate('/settings')}
+              className="w-full mt-3 bg-[#F5F8FA] text-[#0B243B] border border-[#E8F1F8] font-bold py-4 rounded-full shadow-sm hover:bg-[#E8F1F8] active:scale-[0.98] transition-all"
+            >
+              {t('settingsBtn')}
             </button>
 
             <button 

@@ -22,7 +22,7 @@ const TRANSLATIONS = {
         badge: "Smart Civic Platform",
         main_title: "See. Verify.\nReport. Connect.",
         main_sub: "Report public issues securely. Track civic resolutions.",
-        cta_btn: "Open App",
+        cta_btn: "Download App",
         val1_title: "Report", val1_sub: "Log civic issues.",
         val2_title: "Track", val2_sub: "Real-time status.",
         val3_title: "Alerts", val3_sub: "Official updates.",
@@ -241,9 +241,9 @@ export default function MarketingLanding() {
             <header className="w-full flex items-center justify-between px-6 md:px-12 lg:px-24 py-8 animate-fade relative z-50">
                 <div className="flex items-center gap-2 cursor-pointer" onClick={scrollToTop}>
                     <img 
-                        src="https://i.postimg.cc/PrDX9Wtm/photo-6066349669190669559-y-removebg-preview.png" 
+                        src="https://i.postimg.cc/fW31TSwC/imageedit-5-3772464363.png" 
                         alt="Logo" 
-                        className="h-8 w-auto mr-[1px]" 
+                        className="h-12 w-auto mr-[1px]" 
                         onError={(e) => { e.target.style.display = 'none' }} 
                     />
                     <span className="font-black text-[1.5rem] tracking-tighter text-[#FFFFFF]">

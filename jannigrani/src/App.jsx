@@ -20,6 +20,10 @@ import Settings from './pages/Settings';
 import Help from './pages/Help';
 import About from './pages/About';
 
+// Import Public Marketing Pages
+import MarketingLanding from './pages/MarketingLanding';
+import DownloadPage from './pages/DownloadPage';
+
 // Import Navigation, Headers and Modals
 import Header from './components/common/Header';
 import FloatingBottomNav from './components/layout/FloatingBottomNav';
@@ -120,11 +124,10 @@ const PageWrapper = ({ children }) => {
 const App = () => {
   const location = useLocation();
 
-  // Strictly hide Header on root, welcome, and tutorial routes
-  const showHeader = !['/', '/welcome', '/tutorial'].includes(location.pathname);
-  
-  // Conditionally hide Bottom Navigation
-  const showBottomNav = !['/', '/welcome', '/tutorial'].includes(location.pathname);
+  // Strictly hide internal Header and BottomNav on root, welcome, tutorial, landing, and download routes
+  const hiddenLayoutRoutes = ['/', '/welcome', '/tutorial', '/landing', '/download'];
+  const showHeader = !hiddenLayoutRoutes.includes(location.pathname);
+  const showBottomNav = !hiddenLayoutRoutes.includes(location.pathname);
 
   return (
     <div className="relative min-h-screen bg-[#F5F8FA] text-[#111111] font-sans">
@@ -136,6 +139,10 @@ const App = () => {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           
+          {/* Public Official Marketing & Download Pages */}
+          <Route path="/landing" element={<PageWrapper><MarketingLanding /></PageWrapper>} />
+          <Route path="/download" element={<PageWrapper><DownloadPage /></PageWrapper>} />
+
           {/* Public Starting Page guarded by RootGuard (handles Splash and Onboarding) */}
           <Route 
             path="/" 
