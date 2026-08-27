@@ -13,6 +13,12 @@ import IncidentDetails from './pages/Feed/IncidentDetails';
 import Dashboard from './pages/Dashboard';
 import Tutorial from './pages/Tutorial';
 import Profile from './pages/Profile';
+import More from './pages/More';
+import MyReports from './pages/MyReports';
+import Leaderboard from './pages/Leaderboard';
+import Settings from './pages/Settings';
+import Help from './pages/Help';
+import About from './pages/About';
 
 // Import Navigation, Headers and Modals
 import Header from './components/common/Header';
@@ -156,8 +162,14 @@ const App = () => {
           <Route path="/feed" element={<ProtectedRoute><PageWrapper><Feed /></PageWrapper></ProtectedRoute>} />
           <Route path="/feed/:id" element={<ProtectedRoute><PageWrapper><IncidentDetails /></PageWrapper></ProtectedRoute>} />
           
-          {/* Profile Route strictly connected and protected */}
+          {/* Profile and Expansion Routes */}
           <Route path="/profile" element={<ProtectedRoute><PageWrapper><Profile /></PageWrapper></ProtectedRoute>} />
+          <Route path="/more" element={<ProtectedRoute><PageWrapper><More /></PageWrapper></ProtectedRoute>} />
+          <Route path="/my-reports" element={<ProtectedRoute><PageWrapper><MyReports /></PageWrapper></ProtectedRoute>} />
+          <Route path="/leaderboard" element={<ProtectedRoute><PageWrapper><Leaderboard /></PageWrapper></ProtectedRoute>} />
+          <Route path="/settings" element={<ProtectedRoute><PageWrapper><Settings /></PageWrapper></ProtectedRoute>} />
+          <Route path="/help" element={<ProtectedRoute><PageWrapper><Help /></PageWrapper></ProtectedRoute>} />
+          <Route path="/about" element={<ProtectedRoute><PageWrapper><About /></PageWrapper></ProtectedRoute>} />
           
         </Routes>
       </AnimatePresence>

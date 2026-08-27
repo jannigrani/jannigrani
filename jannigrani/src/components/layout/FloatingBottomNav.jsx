@@ -2,30 +2,27 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from '../../contexts/LanguageContext';
 import { motion } from 'framer-motion';
-// STRICTLY ADDED: Import useAuth to provide currentUser
 import { useAuth } from '../../contexts/AuthContext';
 
 // Real dictionary for 13+ Indian languages embedded strictly for simple navigation terms
 const navTranslations = {
-  en: { home: "Home", work: "Work", report: "Report", profile: "Profile" },
-  hi: { home: "होम", work: "काम", report: "रिपोर्ट", profile: "प्रोफ़ाइल" },
-  mr: { home: "मुख्यपृष्ठ", work: "काम", report: "अहवाल", profile: "प्रोफाइल" },
-  bn: { home: "হোম", work: "কাজ", report: "রিপোর্ট", profile: "প্রোফাইল" },
-  te: { home: "హోమ్", work: "పని", report: "నివేదిక", profile: "ప్రొఫైల్" },
-  ta: { home: "முகப்பு", work: "வேலை", report: "அறிக்கை", profile: "சுயவிவரம்" },
-  gu: { home: "હોમ", work: "કામ", report: "રિપોર્ટ", profile: "પ્રોફાઇલ" },
-  ur: { home: "ہوم", work: "کام", report: "رپورٹ", profile: "پروفائل" },
-  kn: { home: "ಮುಖಪುಟ", work: "ಕೆಲಸ", report: "ವರದಿ", profile: "ಪ್ರೊಫೈಲ್" },
-  or: { home: "ହୋମ୍", work: "କାମ", report: "ରିପୋର୍ଟ", profile: "ପ୍ରୋଫାଇଲ୍" },
-  ml: { home: "ഹോം", work: "ജോലി", report: "റിപ്പോർട്ട്", profile: "പ്രൊഫൈൽ" },
-  pa: { home: "ਹੋਮ", work: "ਕੰਮ", report: "ਰਿਪੋਰਟ", profile: "ਪ੍ਰੋਫਾਈਲ" },
-  as: { home: "হোম", work: "কাম", report: "ৰিপৰ্ট", profile: "প্ৰফাইল" }
+  en: { home: "Home", work: "Work", report: "Report", profile: "Profile", more: "More" },
+  hi: { home: "होम", work: "काम", report: "रिपोर्ट", profile: "प्रोफ़ाइल", more: "अधिक" },
+  mr: { home: "मुख्यपृष्ठ", work: "काम", report: "अहवाल", profile: "प्रोफाइल", more: "अधिक" },
+  bn: { home: "হোম", work: "কাজ", report: "রিপোর্ট", profile: "প্রোফাইল", more: "আরও" },
+  te: { home: "హోమ్", work: "పని", report: "నివేదిక", profile: "ప్రొఫైల్", more: "మరిన్ని" },
+  ta: { home: "முகப்பு", work: "வேலை", report: "அறிக்கை", profile: "சுயவிவரம்", more: "மேலும்" },
+  gu: { home: "હોમ", work: "કામ", report: "રિપોર્ટ", profile: "પ્રોફાઇલ", more: "વધુ" },
+  ur: { home: "ہوم", work: "کام", report: "رپورٹ", profile: "پروفائل", more: "مزید" },
+  kn: { home: "ಮುಖಪುಟ", work: "ಕೆಲಸ", report: "ವರದಿ", profile: "ಪ್ರೊಫೈಲ್", more: "ಹೆಚ್ಚಿನ" },
+  or: { home: "ହୋମ୍", work: "କାମ", report: "ରିପୋର୍ଟ", profile: "ପ୍ରୋଫାଇଲ୍", more: "ଅଧିକ" },
+  ml: { home: "ഹോം", work: "ജോലി", report: "റിപ്പോർട്ട്", profile: "പ്രൊഫൈൽ", more: "കൂടുതൽ" },
+  pa: { home: "ਹੋਮ", work: "ਕੰਮ", report: "ਰਿਪੋਰਟ", profile: "ਪ੍ਰੋਫਾਈਲ", more: "ਹੋਰ" },
+  as: { home: "হোম", work: "কাম", report: "ৰিপৰ্ট", profile: "প্ৰফাইল", more: "অধিক" }
 };
 
 const FloatingBottomNav = () => {
   const { language } = useTranslation();
-  
-  // STRICTLY ADDED: Invoke useAuth to extract currentUser
   const { currentUser } = useAuth();
 
   // Fallback to English if translation is missing for safety
@@ -66,6 +63,17 @@ const FloatingBottomNav = () => {
       icon: (isActive) => (
         <svg className="w-6 h-6 transition-all duration-300" fill={isActive ? "currentColor" : "none"} stroke={isActive ? "none" : "currentColor"} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      )
+    });
+
+    navItems.push({
+      id: 'more',
+      path: '/more',
+      label: tLocal('more'),
+      icon: (isActive) => (
+        <svg className="w-6 h-6 transition-all duration-300" fill={isActive ? "currentColor" : "none"} stroke={isActive ? "none" : "currentColor"} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       )
     });
