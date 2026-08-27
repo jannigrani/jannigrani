@@ -123,7 +123,28 @@ const PageWrapper = ({ children }) => {
 
 const App = () => {
   const location = useLocation();
+  const hostname = window.location.hostname;
 
+  // STRICT DOMAIN LOCKDOWN LOGIC
+  const isMarketingDomain = hostname === 'jannig.web.app' || hostname === 'janapp.web.app';
+
+  // If the user is on the strictly locked marketing domains, render ONLY the landing and download pages.
+  if (isMarketingDomain) {
+    return (
+      <div className="relative min-h-screen bg-[#FFFFFF] text-[#111111] font-sans">
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/landing" element={<PageWrapper><MarketingLanding /></PageWrapper>} />
+            <Route path="/download" element={<PageWrapper><DownloadPage /></PageWrapper>} />
+            {/* Force any other route on these domains to redirect strictly to /landing */}
+            <Route path="*" element={<Navigate to="/landing" replace />} />
+          </Routes>
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  // NORMAL APP LOGIC (For the primary domains)
   // Strictly hide internal Header and BottomNav on root, welcome, tutorial, landing, and download routes
   const hiddenLayoutRoutes = ['/', '/welcome', '/tutorial', '/landing', '/download'];
   const showHeader = !hiddenLayoutRoutes.includes(location.pathname);
