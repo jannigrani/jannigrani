@@ -3,17 +3,23 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Helper function to identify the designated admin test account
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'testcodecfg@gmail.com';
+    }
+
     // Security rules for city reports
     match /reports/{reportId} {
       // Allow everyone to read reports and submit new ones
       allow read, create: if true;
-      // Allow logged-in users to update or delete reports
-      allow update, delete: if request.auth != null;
+      // Allow admin or report owner to update or delete reports
+      allow update, delete: if request.auth != null && (isAdmin() || resource.data.userId == request.auth.uid || resource.data.email == request.auth.email);
     }
 
-    // Security rules for user profile data tables (locked down to owner)
+    // Security rules for user profile data tables (readable for leaderboard, writable by owner or admin)
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if true;
+      allow write: if request.auth != null && (isAdmin() || request.auth.uid == userId);
     }
 
     // Lock down all other collections by default
