@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { db } from '../config/firebase';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 const translations = {
   en: { title: 'Your Work', sub: 'Live city reports', progress: 'Fixed Problems', total: 'Total Reports', recent: 'Recent Reports', empty: 'No reports found' },
@@ -23,6 +24,7 @@ const translations = {
 
 const Dashboard = () => {
   const { language } = useTranslation();
+  const navigate = useNavigate();
   const [stats, setStats] = useState({ total: 0, verified: 0 });
   const [reportsList, setReportsList] = useState([]);
   const [activeFilter, setActiveFilter] = useState('All');
@@ -51,7 +53,7 @@ const Dashboard = () => {
               verifiedCount++;
             }
             
-            // Safely parse timestamp regardless of format (Firestore Timestamp, ISO String, or Number)
+            // Safely parse timestamp regardless of format
             let computedTimestamp = Date.now();
             if (data.createdAt) {
               if (typeof data.createdAt.toMillis === 'function') {
@@ -104,7 +106,7 @@ const Dashboard = () => {
         
         <div className="max-w-md mx-auto relative z-10">
           <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold tracking-tight mb-1 text-citizenNavy">{tLocal('title')}</h1>
+            <h1 className="text-3xl font-bold tracking-tight mb-1 text-[#0B243B]">{tLocal('title')}</h1>
             <p className="text-gray-500 text-sm font-medium">{tLocal('sub')}</p>
           </div>
 
@@ -136,7 +138,7 @@ const Dashboard = () => {
               </svg>
               
               <div className="absolute flex flex-col items-center justify-center text-center">
-                <span className="text-4xl font-black text-citizenNavy mb-1">
+                <span className="text-4xl font-black text-[#0B243B] mb-1">
                   {stats.verified}
                 </span>
                 <span className="text-[10px] font-medium text-gray-400 uppercase tracking-widest max-w-[80px] leading-tight">
@@ -169,7 +171,7 @@ const Dashboard = () => {
         <div className="max-w-md mx-auto">
           
           <div className="flex justify-between items-end mb-6">
-            <h2 className="text-xl font-bold text-citizenNavy">{tLocal('recent')}</h2>
+            <h2 className="text-xl font-bold text-[#0B243B]">{tLocal('recent')}</h2>
             <span className="text-sm font-bold text-gray-500">{stats.total} {tLocal('total')}</span>
           </div>
 
@@ -180,13 +182,17 @@ const Dashboard = () => {
               </div>
             ) : (
               reportsList.map((report) => (
-                <div key={report.id} className="bg-white rounded-3xl p-5 flex items-center justify-between shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div 
+                  key={report.id} 
+                  onClick={() => navigate(`/feed/${report.id}`)}
+                  className="bg-white rounded-3xl p-5 flex items-center justify-between shadow-sm border border-gray-100 hover:shadow-md hover:border-[#00A9F7] cursor-pointer transition-all"
+                >
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 rounded-full bg-[#E8F1F8] flex items-center justify-center text-[#00A9F7] font-bold">
                       {report.category ? report.category.substring(0, 1).toUpperCase() : 'R'}
                     </div>
                     <div>
-                      <h3 className="text-base font-bold text-citizenNavy capitalize">{report.category || 'Report'}</h3>
+                      <h3 className="text-base font-bold text-[#0B243B] capitalize">{report.category || 'Report'}</h3>
                       <p className="text-xs text-gray-500 font-medium mt-0.5 capitalize">{report.status || 'Pending'}</p>
                     </div>
                   </div>
